@@ -1,3 +1,4 @@
+/*
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head'
 import type { ReactElement } from "react";
@@ -31,4 +32,4 @@ Index.getLayout = function getLayout(page: ReactElement) {
   );
 };
 
-export default Index;
+export default Index;*/

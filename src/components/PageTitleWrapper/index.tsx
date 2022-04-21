@@ -1,12 +1,11 @@
-import { FC, ReactNode } from 'react';
-import { Container } from '@mui/material';
+import { ReactNode } from 'react';
+import { Box, Container } from '@mui/material';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
 
-const PageTitle = styled(Box)(
+const PageTitleBox = styled(Box)(
   ({ theme }) => `
-        padding: ${theme.spacing(4, 0)};
+    padding: ${theme.spacing(4, 0)};
 `
 );
 
@@ -14,14 +13,14 @@ interface PageTitleWrapperProps {
   children?: ReactNode;
 }
 
-const PageTitleWrapper: FC<PageTitleWrapperProps> = ({ children }) => {
+const PageTitleWrapper = ({ children }: PageTitleWrapperProps) => {
   return (
     <>
-      <PageTitle>
+      <PageTitleBox>
         <Container maxWidth="lg">
           {children}
         </Container>
-      </PageTitle>
+      </PageTitleBox>
     </>
   );
 };
