@@ -76,37 +76,52 @@ const CreateDevicePage: NextPageWithLayout = () => {
               <CardHeader title="Create new device"/>
               <Divider/>
               <CardContent>
-                <Box
-                  component="form"
-                  sx={{
-                    p: 1,
+                <Formik
+                  enableReinitialize={true}
+                  innerRef={formRef}
+                  initialValues={{
+                    name: '',
+                    device_category: '',
                   }}
-                  noValidate
-                  autoComplete="off"
+                  validationSchema={validationSchema}
+                  onSubmit={(values, { setSubmitting }) => {
+                    createDeviceStartAsync(getSanitizedValues(values), history);
+                  }}
                 >
-                  <TextField
-                    sx={{ my: 1 }}
-                    required
-                    fullWidth
-                    id="name"
-                    label="Device name"
-                    placeholder="Enter device name"
-                    helperText="Enter device name"
-                  />
-                  <Autocomplete
-                    disablePortal
-                    fullWidth
-                    id="device_category"
-                    options={top100Films}
-                    renderInput={(params) =>
+                  {({ values }) => (
+                    <Box
+                      component="form"
+                      sx={{
+                        p: 1,
+                      }}
+                      noValidate
+                      autoComplete="off"
+                    >
                       <TextField
-                        {...params}
-                        label="Device category"
-                        placeholder="Select a device category"
+                        sx={{ my: 1 }}
+                        required
+                        fullWidth
+                        id="name"
+                        label="Device name"
+                        placeholder="Enter device name"
+                        helperText="Enter device name"
                       />
-                    }
-                  />
-                </Box>
+                      <Autocomplete
+                        disablePortal
+                        fullWidth
+                        id="device_category"
+                        options={top100Films}
+                        renderInput={(params) =>
+                          <TextField
+                            {...params}
+                            label="Device category"
+                            placeholder="Select a device category"
+                          />
+                        }
+                      />
+                    </Box>
+                  )}
+                </Formik>
               </CardContent>
               <Divider/>
               <CardActions>
