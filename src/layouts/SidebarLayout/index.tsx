@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 
 interface SidebarLayoutProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const MainWrapper = styled(Box)(

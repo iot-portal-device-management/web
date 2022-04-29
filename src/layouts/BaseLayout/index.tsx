@@ -1,17 +1,20 @@
-// import { FC, ReactNode } from 'react';
-// import PropTypes from 'prop-types';
-// import { Outlet } from 'react-router-dom';
-//
-// interface BaseLayoutProps {
-//   children?: ReactNode;
-// }
-//
-// const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
-//   return <>{children || <Outlet />}</>;
-// };
-//
-// BaseLayout.propTypes = {
-//   children: PropTypes.node
-// };
-//
-// export default BaseLayout;
+import { ReactNode } from 'react';
+import PropTypes from 'prop-types';
+
+interface BaseLayoutProps {
+  children?: ReactNode;
+}
+
+const BaseLayout = ({ children }: BaseLayoutProps) => {
+  return (
+    <>
+      {children}
+    </>
+  );
+};
+
+BaseLayout.propTypes = {
+  children: PropTypes.node
+};
+
+export default BaseLayout;
