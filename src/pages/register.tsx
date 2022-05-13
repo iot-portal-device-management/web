@@ -9,14 +9,14 @@ import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
-import createLoginValidationSchema from '../validationSchemas/auth/createLoginValidationSchema';
-import LabelCheckbox from '../components/LabelCheckbox';
+import createRegisterValidationSchema from '../validationSchemas/auth/createRegisterValidationSchema';
 import { LoadingButton } from '@mui/lab';
 
 interface Values {
+  name: string;
   email: string;
   password: string;
-  remember: boolean;
+  passwordConfirmation: string;
 }
 
 const MainContent = styled(Box)(
@@ -63,32 +63,21 @@ const SignInDescription = styled(Typography)(
 `
 );
 
-const ControlWrapper = styled(Box)(
-  ({ theme }) => `
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-`
-);
-
 const SignInButton = styled(LoadingButton)(
   ({ theme }) => `
     margin-top: ${theme.spacing(3)};
 `
 );
 
-const LoginPage: NextPageWithLayout = () => {
+const RegisterPage: NextPageWithLayout = () => {
   const [errors, setErrors] = useState<string[]>([]);
-  const [status, setStatus] = useState<string | null>(null);
 
-  const { login } = useAuth({
+  const { register } = useAuth({
     middleware: 'guest',
     redirectIfAuthenticated: '/',
   });
 
-  const validationSchema = createLoginValidationSchema();
+  const validationSchema = createRegisterValidationSchema();
 
   return (
     <>
@@ -99,21 +88,21 @@ const LoginPage: NextPageWithLayout = () => {
           </LogoBox>
           <SignInCard>
             <Box>
-              <SignInTitle variant="h2">Sign in</SignInTitle>
-              <SignInDescription variant="h4">Fill in the fields below to sign into your account.</SignInDescription>
+              <SignInTitle variant="h2">Create account</SignInTitle>
+              <SignInDescription variant="h4">Fill in the fields below to sign up for an account.</SignInDescription>
             </Box>
             <FormValidationErrors errors={errors}/>
             <Formik
               enableReinitialize={true}
               initialValues={{
+                name: '',
                 email: '',
                 password: '',
-                remember: false
+                passwordConfirmation: ''
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                // TODO: implement set status after email validation
-                login({ ...values, setSubmitting, setErrors, setStatus });
+                register({ ...values, setSubmitting, setErrors });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (
@@ -122,6 +111,13 @@ const LoginPage: NextPageWithLayout = () => {
                   onSubmit={handleSubmit}
                   noValidate
                 >
+                  <FullWidthTextField
+                    required
+                    id="name"
+                    name="name"
+                    label="Name"
+                    placeholder="Enter name"
+                  />
                   <FullWidthTextField
                     required
                     id="email"
@@ -137,29 +133,27 @@ const LoginPage: NextPageWithLayout = () => {
                     label="Password"
                     placeholder="Enter password"
                   />
-                  <ControlWrapper>
-                    {/*TODO: Implement remember me feature*/}
-                    <LabelCheckbox
-                      name="remember"
-                      label="Remember me"
-                    />
-                    <Link href="/forgotPassword" underline="hover">
-                      <b>Forgot your password?</b>
-                    </Link>
-                  </ControlWrapper>
+                  <FullWidthTextField
+                    required
+                    type="password"
+                    id="passwordConfirmation"
+                    name="passwordConfirmation"
+                    label="Password confirmation"
+                    placeholder="Enter password confirmation"
+                  />
                   <SignInButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
-                    Sign in
+                    Register
                   </SignInButton>
                 </Box>
               )}
             </Formik>
             <Box sx={{ my: 4 }}>
               <Typography component="span" variant="subtitle2">
-                Don’t have an account, yet?
+                Already have an account?
               </Typography>
               {" "}
-              <Link href="/register" underline="hover">
-                <b>Sign up here</b>
+              <Link href="/login" underline="hover">
+                <b>Sign in here</b>
               </Link>
             </Box>
           </SignInCard>
@@ -169,8 +163,8 @@ const LoginPage: NextPageWithLayout = () => {
   );
 };
 
-LoginPage.getLayout = function getLayout(page: ReactElement) {
-  return getBaseLayout('Login', page);
+RegisterPage.getLayout = function getLayout(page: ReactElement) {
+  return getBaseLayout('Register', page);
 };
 
-export default LoginPage;
+export default RegisterPage;

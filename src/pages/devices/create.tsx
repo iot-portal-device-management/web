@@ -1,59 +1,38 @@
 import PageTitle from '../../components/PageTitle';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 
 import PageTitleWrapper from '../../components/PageTitleWrapper';
-import {
-  Autocomplete,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Divider,
-  Grid
-} from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
 import Footer from '../../components/Footer';
 
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import { NextPageWithLayout } from "../_app";
 import { getSidebarLayout } from "../../layouts";
+import { useDeviceCategoryOptions } from "../../hooks/useDeviceCategoryOptions";
+import { Formik, FormikProps } from 'formik';
+import FullWidthTextField from "../../components/FullWidthTextField";
+import FullWidthAutoComplete from "../../components/FullWidthAutoComplete";
+import { useDevice } from "../../hooks/useDevice";
+import { camelizeObjectPropertyAndSanitizeOptions } from "../../utils/utils";
+import { FormModel } from "../../types";
 
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
+export interface deviceCategoryOptions {
+  label: string;
+  value: string;
+}
 
 const CreateDevicePage: NextPageWithLayout = () => {
+  const [deviceCategoryInputValue, setDeviceCategoryInputValue] = useState('');
+  const { options, isLoading, isError } = useDeviceCategoryOptions(deviceCategoryInputValue)
+  const { createDevice } = useDevice();
 
-  const [currency, setCurrency] = useState('EUR');
+  const formRef = useRef<FormikProps<FormModel>>(null);
 
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
+  const handleSubmit = () => {
+    if (formRef.current) {
+      formRef.current.handleSubmit();
+    }
   };
-
-
-  const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },
-    { label: 'The Godfather: Part II', year: 1974 },
-    { label: 'Monty Python and the Holy Grail', year: 1975 },
-  ];
 
   return (
     <>
@@ -83,40 +62,41 @@ const CreateDevicePage: NextPageWithLayout = () => {
                     name: '',
                     device_category: '',
                   }}
-                  validationSchema={validationSchema}
+                  // validationSchema={validationSchema}
                   onSubmit={(values, { setSubmitting }) => {
-                    createDeviceStartAsync(getSanitizedValues(values), history);
+                    createDevice(camelizeObjectPropertyAndSanitizeOptions(values));
                   }}
                 >
-                  {({ values }) => (
+                  {({
+                      values, handleChange,
+                      handleBlur
+                    }) => (
                     <Box
                       component="form"
-                      sx={{
-                        p: 1,
-                      }}
+                      sx={{ p: 1 }}
                       noValidate
                       autoComplete="off"
+                      onSubmit={handleSubmit}
                     >
-                      <TextField
-                        sx={{ my: 1 }}
+                      <FullWidthTextField
                         required
-                        fullWidth
                         id="name"
+                        name="name"
                         label="Device name"
                         placeholder="Enter device name"
-                        helperText="Enter device name"
                       />
-                      <Autocomplete
-                        disablePortal
-                        fullWidth
+                      <FullWidthAutoComplete
+                        required
                         id="device_category"
-                        options={top100Films}
-                        renderInput={(params) =>
-                          <TextField
-                            {...params}
-                            label="Device category"
-                            placeholder="Select a device category"
-                          />
+                        name="device_category"
+                        label="Device category"
+                        placeholder="Select a device category"
+                        options={options ?? []}
+                        isLoading={isLoading}
+                        onInputChange={(event, value) => setDeviceCategoryInputValue(value)}
+                        filterOptions={(x) => x}
+                        isOptionEqualToValue={(option: deviceCategoryOptions, value: deviceCategoryOptions) =>
+                          option.value === value.value
                         }
                       />
                     </Box>
@@ -125,7 +105,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
               </CardContent>
               <Divider/>
               <CardActions>
-                <Button sx={{ margin: 1 }} variant="contained">Create</Button>
+                <Button sx={{ margin: 1 }} variant="contained" onClick={handleSubmit}>Create</Button>
               </CardActions>
             </Card>
           </Grid>

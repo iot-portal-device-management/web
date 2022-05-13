@@ -1,22 +1,21 @@
 import { ReactElement, useState } from 'react';
-import { NextPageWithLayout } from './_app';
-import { getBaseLayout } from '../layouts';
-import { Box, Card, Container, Link, Typography } from '@mui/material';
+import { NextPageWithLayout } from '../_app';
+import { getBaseLayout } from '../../layouts';
+import { Box, Card, Container, Typography } from '@mui/material';
 
 import { styled } from '@mui/material/styles';
-import FullWidthTextField from '../components/FullWidthTextField';
+import FullWidthTextField from '../../components/FullWidthTextField';
 import { Formik, FormikProps } from 'formik';
-import BaseLayoutLogo from '../components/BaseLayoutLogo';
-import { useAuth } from '../hooks/useAuth';
-import FormValidationErrors from '../components/FormValidationErrors';
-import createLoginValidationSchema from '../validationSchemas/auth/createLoginValidationSchema';
-import LabelCheckbox from '../components/LabelCheckbox';
+import BaseLayoutLogo from '../../components/BaseLayoutLogo';
+import { useAuth } from '../../hooks/useAuth';
+import FormValidationErrors from '../../components/FormValidationErrors';
+import createForgotPasswordValidationSchema from '../../validationSchemas/auth/createForgotPasswordValidationSchema';
 import { LoadingButton } from '@mui/lab';
 
 interface Values {
   email: string;
   password: string;
-  remember: boolean;
+  passwordConfirmation: string;
 }
 
 const MainContent = styled(Box)(
@@ -63,32 +62,19 @@ const SignInDescription = styled(Typography)(
 `
 );
 
-const ControlWrapper = styled(Box)(
-  ({ theme }) => `
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-`
-);
-
 const SignInButton = styled(LoadingButton)(
   ({ theme }) => `
     margin-top: ${theme.spacing(3)};
 `
 );
 
-const LoginPage: NextPageWithLayout = () => {
+const ResetPasswordPage: NextPageWithLayout = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [status, setStatus] = useState<string | null>(null);
 
-  const { login } = useAuth({
-    middleware: 'guest',
-    redirectIfAuthenticated: '/',
-  });
+  const { resetPassword } = useAuth({ middleware: 'guest' })
 
-  const validationSchema = createLoginValidationSchema();
+  const validationSchema = createForgotPasswordValidationSchema();
 
   return (
     <>
@@ -99,8 +85,8 @@ const LoginPage: NextPageWithLayout = () => {
           </LogoBox>
           <SignInCard>
             <Box>
-              <SignInTitle variant="h2">Sign in</SignInTitle>
-              <SignInDescription variant="h4">Fill in the fields below to sign into your account.</SignInDescription>
+              <SignInTitle variant="h2">Create account</SignInTitle>
+              <SignInDescription variant="h4">Fill in the fields below to sign up for an account.</SignInDescription>
             </Box>
             <FormValidationErrors errors={errors}/>
             <Formik
@@ -108,12 +94,11 @@ const LoginPage: NextPageWithLayout = () => {
               initialValues={{
                 email: '',
                 password: '',
-                remember: false
+                passwordConfirmation: ''
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                // TODO: implement set status after email validation
-                login({ ...values, setSubmitting, setErrors, setStatus });
+                resetPassword({ ...values, setSubmitting, setErrors, setStatus });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (
@@ -137,31 +122,30 @@ const LoginPage: NextPageWithLayout = () => {
                     label="Password"
                     placeholder="Enter password"
                   />
-                  <ControlWrapper>
-                    {/*TODO: Implement remember me feature*/}
-                    <LabelCheckbox
-                      name="remember"
-                      label="Remember me"
-                    />
-                    <Link href="/forgotPassword" underline="hover">
-                      <b>Forgot your password?</b>
-                    </Link>
-                  </ControlWrapper>
+                  {/*TODO: Change backend passwordConfirmation input */}
+                  <FullWidthTextField
+                    required
+                    type="password"
+                    id="passwordConfirmation"
+                    name="passwordConfirmation"
+                    label="Password confirmation"
+                    placeholder="Enter password confirmation"
+                  />
                   <SignInButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
-                    Sign in
+                    Reset password
                   </SignInButton>
                 </Box>
               )}
             </Formik>
-            <Box sx={{ my: 4 }}>
-              <Typography component="span" variant="subtitle2">
-                Don’t have an account, yet?
-              </Typography>
-              {" "}
-              <Link href="/register" underline="hover">
-                <b>Sign up here</b>
-              </Link>
-            </Box>
+            {/*<Box sx={{ my: 4 }}>*/}
+            {/*  <Typography component="span" variant="subtitle2">*/}
+            {/*    Already have an account?*/}
+            {/*  </Typography>*/}
+            {/*  {" "}*/}
+            {/*  <Link href="/login" underline="hover">*/}
+            {/*    <b>Sign in here</b>*/}
+            {/*  </Link>*/}
+            {/*</Box>*/}
           </SignInCard>
         </Container>
       </MainContent>
@@ -169,8 +153,8 @@ const LoginPage: NextPageWithLayout = () => {
   );
 };
 
-LoginPage.getLayout = function getLayout(page: ReactElement) {
-  return getBaseLayout('Login', page);
+ResetPasswordPage.getLayout = function getLayout(page: ReactElement) {
+  return getBaseLayout('Reset Password', page);
 };
 
-export default LoginPage;
+export default ResetPasswordPage;

@@ -9,14 +9,11 @@ import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
-import createLoginValidationSchema from '../validationSchemas/auth/createLoginValidationSchema';
-import LabelCheckbox from '../components/LabelCheckbox';
+import createForgotPasswordValidationSchema from '../validationSchemas/auth/createForgotPasswordValidationSchema';
 import { LoadingButton } from '@mui/lab';
 
 interface Values {
   email: string;
-  password: string;
-  remember: boolean;
 }
 
 const MainContent = styled(Box)(
@@ -63,32 +60,19 @@ const SignInDescription = styled(Typography)(
 `
 );
 
-const ControlWrapper = styled(Box)(
-  ({ theme }) => `
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-`
-);
-
 const SignInButton = styled(LoadingButton)(
   ({ theme }) => `
     margin-top: ${theme.spacing(3)};
 `
 );
 
-const LoginPage: NextPageWithLayout = () => {
+const ForgotPasswordPage: NextPageWithLayout = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [status, setStatus] = useState<string | null>(null);
 
-  const { login } = useAuth({
-    middleware: 'guest',
-    redirectIfAuthenticated: '/',
-  });
+  const { forgotPassword } = useAuth({ middleware: 'guest' });
 
-  const validationSchema = createLoginValidationSchema();
+  const validationSchema = createForgotPasswordValidationSchema();
 
   return (
     <>
@@ -99,21 +83,21 @@ const LoginPage: NextPageWithLayout = () => {
           </LogoBox>
           <SignInCard>
             <Box>
-              <SignInTitle variant="h2">Sign in</SignInTitle>
-              <SignInDescription variant="h4">Fill in the fields below to sign into your account.</SignInDescription>
+              <SignInTitle variant="h2">Forgot Password</SignInTitle>
+              <SignInDescription variant="h4">
+                Forgot your password? No problem. Just let us know your email address and we will email you a password
+                reset link that will allow you to choose a new one.
+              </SignInDescription>
             </Box>
             <FormValidationErrors errors={errors}/>
             <Formik
               enableReinitialize={true}
               initialValues={{
-                email: '',
-                password: '',
-                remember: false
+                email: ''
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                // TODO: implement set status after email validation
-                login({ ...values, setSubmitting, setErrors, setStatus });
+                forgotPassword({ ...values, setSubmitting, setErrors, setStatus });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (
@@ -129,26 +113,8 @@ const LoginPage: NextPageWithLayout = () => {
                     label="Email address"
                     placeholder="Enter email address"
                   />
-                  <FullWidthTextField
-                    required
-                    type="password"
-                    id="password"
-                    name="password"
-                    label="Password"
-                    placeholder="Enter password"
-                  />
-                  <ControlWrapper>
-                    {/*TODO: Implement remember me feature*/}
-                    <LabelCheckbox
-                      name="remember"
-                      label="Remember me"
-                    />
-                    <Link href="/forgotPassword" underline="hover">
-                      <b>Forgot your password?</b>
-                    </Link>
-                  </ControlWrapper>
                   <SignInButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
-                    Sign in
+                    Email password reset link
                   </SignInButton>
                 </Box>
               )}
@@ -169,8 +135,8 @@ const LoginPage: NextPageWithLayout = () => {
   );
 };
 
-LoginPage.getLayout = function getLayout(page: ReactElement) {
-  return getBaseLayout('Login', page);
+ForgotPasswordPage.getLayout = function getLayout(page: ReactElement) {
+  return getBaseLayout('Forgot Password', page);
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;
