@@ -157,7 +157,7 @@ const LoginPage: NextPageWithLayout = () => {
               <Typography component="span" variant="subtitle2">
                 Don’t have an account, yet?
               </Typography>
-              {" "}
+              {' '}
               <Link href="/register" underline="hover">
                 <b>Sign up here</b>
               </Link>

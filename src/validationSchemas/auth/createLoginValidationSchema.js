@@ -8,7 +8,8 @@ const createLoginValidationSchema = () => {
       .required(),
     password: Yup.string()
       .label('password')
-      .required()
+      .required(),
+    remember: Yup.boolean()
   });
 };
 
