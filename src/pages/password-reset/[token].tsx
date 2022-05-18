@@ -1,73 +1,26 @@
 import { ReactElement, useState } from 'react';
 import { NextPageWithLayout } from '../_app';
 import { getBaseLayout } from '../../layouts';
-import { Box, Card, Container, Typography } from '@mui/material';
-
-import { styled } from '@mui/material/styles';
+import { Box, Container } from '@mui/material';
 import FullWidthTextField from '../../components/FullWidthTextField';
 import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../../components/BaseLayoutLogo';
 import { useAuth } from '../../hooks/useAuth';
 import FormValidationErrors from '../../components/FormValidationErrors';
 import createResetPasswordValidationSchema from '../../validationSchemas/auth/createResetPasswordValidationSchema';
-import { LoadingButton } from '@mui/lab';
 import { useRouter } from 'next/router';
+import BaseLayoutCardButton from '../../components/BaseLayoutCardButton';
+import MainContentWrapper from '../../components/MainContentWrapper';
+import BaseLayoutCardDescription from '../../components/BaseLayoutCardDescription';
+import BaseLayoutCardTitle from '../../components/BaseLayoutCardTitle';
+import BaseLayoutCard from '../../components/BaseLayoutCard';
+import BaseLayoutLogoBox from '../../components/BaseLayoutLogoBox';
 
 interface Values {
   email: string;
   password: string;
   passwordConfirmation: string;
 }
-
-const MainContent = styled(Box)(
-  ({ theme }) => `
-    height: 100%;
-    display: flex;
-    flex: 1;
-    overflow: auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`
-);
-
-const LogoBox = styled(Box)(
-  ({ theme }) => `
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    padding-top:  ${theme.spacing(5)};
-    -webkit-box-align: center;
-    align-items: center;
-`
-);
-
-const SignInCard = styled(Card)(
-  ({ theme }) => `
-    margin-top: ${theme.spacing(3)};
-    padding: ${theme.spacing(5)} ${theme.spacing(4)} ${theme.spacing(3)};
-`
-);
-
-const SignInTitle = styled(Typography)(
-  ({ theme }) => `
-    margin: 0 0 ${theme.spacing(1)};
-`
-);
-
-const SignInDescription = styled(Typography)(
-  ({ theme }) => `
-    margin: 0 0 ${theme.spacing(3)};
-    color: ${theme.colors.alpha.black[70]};
-    font-weight: normal;
-`
-);
-
-const SignInButton = styled(LoadingButton)(
-  ({ theme }) => `
-    margin-top: ${theme.spacing(3)};
-`
-);
 
 const ResetPasswordPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -80,15 +33,17 @@ const ResetPasswordPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <MainContent>
+      <MainContentWrapper>
         <Container maxWidth="sm">
-          <LogoBox>
+          <BaseLayoutLogoBox>
             <BaseLayoutLogo/>
-          </LogoBox>
-          <SignInCard>
+          </BaseLayoutLogoBox>
+          <BaseLayoutCard>
             <Box>
-              <SignInTitle variant="h2">Reset password</SignInTitle>
-              <SignInDescription variant="h4">Fill in the fields below to reset your password.</SignInDescription>
+              <BaseLayoutCardTitle variant="h2">Reset password</BaseLayoutCardTitle>
+              <BaseLayoutCardDescription variant="h4">
+                Fill in the fields below to reset your password.
+              </BaseLayoutCardDescription>
             </Box>
             <FormValidationErrors errors={errors}/>
             <Formik
@@ -132,15 +87,15 @@ const ResetPasswordPage: NextPageWithLayout = () => {
                     label="Password confirmation"
                     placeholder="Enter password confirmation"
                   />
-                  <SignInButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
+                  <BaseLayoutCardButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
                     Reset password
-                  </SignInButton>
+                  </BaseLayoutCardButton>
                 </Box>
               )}
             </Formik>
-          </SignInCard>
+          </BaseLayoutCard>
         </Container>
-      </MainContent>
+      </MainContentWrapper>
     </>
   );
 };

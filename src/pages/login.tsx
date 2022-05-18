@@ -1,9 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { NextPageWithLayout } from './_app';
 import { getBaseLayout } from '../layouts';
-import { Box, Card, Container, Link, Typography } from '@mui/material';
-
-import { styled } from '@mui/material/styles';
+import { Box, Container, Link, Typography } from '@mui/material';
 import FullWidthTextField from '../components/FullWidthTextField';
 import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../components/BaseLayoutLogo';
@@ -11,75 +9,21 @@ import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
 import createLoginValidationSchema from '../validationSchemas/auth/createLoginValidationSchema';
 import LabelCheckbox from '../components/LabelCheckbox';
-import { LoadingButton } from '@mui/lab';
 import FormSuccessStatus from '../components/FormSuccessStatus';
 import { useRouter } from 'next/router';
+import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
+import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
+import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
+import BaseLayoutCard from '../components/BaseLayoutCard';
+import BaseLayoutLogoBox from '../components/BaseLayoutLogoBox';
+import ControlWrapper from '../components/ControlWrapper';
+import MainContentWrapper from '../components/MainContentWrapper';
 
 interface Values {
   email: string;
   password: string;
   remember: boolean;
 }
-
-const MainContent = styled(Box)(
-  ({ theme }) => `
-    height: 100%;
-    display: flex;
-    flex: 1;
-    overflow: auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`
-);
-
-const LogoBox = styled(Box)(
-  ({ theme }) => `
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    padding-top:  ${theme.spacing(5)};
-    -webkit-box-align: center;
-    align-items: center;
-`
-);
-
-const SignInCard = styled(Card)(
-  ({ theme }) => `
-    margin-top: ${theme.spacing(3)};
-    padding: ${theme.spacing(5)} ${theme.spacing(4)} ${theme.spacing(3)};
-`
-);
-
-const SignInTitle = styled(Typography)(
-  ({ theme }) => `
-    margin: 0 0 ${theme.spacing(1)};
-`
-);
-
-const SignInDescription = styled(Typography)(
-  ({ theme }) => `
-    margin: 0 0 ${theme.spacing(3)};
-    color: ${theme.colors.alpha.black[70]};
-    font-weight: normal;
-`
-);
-
-const ControlWrapper = styled(Box)(
-  ({ theme }) => `
-    -webkit-box-align: center;
-    align-items: center;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-`
-);
-
-const SignInButton = styled(LoadingButton)(
-  ({ theme }) => `
-    margin-top: ${theme.spacing(3)};
-`
-);
 
 const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -105,15 +49,17 @@ const LoginPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <MainContent>
+      <MainContentWrapper>
         <Container maxWidth="sm">
-          <LogoBox>
+          <BaseLayoutLogoBox>
             <BaseLayoutLogo/>
-          </LogoBox>
-          <SignInCard>
+          </BaseLayoutLogoBox>
+          <BaseLayoutCard>
             <Box>
-              <SignInTitle variant="h2">Sign in</SignInTitle>
-              <SignInDescription variant="h4">Fill in the fields below to sign into your account.</SignInDescription>
+              <BaseLayoutCardTitle variant="h2">Sign in</BaseLayoutCardTitle>
+              <BaseLayoutCardDescription variant="h4">
+                Fill in the fields below to sign into your account.
+              </BaseLayoutCardDescription>
             </Box>
             <FormSuccessStatus message={status}/>
             <FormValidationErrors errors={errors}/>
@@ -160,9 +106,9 @@ const LoginPage: NextPageWithLayout = () => {
                       <b>Forgot your password?</b>
                     </Link>
                   </ControlWrapper>
-                  <SignInButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
+                  <BaseLayoutCardButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
                     Sign in
-                  </SignInButton>
+                  </BaseLayoutCardButton>
                 </Box>
               )}
             </Formik>
@@ -175,9 +121,9 @@ const LoginPage: NextPageWithLayout = () => {
                 <b>Sign up here</b>
               </Link>
             </Box>
-          </SignInCard>
+          </BaseLayoutCard>
         </Container>
-      </MainContent>
+      </MainContentWrapper>
     </>
   );
 };
