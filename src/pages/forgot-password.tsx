@@ -11,6 +11,7 @@ import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
 import createForgotPasswordValidationSchema from '../validationSchemas/auth/createForgotPasswordValidationSchema';
 import { LoadingButton } from '@mui/lab';
+import FormSuccessStatus from '../components/FormSuccessStatus';
 
 interface Values {
   email: string;
@@ -89,6 +90,7 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
                 reset link that will allow you to choose a new one.
               </SignInDescription>
             </Box>
+            <FormSuccessStatus message={status}/>
             <FormValidationErrors errors={errors}/>
             <Formik
               enableReinitialize={true}
@@ -121,11 +123,11 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
             </Formik>
             <Box sx={{ my: 4 }}>
               <Typography component="span" variant="subtitle2">
-                Don’t have an account, yet?
+                Already have an account?
               </Typography>
-              {" "}
-              <Link href="/register" underline="hover">
-                <b>Sign up here</b>
+              {' '}
+              <Link href="/login" underline="hover">
+                <b>Sign in here</b>
               </Link>
             </Box>
           </SignInCard>

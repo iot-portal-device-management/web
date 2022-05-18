@@ -32,12 +32,12 @@ interface loginProps extends authProps {
 interface forgotPasswordProps extends authProps {
 }
 
-interface resetPasswordProps extends authProps {
+interface resetPasswordProps extends Omit<authProps, 'setStatus'> {
   password: string;
   passwordConfirmation: string;
 }
 
-interface resendEmailVerificationProps extends Omit<authProps, 'email'> {
+interface resendEmailVerificationProps extends Omit<authProps, 'setErrors' | 'email'> {
 }
 
 export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) => {
@@ -106,11 +106,10 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
       .finally(() => setSubmitting(false));
   };
 
-  const resetPassword = async ({ setSubmitting, setErrors, setStatus, ...props }: resetPasswordProps) => {
+  const resetPassword = async ({ setSubmitting, setErrors, ...props }: resetPasswordProps) => {
     await csrf();
 
     setErrors([]);
-    setStatus(null);
 
     axios
       .post('/api/resetPassword', { token: router.query.token, ...props })
@@ -119,19 +118,23 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
         if (error.response.status !== 422) throw error;
 
         setErrors(Object.values(error.response.data.errors).flat() as []);
-      });
+      })
+      .finally(() => setSubmitting(false));
   };
 
-  const resendEmailVerification = ({ setStatus }: resendEmailVerificationProps) => {
+  const resendEmailVerification = ({ setSubmitting, setStatus }: resendEmailVerificationProps) => {
+    setSubmitting(true);
+
     axios
-      .post('/email/verification-notification')
-      .then(response => setStatus(response.data.status));
+      .post('/api/email/verificationNotification')
+      .then(response => setStatus(response.data.status))
+      .finally(() => setSubmitting(false));
   };
 
   const logout = async () => {
     if (!error) {
       await axios
-        .post('/logout')
+        .post('/api/logout')
         .then(() => mutate());
     }
 
@@ -150,6 +153,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
     forgotPassword,
     resetPassword,
     resendEmailVerification,
-    logout,
+    logout
   };
 };

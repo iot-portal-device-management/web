@@ -9,8 +9,9 @@ import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../../components/BaseLayoutLogo';
 import { useAuth } from '../../hooks/useAuth';
 import FormValidationErrors from '../../components/FormValidationErrors';
-import createForgotPasswordValidationSchema from '../../validationSchemas/auth/createForgotPasswordValidationSchema';
+import createResetPasswordValidationSchema from '../../validationSchemas/auth/createResetPasswordValidationSchema';
 import { LoadingButton } from '@mui/lab';
+import { useRouter } from 'next/router';
 
 interface Values {
   email: string;
@@ -69,12 +70,13 @@ const SignInButton = styled(LoadingButton)(
 );
 
 const ResetPasswordPage: NextPageWithLayout = () => {
+  const router = useRouter();
+
   const [errors, setErrors] = useState<string[]>([]);
-  const [status, setStatus] = useState<string | null>(null);
 
   const { resetPassword } = useAuth({ middleware: 'guest' })
 
-  const validationSchema = createForgotPasswordValidationSchema();
+  const validationSchema = createResetPasswordValidationSchema();
 
   return (
     <>
@@ -85,20 +87,20 @@ const ResetPasswordPage: NextPageWithLayout = () => {
           </LogoBox>
           <SignInCard>
             <Box>
-              <SignInTitle variant="h2">Create account</SignInTitle>
-              <SignInDescription variant="h4">Fill in the fields below to sign up for an account.</SignInDescription>
+              <SignInTitle variant="h2">Reset password</SignInTitle>
+              <SignInDescription variant="h4">Fill in the fields below to reset your password.</SignInDescription>
             </Box>
             <FormValidationErrors errors={errors}/>
             <Formik
               enableReinitialize={true}
               initialValues={{
-                email: '',
+                email: (router.query.email || '') as string,
                 password: '',
                 passwordConfirmation: ''
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                resetPassword({ ...values, setSubmitting, setErrors, setStatus });
+                resetPassword({ ...values, setSubmitting, setErrors });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (
@@ -122,7 +124,6 @@ const ResetPasswordPage: NextPageWithLayout = () => {
                     label="Password"
                     placeholder="Enter password"
                   />
-                  {/*TODO: Change backend passwordConfirmation input */}
                   <FullWidthTextField
                     required
                     type="password"
@@ -137,15 +138,6 @@ const ResetPasswordPage: NextPageWithLayout = () => {
                 </Box>
               )}
             </Formik>
-            {/*<Box sx={{ my: 4 }}>*/}
-            {/*  <Typography component="span" variant="subtitle2">*/}
-            {/*    Already have an account?*/}
-            {/*  </Typography>*/}
-            {/*  {" "}*/}
-            {/*  <Link href="/login" underline="hover">*/}
-            {/*    <b>Sign in here</b>*/}
-            {/*  </Link>*/}
-            {/*</Box>*/}
           </SignInCard>
         </Container>
       </MainContent>

@@ -2,7 +2,7 @@ import { Alert, AlertTitle } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 interface FormValidationErrorsProps {
-  errors: string[]
+  errors: string[];
 }
 
 const ErrorUl = styled('ul')(

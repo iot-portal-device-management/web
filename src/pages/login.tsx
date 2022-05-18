@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { NextPageWithLayout } from './_app';
 import { getBaseLayout } from '../layouts';
 import { Box, Card, Container, Link, Typography } from '@mui/material';
@@ -12,6 +12,8 @@ import FormValidationErrors from '../components/FormValidationErrors';
 import createLoginValidationSchema from '../validationSchemas/auth/createLoginValidationSchema';
 import LabelCheckbox from '../components/LabelCheckbox';
 import { LoadingButton } from '@mui/lab';
+import FormSuccessStatus from '../components/FormSuccessStatus';
+import { useRouter } from 'next/router';
 
 interface Values {
   email: string;
@@ -80,6 +82,8 @@ const SignInButton = styled(LoadingButton)(
 );
 
 const LoginPage: NextPageWithLayout = () => {
+  const router = useRouter();
+
   const [errors, setErrors] = useState<string[]>([]);
   const [status, setStatus] = useState<string | null>(null);
 
@@ -87,6 +91,15 @@ const LoginPage: NextPageWithLayout = () => {
     middleware: 'guest',
     redirectIfAuthenticated: '/',
   });
+
+  useEffect(() => {
+    // @ts-ignore
+    if (router.query.reset?.length > 0 && errors.length === 0) {
+      setStatus(atob(router.query.reset as string))
+    } else {
+      setStatus(null)
+    }
+  })
 
   const validationSchema = createLoginValidationSchema();
 
@@ -102,6 +115,7 @@ const LoginPage: NextPageWithLayout = () => {
               <SignInTitle variant="h2">Sign in</SignInTitle>
               <SignInDescription variant="h4">Fill in the fields below to sign into your account.</SignInDescription>
             </Box>
+            <FormSuccessStatus message={status}/>
             <FormValidationErrors errors={errors}/>
             <Formik
               enableReinitialize={true}
@@ -112,7 +126,6 @@ const LoginPage: NextPageWithLayout = () => {
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                // TODO: implement set status after email validation
                 login({ ...values, setSubmitting, setErrors, setStatus });
               }}
             >
@@ -143,7 +156,7 @@ const LoginPage: NextPageWithLayout = () => {
                       name="remember"
                       label="Remember me"
                     />
-                    <Link href="/forgotPassword" underline="hover">
+                    <Link href="/forgot-password" underline="hover">
                       <b>Forgot your password?</b>
                     </Link>
                   </ControlWrapper>
