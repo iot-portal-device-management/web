@@ -9,6 +9,7 @@ const createRegisterValidationSchema = () => {
       .email()
       .label('email')
       .required(),
+    // TODO: Add password rules validation on frontend
     password: Yup.string()
       .label('password')
       .required(),
