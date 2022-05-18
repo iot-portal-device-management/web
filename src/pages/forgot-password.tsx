@@ -14,7 +14,7 @@ import MainContentWrapper from '../components/MainContentWrapper';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../components/BaseLayoutCard';
-import BaseLayoutLogoBox from '../components/BaseLayoutLogoBox';
+import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 
 interface Values {
   email: string;
@@ -32,9 +32,9 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
     <>
       <MainContentWrapper>
         <Container maxWidth="sm">
-          <BaseLayoutLogoBox>
+          <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
-          </BaseLayoutLogoBox>
+          </BaseLayoutLogoWrapper>
           <BaseLayoutCard>
             <Box>
               <BaseLayoutCardTitle variant="h2">Forgot Password</BaseLayoutCardTitle>

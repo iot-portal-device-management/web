@@ -5,7 +5,7 @@ interface FormSuccessStatusProps {
   message?: string | null;
 }
 
-const FormSuccessStatus = ({ title = undefined, message = undefined, ...rest }: FormSuccessStatusProps) => {
+const FormSuccessStatus = ({ title, message, ...rest }: FormSuccessStatusProps) => {
   return (
     <>
       {(title || message) && (

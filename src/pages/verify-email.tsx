@@ -6,7 +6,7 @@ import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormSuccessStatus from '../components/FormSuccessStatus';
 import MainContentWrapper from '../components/MainContentWrapper';
-import BaseLayoutLogoBox from '../components/BaseLayoutLogoBox';
+import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
@@ -24,9 +24,9 @@ const VerifyEmailPage: NextPageWithLayout = () => {
     <>
       <MainContentWrapper>
         <Container maxWidth="sm">
-          <BaseLayoutLogoBox>
+          <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
-          </BaseLayoutLogoBox>
+          </BaseLayoutLogoWrapper>
           <BaseLayoutCard>
             <Box>
               <BaseLayoutCardTitle variant="h2">Verify Email</BaseLayoutCardTitle>

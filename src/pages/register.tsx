@@ -9,7 +9,7 @@ import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
 import createRegisterValidationSchema from '../validationSchemas/auth/createRegisterValidationSchema';
 import MainContentWrapper from '../components/MainContentWrapper';
-import BaseLayoutLogoBox from '../components/BaseLayoutLogoBox';
+import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
@@ -36,9 +36,9 @@ const RegisterPage: NextPageWithLayout = () => {
     <>
       <MainContentWrapper>
         <Container maxWidth="sm">
-          <BaseLayoutLogoBox>
+          <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
-          </BaseLayoutLogoBox>
+          </BaseLayoutLogoWrapper>
           <BaseLayoutCard>
             <Box>
               <BaseLayoutCardTitle variant="h2">Create account</BaseLayoutCardTitle>

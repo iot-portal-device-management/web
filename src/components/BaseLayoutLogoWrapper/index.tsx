@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const BaseLayoutLogoBox = styled(Box)(
+const BaseLayoutLogoWrapper = styled(Box)(
   ({ theme }) => `
     display: flex;
     -webkit-box-pack: center;
@@ -12,4 +12,4 @@ const BaseLayoutLogoBox = styled(Box)(
 `
 );
 
-export default BaseLayoutLogoBox;
+export default BaseLayoutLogoWrapper;

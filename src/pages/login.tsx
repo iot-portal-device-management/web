@@ -15,7 +15,7 @@ import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../components/BaseLayoutCard';
-import BaseLayoutLogoBox from '../components/BaseLayoutLogoBox';
+import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import ControlWrapper from '../components/ControlWrapper';
 import MainContentWrapper from '../components/MainContentWrapper';
 
@@ -51,9 +51,9 @@ const LoginPage: NextPageWithLayout = () => {
     <>
       <MainContentWrapper>
         <Container maxWidth="sm">
-          <BaseLayoutLogoBox>
+          <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
-          </BaseLayoutLogoBox>
+          </BaseLayoutLogoWrapper>
           <BaseLayoutCard>
             <Box>
               <BaseLayoutCardTitle variant="h2">Sign in</BaseLayoutCardTitle>

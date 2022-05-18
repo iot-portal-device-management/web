@@ -8,7 +8,7 @@ const FooterWrapper = styled(Box)(
 `
 );
 
-function Footer() {
+const Footer = () => {
   return (
     <FooterWrapper>
       <Container maxWidth="lg">

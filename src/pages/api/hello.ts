@@ -11,4 +11,4 @@ export default function handler(
 ) {
   res.status(200).json({ name: 'John Doe' })
 }
-// TODO: To be removed
+// TODO: To be removed in the future
