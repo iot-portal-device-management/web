@@ -17,7 +17,7 @@ import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../components/BaseLayoutCard';
 import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import ControlWrapper from '../components/ControlWrapper';
-import MainContentWrapper from '../components/MainContentWrapper';
+import BaseLayoutMainContentWrapper from '../components/BaseLayoutMainContentWrapper';
 
 interface Values {
   email: string;
@@ -49,7 +49,7 @@ const LoginPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <MainContentWrapper>
+      <BaseLayoutMainContentWrapper>
         <Container maxWidth="sm">
           <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
@@ -106,7 +106,10 @@ const LoginPage: NextPageWithLayout = () => {
                       <b>Forgot your password?</b>
                     </Link>
                   </ControlWrapper>
-                  <BaseLayoutCardButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
+                  <BaseLayoutCardButton
+                    type="submit"
+                    loading={isSubmitting}
+                  >
                     Sign in
                   </BaseLayoutCardButton>
                 </Box>
@@ -123,7 +126,7 @@ const LoginPage: NextPageWithLayout = () => {
             </Box>
           </BaseLayoutCard>
         </Container>
-      </MainContentWrapper>
+      </BaseLayoutMainContentWrapper>
     </>
   );
 };

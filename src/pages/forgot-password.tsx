@@ -10,7 +10,7 @@ import FormValidationErrors from '../components/FormValidationErrors';
 import createForgotPasswordValidationSchema from '../validationSchemas/auth/createForgotPasswordValidationSchema';
 import FormSuccessStatus from '../components/FormSuccessStatus';
 import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
-import MainContentWrapper from '../components/MainContentWrapper';
+import BaseLayoutMainContentWrapper from '../components/BaseLayoutMainContentWrapper';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../components/BaseLayoutCard';
@@ -30,7 +30,7 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <MainContentWrapper>
+      <BaseLayoutMainContentWrapper>
         <Container maxWidth="sm">
           <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
@@ -68,7 +68,7 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
                     label="Email address"
                     placeholder="Enter email address"
                   />
-                  <BaseLayoutCardButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
+                  <BaseLayoutCardButton type="submit" loading={isSubmitting}>
                     Email password reset link
                   </BaseLayoutCardButton>
                 </Box>
@@ -85,7 +85,7 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
             </Box>
           </BaseLayoutCard>
         </Container>
-      </MainContentWrapper>
+      </BaseLayoutMainContentWrapper>
     </>
   );
 };

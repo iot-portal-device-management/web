@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const MainContentWrapper = styled(Box)(
+const BaseLayoutMainContentWrapper = styled(Box)(
   ({ theme }) => `
     height: 100%;
     display: flex;
@@ -13,4 +13,4 @@ const MainContentWrapper = styled(Box)(
 `
 );
 
-export default MainContentWrapper;
+export default BaseLayoutMainContentWrapper;

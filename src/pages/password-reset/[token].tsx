@@ -10,7 +10,7 @@ import FormValidationErrors from '../../components/FormValidationErrors';
 import createResetPasswordValidationSchema from '../../validationSchemas/auth/createResetPasswordValidationSchema';
 import { useRouter } from 'next/router';
 import BaseLayoutCardButton from '../../components/BaseLayoutCardButton';
-import MainContentWrapper from '../../components/MainContentWrapper';
+import BaseLayoutMainContentWrapper from '../../components/BaseLayoutMainContentWrapper';
 import BaseLayoutCardDescription from '../../components/BaseLayoutCardDescription';
 import BaseLayoutCardTitle from '../../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../../components/BaseLayoutCard';
@@ -33,7 +33,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <MainContentWrapper>
+      <BaseLayoutMainContentWrapper>
         <Container maxWidth="sm">
           <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
@@ -87,7 +87,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
                     label="Password confirmation"
                     placeholder="Enter password confirmation"
                   />
-                  <BaseLayoutCardButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
+                  <BaseLayoutCardButton type="submit" loading={isSubmitting}>
                     Reset password
                   </BaseLayoutCardButton>
                 </Box>
@@ -95,7 +95,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
             </Formik>
           </BaseLayoutCard>
         </Container>
-      </MainContentWrapper>
+      </BaseLayoutMainContentWrapper>
     </>
   );
 };

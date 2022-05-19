@@ -8,7 +8,7 @@ import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
 import createRegisterValidationSchema from '../validationSchemas/auth/createRegisterValidationSchema';
-import MainContentWrapper from '../components/MainContentWrapper';
+import BaseLayoutMainContentWrapper from '../components/BaseLayoutMainContentWrapper';
 import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
@@ -34,7 +34,7 @@ const RegisterPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <MainContentWrapper>
+      <BaseLayoutMainContentWrapper>
         <Container maxWidth="sm">
           <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
@@ -96,7 +96,7 @@ const RegisterPage: NextPageWithLayout = () => {
                     label="Password confirmation"
                     placeholder="Enter password confirmation"
                   />
-                  <BaseLayoutCardButton fullWidth variant="contained" size="large" type="submit" loading={isSubmitting}>
+                  <BaseLayoutCardButton type="submit" loading={isSubmitting}>
                     Register
                   </BaseLayoutCardButton>
                 </Box>
@@ -113,7 +113,7 @@ const RegisterPage: NextPageWithLayout = () => {
             </Box>
           </BaseLayoutCard>
         </Container>
-      </MainContentWrapper>
+      </BaseLayoutMainContentWrapper>
     </>
   );
 };

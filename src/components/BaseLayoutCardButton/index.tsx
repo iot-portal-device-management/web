@@ -1,10 +1,24 @@
 import { styled } from '@mui/material/styles';
-import { LoadingButton } from '@mui/lab';
+import { LoadingButton, LoadingButtonProps } from '@mui/lab';
 
-const BaseLayoutCardButton = styled(LoadingButton)(
+const CardButton = styled(LoadingButton)(
   ({ theme }) => `
     margin-top: ${theme.spacing(3)};
 `
 );
+
+const BaseLayoutCardButton = ({ children, ...rest }: LoadingButtonProps) => {
+  return (
+    <CardButton
+      fullWidth
+      variant="contained"
+      size="large"
+      {...rest}
+    >
+      {children}
+    </CardButton>
+  )
+
+}
 
 export default BaseLayoutCardButton;

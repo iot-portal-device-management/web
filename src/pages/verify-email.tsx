@@ -5,7 +5,7 @@ import { Box, Container } from '@mui/material';
 import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormSuccessStatus from '../components/FormSuccessStatus';
-import MainContentWrapper from '../components/MainContentWrapper';
+import BaseLayoutMainContentWrapper from '../components/BaseLayoutMainContentWrapper';
 import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
@@ -22,7 +22,7 @@ const VerifyEmailPage: NextPageWithLayout = () => {
 
   return (
     <>
-      <MainContentWrapper>
+      <BaseLayoutMainContentWrapper>
         <Container maxWidth="sm">
           <BaseLayoutLogoWrapper>
             <BaseLayoutLogo/>
@@ -41,20 +41,17 @@ const VerifyEmailPage: NextPageWithLayout = () => {
               />
             )}
             <BaseLayoutCardButton
-              fullWidth
-              variant="contained"
-              size="large"
               loading={submitting}
               onClick={() => resendEmailVerification({ setSubmitting, setStatus })}
             >
               Resend verification email
             </BaseLayoutCardButton>
-            <BaseLayoutCardButton fullWidth variant="contained" color="error" size="large" onClick={logout}>
+            <BaseLayoutCardButton color="error" onClick={logout}>
               Logout
             </BaseLayoutCardButton>
           </BaseLayoutCard>
         </Container>
-      </MainContentWrapper>
+      </BaseLayoutMainContentWrapper>
     </>
   );
 };
