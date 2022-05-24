@@ -1,8 +1,8 @@
-import { Alert, AlertTitle } from "@mui/material";
+import { Alert, AlertTitle } from '@mui/material';
 
 interface FormSuccessStatusProps {
-  title?: string | null;
-  message?: string | null;
+  title?: string;
+  message?: string;
 }
 
 const FormSuccessStatus = ({ title, message, ...rest }: FormSuccessStatusProps) => {

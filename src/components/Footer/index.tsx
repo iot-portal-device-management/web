@@ -21,13 +21,13 @@ const Footer = () => {
         >
           <Box>
             <Typography variant="subtitle1">
-              &copy; 2022 - IoT Portal Device Management
+              &copy; 2021-2022 - IoT Portal Device Management
             </Typography>
           </Box>
         </Box>
       </Container>
     </FooterWrapper>
   );
-}
+};
 
 export default Footer;

@@ -1,6 +1,6 @@
 import { Box, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Link from "next/link";
+import Link from 'next/link';
 
 const LogoWrapper = styled(Box)(
   ({ theme }) => `
@@ -35,7 +35,7 @@ const LogoText = styled(Box)(
 `
 );
 
-function Logo() {
+const Logo = () => {
   return (
     <Link href="/">
       <LogoWrapper sx={{ display: { xs: 'none', sm: 'block' } }}>

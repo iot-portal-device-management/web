@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { Button, Grid, Typography } from '@mui/material';
-import { styled } from "@mui/material/styles";
+import { styled } from '@mui/material/styles';
 
 interface PageTitleProps {
   heading?: string;

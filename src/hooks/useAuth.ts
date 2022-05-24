@@ -43,46 +43,49 @@ interface resendEmailVerificationProps extends Omit<authProps, 'setErrors' | 'em
 export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) => {
   const router = useRouter();
 
-  const { data: user, error, mutate } = useSWR('/api/user', () =>
+  const { data: user, error, mutate } = useSWR('/api/user', (url) =>
     axios
-      .get('/api/user')
+      .get(url)
       .then(res => res.data)
       .catch(error => {
-        if (error.response.status !== 409) throw error;
+        if (error.response.status !== 409)
+          throw error;
 
-        router.push('/verify-email')
+        router.push('/verify-email');
       })
   );
 
   const csrf = () => axios.get('/sanctum/csrf-cookie');
 
-  const register = async ({ setSubmitting, setErrors, ...props }: registerProps) => {
+  const register = async ({ setSubmitting, setErrors, ...rest }: registerProps) => {
     await csrf();
 
     setErrors([]);
 
     axios
-      .post('/api/register', props)
+      .post('/api/register', rest)
       .then(() => mutate())
       .catch(error => {
-        if (error.response.status !== 422) throw error;
+        if (error.response.status !== 422)
+          throw error;
 
         setErrors(Object.values(error.response.data.errors).flat() as []);
       })
       .finally(() => setSubmitting(false));
   };
 
-  const login = async ({ setSubmitting, setErrors, setStatus, ...props }: loginProps) => {
+  const login = async ({ setSubmitting, setErrors, setStatus, ...rest }: loginProps) => {
     await csrf();
 
     setErrors([]);
     setStatus(null);
 
     axios
-      .post('/api/login', props)
+      .post('/api/login', rest)
       .then(() => mutate())
       .catch(error => {
-        if (error.response.status !== 422) throw error;
+        if (error.response.status !== 422)
+          throw error;
 
         setErrors(Object.values(error.response.data.errors).flat() as []);
       })
@@ -99,23 +102,25 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
       .post('/api/forgotPassword', { email })
       .then(response => setStatus(response.data.status))
       .catch(error => {
-        if (error.response.status !== 422) throw error;
+        if (error.response.status !== 422)
+          throw error;
 
         setErrors(Object.values(error.response.data.errors).flat() as []);
       })
       .finally(() => setSubmitting(false));
   };
 
-  const resetPassword = async ({ setSubmitting, setErrors, ...props }: resetPasswordProps) => {
+  const resetPassword = async ({ setSubmitting, setErrors, ...rest }: resetPasswordProps) => {
     await csrf();
 
     setErrors([]);
 
     axios
-      .post('/api/resetPassword', { token: router.query.token, ...props })
+      .post('/api/resetPassword', { token: router.query.token, ...rest })
       .then(response => router.push('/login?reset=' + btoa(response.data.status)))
       .catch(error => {
-        if (error.response.status !== 422) throw error;
+        if (error.response.status !== 422)
+          throw error;
 
         setErrors(Object.values(error.response.data.errors).flat() as []);
       })

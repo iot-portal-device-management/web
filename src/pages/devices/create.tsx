@@ -18,7 +18,7 @@ import { LoadingButton } from '@mui/lab';
 
 interface Values {
   name: string;
-  device_category: string;
+  deviceCategory: string;
 }
 
 export interface deviceCategoryOptions {
@@ -61,7 +61,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
-                  device_category: '',
+                  deviceCategory: '',
                 }}
                 // validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -89,8 +89,8 @@ const CreateDevicePage: NextPageWithLayout = () => {
                         />
                         <FullWidthAutoComplete
                           required
-                          id="device_category"
-                          name="device_category"
+                          id="deviceCategory"
+                          name="deviceCategory"
                           label="Device category"
                           placeholder="Select a device category"
                           options={options ?? []}
@@ -102,7 +102,6 @@ const CreateDevicePage: NextPageWithLayout = () => {
                           }
                         />
                       </Box>
-
                     </CardContent>
                     <Divider/>
                     <CardActions>

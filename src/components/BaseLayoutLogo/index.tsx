@@ -38,6 +38,6 @@ const BaseLayoutLogo = () => {
       </LogoWrapper>
     </Link>
   );
-}
+};
 
 export default BaseLayoutLogo;

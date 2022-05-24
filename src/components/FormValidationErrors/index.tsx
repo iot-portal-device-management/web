@@ -1,5 +1,5 @@
-import { Alert, AlertTitle } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Alert, AlertTitle } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 interface FormValidationErrorsProps {
   errors: string[];

@@ -17,8 +17,7 @@ const BaseLayoutCardButton = ({ children, ...rest }: LoadingButtonProps) => {
     >
       {children}
     </CardButton>
-  )
-
-}
+  );
+};
 
 export default BaseLayoutCardButton;
