@@ -36,3 +36,7 @@ export const camelizeObjectPropertyAndSanitizeOptions = (object: Record<string, 
   return camelizeObjectProperty(sanitizeOptions(object));
 };
 
+export const isValidObject = (object: any) => {
+  return typeof object === 'object' && !Array.isArray(object) && object !== null && object !== undefined;
+};
+

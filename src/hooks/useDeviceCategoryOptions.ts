@@ -12,6 +12,7 @@ export const useDeviceCategoryOptions = (name: string) => {
     }, ({ url, params }) => {
       let paramsToBeSent: Parameters = {};
 
+      // Filter out empty string or undefined parameters
       Object.keys(params).forEach(key => {
         if (params[key as keyof Parameters] !== undefined && params[key as keyof Parameters] !== '') {
           paramsToBeSent[key as keyof Parameters] = params[key as keyof Parameters];

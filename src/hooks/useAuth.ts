@@ -3,44 +3,44 @@ import axios from '../libs/axios';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-type setErrorsType = Dispatch<SetStateAction<string[]>>;
-type setStatusType = Dispatch<SetStateAction<string | null>>;
+type SetErrors = Dispatch<SetStateAction<string[]>>;
+type SetStatus = Dispatch<SetStateAction<string | null>>;
 
-interface useAuthProps {
+interface UseAuthProps {
   middleware?: string;
   redirectIfAuthenticated?: string;
 }
 
-interface authProps {
+interface AuthProps {
   setSubmitting: (isSubmitting: boolean) => void;
-  setErrors: setErrorsType;
-  setStatus: setStatusType;
+  setErrors: SetErrors;
+  setStatus: SetStatus;
   email: string;
 }
 
-interface registerProps extends Omit<authProps, 'setStatus'> {
+interface RegisterProps extends Omit<AuthProps, 'setStatus'> {
   name: string;
   password: string;
   passwordConfirmation: string;
 }
 
-interface loginProps extends authProps {
+interface LoginProps extends AuthProps {
   password: string;
   remember: boolean;
 }
 
-interface forgotPasswordProps extends authProps {
+interface ForgotPasswordProps extends AuthProps {
 }
 
-interface resetPasswordProps extends Omit<authProps, 'setStatus'> {
+interface ResetPasswordProps extends Omit<AuthProps, 'setStatus'> {
   password: string;
   passwordConfirmation: string;
 }
 
-interface resendEmailVerificationProps extends Omit<authProps, 'setErrors' | 'email'> {
+interface ResendEmailVerificationProps extends Omit<AuthProps, 'setErrors' | 'email'> {
 }
 
-export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) => {
+export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) => {
   const router = useRouter();
 
   const { data: user, error, mutate } = useSWR('/api/user', (url) =>
@@ -57,7 +57,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
 
   const csrf = () => axios.get('/sanctum/csrf-cookie');
 
-  const register = async ({ setSubmitting, setErrors, ...rest }: registerProps) => {
+  const register = async ({ setSubmitting, setErrors, ...rest }: RegisterProps) => {
     await csrf();
 
     setErrors([]);
@@ -74,7 +74,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
       .finally(() => setSubmitting(false));
   };
 
-  const login = async ({ setSubmitting, setErrors, setStatus, ...rest }: loginProps) => {
+  const login = async ({ setSubmitting, setErrors, setStatus, ...rest }: LoginProps) => {
     await csrf();
 
     setErrors([]);
@@ -92,7 +92,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
       .finally(() => setSubmitting(false));
   };
 
-  const forgotPassword = async ({ setSubmitting, setErrors, setStatus, email }: forgotPasswordProps) => {
+  const forgotPassword = async ({ setSubmitting, setErrors, setStatus, email }: ForgotPasswordProps) => {
     await csrf();
 
     setErrors([]);
@@ -110,7 +110,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
       .finally(() => setSubmitting(false));
   };
 
-  const resetPassword = async ({ setSubmitting, setErrors, ...rest }: resetPasswordProps) => {
+  const resetPassword = async ({ setSubmitting, setErrors, ...rest }: ResetPasswordProps) => {
     await csrf();
 
     setErrors([]);
@@ -127,7 +127,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: useAuthProps) =
       .finally(() => setSubmitting(false));
   };
 
-  const resendEmailVerification = ({ setSubmitting, setStatus }: resendEmailVerificationProps) => {
+  const resendEmailVerification = ({ setSubmitting, setStatus }: ResendEmailVerificationProps) => {
     setSubmitting(true);
 
     axios

@@ -55,7 +55,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                resetPassword({ ...values, setSubmitting, setErrors });
+                resetPassword({ setSubmitting, setErrors, ...values });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (

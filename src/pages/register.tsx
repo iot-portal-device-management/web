@@ -57,7 +57,7 @@ const RegisterPage: NextPageWithLayout = () => {
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                register({ ...values, setSubmitting, setErrors });
+                register({ setSubmitting, setErrors, ...values });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (

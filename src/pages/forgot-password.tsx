@@ -52,7 +52,7 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                forgotPassword({ ...values, setSubmitting, setErrors, setStatus });
+                forgotPassword({ setSubmitting, setErrors, setStatus, ...values });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (

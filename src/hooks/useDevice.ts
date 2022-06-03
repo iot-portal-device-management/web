@@ -1,25 +1,21 @@
 import axios from '../libs/axios';
-import { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
+import toastHelper from '../libs/toastHelper';
+import { Dispatch, SetStateAction } from 'react';
 
-type setErrorsType = Dispatch<SetStateAction<[]>>;
-type setStatusType = Dispatch<SetStateAction<number | null>>;
+type SetErrors = Dispatch<SetStateAction<null | object>>;
 
-interface createDeviceProps {
-  name?: string;
-  deviceCategory?: string;
+export interface CreateDeviceProps {
+  setSubmitting: (isSubmitting: boolean) => void;
+  setErrors: SetErrors
+  name: string;
+  deviceCategory: string;
 }
 
 export const useDevice = () => {
   const router = useRouter();
 
-  // const csrf = () => axios.get('/sanctum/csrf-cookie');
-
-  const createDevice = async ({ name, deviceCategory }: createDeviceProps) => {
-    // await csrf();
-
-    // setErrors([]);
-
+  const createDevice = async ({ setSubmitting, setErrors, name, deviceCategory }: CreateDeviceProps) => {
     const payload = {
       name: name,
       deviceCategory: deviceCategory
@@ -28,18 +24,21 @@ export const useDevice = () => {
     axios
       .post('/api/devices', payload)
       .then(() => {
-        // mutate()
+        toastHelper.success('Device created successfully!');
+        router.push('/devices');
       })
       .catch(error => {
-        console.log(error)
-        // if (error.response.status !== 422) throw error;
-        //
-        // setErrors(Object.values(error.response.data.errors).flat() as []);
-      });
+        toastHelper.error(`Failed to create device: ${error.message}`);
+
+        if (error.response.status !== 422)
+          throw error;
+
+        setErrors(error.response.data.errors);
+      })
+      .finally(() => setSubmitting(false));
   };
 
-
   return {
-    createDevice,
+    createDevice
   };
 };

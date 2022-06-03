@@ -1,4 +1,5 @@
 import PageTitle from '../../components/PageTitle';
+import * as React from 'react';
 import { ReactElement, useState } from 'react';
 
 import PageTitleWrapper from '../../components/PageTitleWrapper';
@@ -12,9 +13,13 @@ import { useDeviceCategoryOptions } from '../../hooks/useDeviceCategoryOptions';
 import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../components/FullWidthTextField';
 import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
-import { useDevice } from '../../hooks/useDevice';
-import { camelizeObjectPropertyAndSanitizeOptions } from '../../utils/utils';
+import { CreateDeviceProps, useDevice } from '../../hooks/useDevice';
+import { sanitizeOptions } from '../../utils/utils';
 import { LoadingButton } from '@mui/lab';
+import { Toaster } from 'react-hot-toast';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
+import createDeviceValidationSchema from '../../validationSchemas/devices/createDeviceValidationSchema';
 
 interface Values {
   name: string;
@@ -27,17 +32,13 @@ export interface deviceCategoryOptions {
 }
 
 const CreateDevicePage: NextPageWithLayout = () => {
+  const [errors, setErrors] = useState(null);
   const [deviceCategoryInputValue, setDeviceCategoryInputValue] = useState('');
-  const { options, isLoading, isError } = useDeviceCategoryOptions(deviceCategoryInputValue)
+
+  const { options: deviceCategoryOptions, isLoading, isError } = useDeviceCategoryOptions(deviceCategoryInputValue)
   const { createDevice } = useDevice();
 
-  // const formRef = useRef<FormikProps<FormModel>>(null);
-
-  // const handleSubmit = () => {
-  //   if (formRef.current) {
-  //     formRef.current.handleSubmit();
-  //   }
-  // };
+  const validationSchema = createDeviceValidationSchema();
 
   return (
     <>
@@ -57,28 +58,27 @@ const CreateDevicePage: NextPageWithLayout = () => {
         >
           <Grid item xs={12}>
             <Card>
+              <CardHeader title="Create new device"/>
+              <Divider/>
               <Formik
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
                   deviceCategory: '',
                 }}
-                // validationSchema={validationSchema}
+                validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                  createDevice(camelizeObjectPropertyAndSanitizeOptions(values));
+                  createDevice({ setSubmitting, setErrors, ...sanitizeOptions(values) } as CreateDeviceProps);
                 }}
               >
                 {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (
                   <>
-                    <CardHeader title="Create new device"/>
-                    <Divider/>
                     <CardContent>
                       <Box
                         component="form"
                         sx={{ p: 1 }}
                         noValidate
                         autoComplete="off"
-                        onSubmit={handleSubmit}
                       >
                         <FullWidthTextField
                           required
@@ -86,6 +86,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
                           name="name"
                           label="Device name"
                           placeholder="Enter device name"
+                          errors={errors}
                         />
                         <FullWidthAutoComplete
                           required
@@ -93,8 +94,9 @@ const CreateDevicePage: NextPageWithLayout = () => {
                           name="deviceCategory"
                           label="Device category"
                           placeholder="Select a device category"
-                          options={options ?? []}
+                          options={deviceCategoryOptions ?? []}
                           isLoading={isLoading}
+                          errors={errors}
                           onInputChange={(event, value) => setDeviceCategoryInputValue(value)}
                           filterOptions={(x) => x}
                           isOptionEqualToValue={(option: deviceCategoryOptions, value: deviceCategoryOptions) =>
@@ -105,7 +107,14 @@ const CreateDevicePage: NextPageWithLayout = () => {
                     </CardContent>
                     <Divider/>
                     <CardActions>
-                      <LoadingButton sx={{ margin: 1 }} variant="contained" type="submit" loading={isSubmitting}>
+                      <LoadingButton
+                        sx={{ m: 1 }}
+                        variant="contained"
+                        loading={isSubmitting}
+                        onClick={() => {
+                          handleSubmit();
+                        }}
+                      >
                         Create
                       </LoadingButton>
                     </CardActions>
@@ -117,6 +126,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
         </Grid>
       </Container>
       <Footer/>
+      <Toaster/>
     </>
   );
 };
@@ -124,5 +134,11 @@ const CreateDevicePage: NextPageWithLayout = () => {
 CreateDevicePage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Create device', page);
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(locale && await serverSideTranslations(locale, ['validation'])),
+  }
+});
 
 export default CreateDevicePage;

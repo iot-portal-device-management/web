@@ -37,8 +37,7 @@ const LoginPage: NextPageWithLayout = () => {
   });
 
   useEffect(() => {
-    // @ts-ignore
-    if (router.query.reset?.length > 0 && errors.length === 0) {
+    if (router.query.reset && router.query.reset.length > 0 && errors.length === 0) {
       setStatus(atob(router.query.reset as string))
     } else {
       setStatus(null)
@@ -72,7 +71,7 @@ const LoginPage: NextPageWithLayout = () => {
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {
-                login({ ...values, setSubmitting, setErrors, setStatus });
+                login({ setSubmitting, setErrors, setStatus, ...values });
               }}
             >
               {({ handleSubmit, isSubmitting }: FormikProps<Values>) => (
@@ -106,10 +105,7 @@ const LoginPage: NextPageWithLayout = () => {
                       <b>Forgot your password?</b>
                     </Link>
                   </ControlWrapper>
-                  <BaseLayoutCardButton
-                    type="submit"
-                    loading={isSubmitting}
-                  >
+                  <BaseLayoutCardButton type="submit" loading={isSubmitting}>
                     Sign in
                   </BaseLayoutCardButton>
                 </Box>
