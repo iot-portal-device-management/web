@@ -1,16 +1,17 @@
-import { ReactElement } from 'react';
 import { NextPageWithLayout } from '../_app';
+import * as React from 'react';
+import { ReactElement } from 'react';
 import { getSidebarLayout } from '../../layouts';
-import SuspenseLoader from '../../components/SuspenseLoader';
 
 const DeviceIndexPage: NextPageWithLayout = () => {
   return (
-    <SuspenseLoader/>
+    <div></div>
+
   );
 };
 
 DeviceIndexPage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Create device', page);
+  return getSidebarLayout('Devices', page);
 };
 
 export default DeviceIndexPage;

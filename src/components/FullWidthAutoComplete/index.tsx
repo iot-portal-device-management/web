@@ -56,7 +56,6 @@ const FullWidthAutoComplete = <T,
   const [fieldInputProps, fieldMetaProps, fieldHelperProps]: [FieldInputProps<any>, TranslationFieldMetaProps<any>,
     FieldHelperProps<any>] = useField(name);
   const { setFieldValue, setFieldTouched } = useFormikContext();
-
   const { t } = useTranslation('validation');
 
   useEffect(() => {
@@ -64,6 +63,8 @@ const FullWidthAutoComplete = <T,
       fieldHelperProps.setError(errors[name]);
     }
   }, [errors])
+
+  const { onChange, multiple, ...restFieldInputProps } = fieldInputProps;
 
   const handleOptionChange = <T,
     Multiple,
@@ -124,6 +125,8 @@ const FullWidthAutoComplete = <T,
           />
         )
       }}
+      multiple={multiple as Multiple}
+      {...restFieldInputProps}
       {...rest}
     />
   );

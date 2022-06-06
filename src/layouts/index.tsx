@@ -5,6 +5,7 @@ import { SidebarProvider } from "../contexts/SidebarContext";
 import ThemeProvider from "../theme/ThemeProvider";
 import SidebarLayout from './SidebarLayout';
 import BaseLayout from "./BaseLayout";
+import NProgress from '../components/NProgress';
 
 export const getSidebarLayout = (title: string, page: React.ReactElement) => {
   return (
@@ -14,6 +15,7 @@ export const getSidebarLayout = (title: string, page: React.ReactElement) => {
       </Head>
       <SidebarProvider>
         <ThemeProvider>
+          <NProgress/>
           <CssBaseline/>
           <SidebarLayout>
             {page}
@@ -32,6 +34,7 @@ export const getBaseLayout = (title: string, page: React.ReactElement) => {
       </Head>
       <SidebarProvider>
         <ThemeProvider>
+          <NProgress/>
           <CssBaseline/>
           <BaseLayout>
             {page}

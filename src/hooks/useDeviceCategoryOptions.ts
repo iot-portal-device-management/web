@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import axios from "../libs/axios";
+import axios from '../libs/axios';
 
 interface Parameters {
   name?: string;
@@ -26,10 +26,10 @@ export const useDeviceCategoryOptions = (name: string) => {
   );
 
   return {
-    options: data,
-    isLoading: !error && !data,
-    isError: error,
-    isValidating,
-    mutate
+    deviceCategoryOptions: data,
+    isDeviceCategoryOptionsLoading: !error && !data,
+    isDeviceCategoryOptionsError: error,
+    isDeviceCategoryOptionsValidating: isValidating,
+    mutateDeviceCategoryOptions: mutate
   };
 };
