@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 interface PageTitleProps {
   heading?: string;
   subHeading?: string;
+  labels?: JSX.Element;
   docs?: string;
 }
 
@@ -15,13 +16,29 @@ const PageTitleWrapper = styled(Grid)(`
 `
 );
 
-const PageTitle = ({ heading = '', subHeading = '', docs = '', ...rest }: PageTitleProps) => {
+const TitleWithLabelsGrid = styled(Grid)(`
+    align-items: center;
+`
+);
+
+const PageTitle = ({ heading = '', subHeading = '', labels = undefined, docs = '', ...rest }: PageTitleProps) => {
   return (
     <PageTitleWrapper container {...rest}>
       <Grid item>
-        <Typography variant="h3" component="h3" gutterBottom>
-          {heading}
-        </Typography>
+        <TitleWithLabelsGrid container>
+          <Grid item>
+            <Typography variant="h3" component="h3" gutterBottom>
+              {heading}
+            </Typography>
+          </Grid>
+          {labels && (
+            <Grid item sx={{ ml: 3 }}>
+              <Stack direction="row" spacing={1}>
+                {labels}
+              </Stack>
+            </Grid>
+          )}
+        </TitleWithLabelsGrid>
         <Typography variant="subtitle2">
           {subHeading}
         </Typography>

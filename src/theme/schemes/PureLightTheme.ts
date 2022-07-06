@@ -975,12 +975,7 @@ export const PureLightTheme = createTheme({
     MuiSwitch: {
       styleOverrides: {
         root: {
-          height: 33,
-          overflow: 'visible',
-
           '& .MuiButtonBase-root': {
-            position: 'absolute',
-            padding: 6,
             transition:
               'left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
           },

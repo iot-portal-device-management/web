@@ -1,5 +1,4 @@
 import { toast } from 'react-hot-toast';
-import * as React from 'react';
 import { Alert, AlertColor, CircularProgress } from '@mui/material';
 
 type ToastMessage = string;
@@ -21,7 +20,11 @@ const toastHelper = {
   },
   success: (message: ToastMessage, toastId?: ToastId) => {
     return toast.custom((t) => (
-      <Alert sx={{ maxWidth: 600 }} severity="success" onClose={() => toast.dismiss(t.id)}>
+      <Alert
+        sx={{ maxWidth: 600 }}
+        severity="success"
+        onClose={() => toast.dismiss(t.id)}
+      >
         {message}
       </Alert>
     ), {
@@ -30,7 +33,11 @@ const toastHelper = {
   },
   error: (message: ToastMessage, toastId?: ToastId) => {
     return toast.custom((t) => (
-      <Alert sx={{ maxWidth: 600 }} severity="error" onClose={() => toast.dismiss(t.id)}>
+      <Alert
+        sx={{ maxWidth: 600 }}
+        severity="error"
+        onClose={() => toast.dismiss(t.id)}
+      >
         {message}
       </Alert>
     ), {

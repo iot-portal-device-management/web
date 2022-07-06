@@ -1,9 +1,9 @@
-import TextField, { TextFieldProps } from '@mui/material/TextField';
-import { useField } from 'formik';
-import { WithRequired } from '../../libs/utilityTypes';
 import { useEffect } from 'react';
+import { useField } from 'formik';
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { WithRequired } from '../../libs/utilityTypes';
 
 type FullWidthTextFieldProps = WithRequired<TextFieldProps, 'name'> & { errors?: any };
 
@@ -27,7 +27,7 @@ const FullWidthTextField = ({ name, errors, ...rest }: FullWidthTextFieldProps) 
       return fieldMetaProps.error[0];
     }
 
-    return null;
+    return;
   };
 
   return (

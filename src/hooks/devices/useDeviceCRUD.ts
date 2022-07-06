@@ -2,6 +2,7 @@ import axios from '../../libs/axios';
 import { useRouter } from 'next/router';
 import toastHelper from '../../libs/toastHelper';
 import { Dispatch, SetStateAction } from 'react';
+import { KeyedMutator } from 'swr/dist/types';
 
 type SetErrors = Dispatch<SetStateAction<object | null>>;
 type SetSubmitting = (isSubmitting: boolean) => void;
@@ -29,7 +30,7 @@ export const useDeviceCRUD = () => {
       .post('/api/devices', data)
       .then(() => {
         toastHelper.success('Device created successfully');
-        router.push('/devices');
+        router.push('/device');
       })
       .catch(error => {
         toastHelper.error(`Failed to create device: ${error.message}`);
@@ -55,7 +56,7 @@ export const useDeviceCRUD = () => {
       .patch(`/api/devices/${id}`, data)
       .then(() => {
         toastHelper.success('Device updated successfully');
-        router.push('/devices');
+        router.push('/device');
       })
       .catch(error => {
         toastHelper.error(`Failed to update device: ${error.message}`);
@@ -68,8 +69,28 @@ export const useDeviceCRUD = () => {
       .finally(() => setSubmitting(false));
   };
 
+  const deleteDevices = async (ids: string[], redirectToListing: boolean = false, mutate: KeyedMutator<any>) => {
+    const data = { ids: ids };
+
+    const toastId = toastHelper.loading('Deleting device');
+
+    axios
+      .delete('/api/devices', { data })
+      .then(() => {
+        mutate();
+        toastHelper.success('Device deleted successfully', toastId);
+
+        if (redirectToListing)
+          router.push('/device');
+      })
+      .catch(error => {
+        toastHelper.error(`Failed to delete device: ${error.message}`, toastId);
+      });
+  };
+
   return {
     createDevice,
-    updateDevice
+    updateDevice,
+    deleteDevices
   };
 };

@@ -1,11 +1,8 @@
 import PageTitle from '../../../components/PageTitle';
-import * as React from 'react';
 import { ReactElement, useState } from 'react';
-
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
 import { Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
 import Footer from '../../../components/Footer';
-
 import Box from '@mui/material/Box';
 import { NextPageWithLayout } from '../../_app';
 import { getSidebarLayout } from '../../../layouts';
@@ -22,16 +19,17 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useDevice } from '../../../hooks/devices/useDevice';
 import editDeviceValidationSchema from '../../../validationSchemas/devices/editDeviceValidationSchema';
-import { DeviceCategoryOption, DeviceFormikValues } from '../../../types/deviceCategories';
+import { DeviceCategoryOption } from '../../../types/deviceCategory';
+import { DeviceFormikValues } from '../../../types/device';
 
 const EditDevicePage: NextPageWithLayout = () => {
   const router = useRouter();
-  const deviceId = router.query.id;
+  const deviceId = router.query.id as string;
 
   const [errors, setErrors] = useState<object | null>(null);
   const [deviceCategoryInputValue, setDeviceCategoryInputValue] = useState('');
 
-  const { device, isDeviceLoading, isDeviceError } = useDevice(deviceId as string);
+  const { device, isDeviceLoading, isDeviceError } = useDevice(deviceId);
   const {
     deviceCategoryOptions,
     isDeviceCategoryOptionsLoading,
@@ -43,9 +41,8 @@ const EditDevicePage: NextPageWithLayout = () => {
 
   const transformedDevice = device ? {
     ...device,
-    category: { value: device.device_category.id, label: device.device_category.name }
+    deviceCategory: { value: device.deviceCategory.id, label: device.deviceCategory.name }
   } : device;
-
 
   return (
     <>
@@ -71,11 +68,11 @@ const EditDevicePage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: transformedDevice?.name ?? '',
-                  deviceCategory: transformedDevice?.category ?? null,
+                  deviceCategory: transformedDevice?.deviceCategory ?? null,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                  updateDevice(deviceId as string, sanitizeOptions(values) as DeviceData, { setSubmitting, setErrors });
+                  updateDevice(deviceId, sanitizeOptions(values) as DeviceData, { setSubmitting, setErrors });
                 }}
               >
                 {({ handleSubmit, isSubmitting }: FormikProps<DeviceFormikValues>) => (

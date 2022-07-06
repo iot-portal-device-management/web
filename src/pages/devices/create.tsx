@@ -1,11 +1,8 @@
 import PageTitle from '../../components/PageTitle';
-import * as React from 'react';
 import { ReactElement, useState } from 'react';
-
 import PageTitleWrapper from '../../components/PageTitleWrapper';
 import { Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
 import Footer from '../../components/Footer';
-
 import Box from '@mui/material/Box';
 import { NextPageWithLayout } from '../_app';
 import { getSidebarLayout } from '../../layouts';
@@ -20,7 +17,8 @@ import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import createDeviceValidationSchema from '../../validationSchemas/devices/createDeviceValidationSchema';
-import { DeviceCategoryOption, DeviceFormikValues } from '../../types/deviceCategories';
+import { DeviceCategoryOption } from '../../types/deviceCategory';
+import { DeviceFormikValues } from '../../types/device';
 
 const CreateDevicePage: NextPageWithLayout = () => {
   const [errors, setErrors] = useState<object | null>(null);
