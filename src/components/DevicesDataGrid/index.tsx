@@ -21,7 +21,7 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import ConnectDeviceDialog from '../ConnectDeviceDialog';
 import DeleteDeviceAlertDialog from '../DeleteDeviceAlertDialog';
-import { useDeviceCRUD } from '../../hooks/devices/useDeviceCRUD';
+import { useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { QueryOptions } from '../../types/dataGrid';
 import { getDeviceStatusLabel } from '../../utils/device';
 import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';

@@ -19,13 +19,31 @@ export const camelizeObjectPropertyRecursively = (object: Record<string, unknown
 export const sanitizeOptions = (object: Record<string, any>) => {
   const clonedObject = cloneDeep(object);
 
-  Object.keys(object).forEach(key => {
+  Object.keys(clonedObject).forEach(key => {
     if (!Array.isArray(clonedObject[key])
       && typeof clonedObject[key] === 'object'
       && clonedObject[key] !== null
       && clonedObject[key].value
       && clonedObject[key].label) {
       clonedObject[key] = clonedObject[key].value;
+    }
+  });
+
+  return clonedObject;
+};
+
+export const sanitizeFormValues = (object: Record<string, any>) => {
+  const clonedObject = cloneDeep(object);
+
+  Object.keys(clonedObject).forEach(key => {
+    if (!Array.isArray(clonedObject[key])
+      && typeof clonedObject[key] === 'object'
+      && clonedObject[key] !== null
+      && clonedObject[key].value
+      && clonedObject[key].label) {
+      clonedObject[key] = clonedObject[key].value;
+    } else if (clonedObject[key] === null || clonedObject[key] === '') {
+      delete clonedObject[key];
     }
   });
 

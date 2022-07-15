@@ -7,7 +7,7 @@ import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
-import createRegisterValidationSchema from '../validationSchemas/auth/createRegisterValidationSchema';
+import registerValidationSchema from '../validationSchemas/auth/registerValidationSchema';
 import BaseLayoutMainContentWrapper from '../components/BaseLayoutMainContentWrapper';
 import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
@@ -30,7 +30,7 @@ const RegisterPage: NextPageWithLayout = () => {
     redirectIfAuthenticated: '/',
   });
 
-  const validationSchema = createRegisterValidationSchema();
+  const validationSchema = registerValidationSchema();
 
   return (
     <>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const createLoginValidationSchema = () => {
+const loginValidationSchema = () => {
   return Yup.object({
     email: Yup.string()
       .email()
@@ -13,4 +13,4 @@ const createLoginValidationSchema = () => {
   });
 };
 
-export default createLoginValidationSchema;
+export default loginValidationSchema;

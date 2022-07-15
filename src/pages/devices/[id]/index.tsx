@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import Footer from '../../../components/Footer';
 import { Toaster } from 'react-hot-toast';
-import { useDevice } from '../../../hooks/devices/useDevice';
+import { useDevice } from '../../../hooks/device/useDevice';
 import { useRouter } from 'next/router';
 import { getDeviceCategoryLabel } from '../../../utils/deviceCategory';
 import { getDeviceStatusLabel } from '../../../utils/device';
@@ -27,6 +27,12 @@ import RestartAltTwoToneIcon from '@mui/icons-material/RestartAltTwoTone';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { styled } from '@mui/material/styles';
 import DeviceOverviewTab from '../../../components/DeviceOverviewTab';
+import DeviceAotaTab from '../../../components/DeviceAotaTab';
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import DeviceFotaTab from '../../../components/DeviceFotaTab';
+import DeviceSotaTab from '../../../components/DeviceSotaTab';
+import DeviceCotaTab from '../../../components/DeviceCotaTab';
 
 const TabsWrapper = styled(Tabs)(
   () => `
@@ -149,7 +155,10 @@ const ViewDevicePage = () => {
           </Grid>
           <Grid item xs={12}>
             {currentTab === 'overview' && <DeviceOverviewTab device={device}/>}
-            {currentTab === 'aota' && <DeviceOverviewTab device={device}/>}
+            {currentTab === 'aota' && <DeviceAotaTab deviceId={deviceId}/>}
+            {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
+            {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
+            {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
           </Grid>
         </Grid>
       </Container>
@@ -162,5 +171,11 @@ const ViewDevicePage = () => {
 ViewDevicePage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('View device', page);
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(locale && await serverSideTranslations(locale, ['validation'])),
+  }
+});
 
 export default ViewDevicePage;

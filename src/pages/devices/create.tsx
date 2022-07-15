@@ -1,16 +1,15 @@
 import PageTitle from '../../components/PageTitle';
 import { ReactElement, useState } from 'react';
 import PageTitleWrapper from '../../components/PageTitleWrapper';
-import { Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
 import Footer from '../../components/Footer';
-import Box from '@mui/material/Box';
 import { NextPageWithLayout } from '../_app';
 import { getSidebarLayout } from '../../layouts';
 import { useDeviceCategoryOptions } from '../../hooks/useDeviceCategoryOptions';
 import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../components/FullWidthTextField';
 import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
-import { DeviceData, useDeviceCRUD } from '../../hooks/devices/useDeviceCRUD';
+import { DeviceData, useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { sanitizeOptions } from '../../utils/utils';
 import { LoadingButton } from '@mui/lab';
 import { Toaster } from 'react-hot-toast';
@@ -18,7 +17,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import createDeviceValidationSchema from '../../validationSchemas/devices/createDeviceValidationSchema';
 import { DeviceCategoryOption } from '../../types/deviceCategory';
-import { DeviceFormikValues } from '../../types/device';
+import { DeviceFormFormikValues } from '../../types/device';
 
 const CreateDevicePage: NextPageWithLayout = () => {
   const [errors, setErrors] = useState<object | null>(null);
@@ -61,10 +60,10 @@ const CreateDevicePage: NextPageWithLayout = () => {
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                  createDevice(sanitizeOptions(values) as DeviceData, { setSubmitting, setErrors });
+                  createDevice(sanitizeOptions(values) as DeviceData, { setErrors, setSubmitting });
                 }}
               >
-                {({ handleSubmit, isSubmitting }: FormikProps<DeviceFormikValues>) => (
+                {({ handleSubmit, isSubmitting }: FormikProps<DeviceFormFormikValues>) => (
                   <>
                     <CardContent>
                       <Box
@@ -83,6 +82,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
                         />
                         <FullWidthAutoComplete
                           required
+                          autoHighlight
                           id="deviceCategory"
                           name="deviceCategory"
                           label="Device category"
@@ -90,11 +90,9 @@ const CreateDevicePage: NextPageWithLayout = () => {
                           options={deviceCategoryOptions ?? []}
                           isLoading={isDeviceCategoryOptionsLoading}
                           errors={errors}
+                          inputValue={deviceCategoryInputValue}
                           onInputChange={(event, value) => setDeviceCategoryInputValue(value)}
                           filterOptions={(x) => x}
-                          isOptionEqualToValue={(option: DeviceCategoryOption, value: DeviceCategoryOption) =>
-                            option?.value === value?.value
-                          }
                         />
                       </Box>
                     </CardContent>
@@ -104,9 +102,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
                         sx={{ m: 1 }}
                         variant="contained"
                         loading={isSubmitting}
-                        onClick={() => {
-                          handleSubmit();
-                        }}
+                        onClick={() => handleSubmit()}
                       >
                         Create
                       </LoadingButton>

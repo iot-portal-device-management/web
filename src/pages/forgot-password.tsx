@@ -7,7 +7,7 @@ import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
-import createForgotPasswordValidationSchema from '../validationSchemas/auth/createForgotPasswordValidationSchema';
+import forgotPasswordValidationSchema from '../validationSchemas/auth/forgotPasswordValidationSchema';
 import FormSuccessStatus from '../components/FormSuccessStatus';
 import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
 import BaseLayoutMainContentWrapper from '../components/BaseLayoutMainContentWrapper';
@@ -26,7 +26,7 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
 
   const { forgotPassword } = useAuth({ middleware: 'guest' });
 
-  const validationSchema = createForgotPasswordValidationSchema();
+  const validationSchema = forgotPasswordValidationSchema();
 
   return (
     <>

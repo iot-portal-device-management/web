@@ -1,6 +1,5 @@
+import { BaseOption } from '../option';
+
 export type DeviceCategory = string;
 
-export type DeviceCategoryOption = {
-  label: string;
-  value: string;
-} | null;
+export type DeviceCategoryOption = BaseOption;

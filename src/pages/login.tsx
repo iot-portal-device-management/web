@@ -7,7 +7,7 @@ import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../components/BaseLayoutLogo';
 import { useAuth } from '../hooks/useAuth';
 import FormValidationErrors from '../components/FormValidationErrors';
-import createLoginValidationSchema from '../validationSchemas/auth/createLoginValidationSchema';
+import loginValidationSchema from '../validationSchemas/auth/loginValidationSchema';
 import LabelCheckbox from '../components/LabelCheckbox';
 import FormSuccessStatus from '../components/FormSuccessStatus';
 import { useRouter } from 'next/router';
@@ -44,7 +44,7 @@ const LoginPage: NextPageWithLayout = () => {
     }
   })
 
-  const validationSchema = createLoginValidationSchema();
+  const validationSchema = loginValidationSchema();
 
   return (
     <>

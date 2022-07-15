@@ -1,16 +1,16 @@
 import { useField, useFormikContext } from 'formik';
-import { Autocomplete, CircularProgress } from '@mui/material';
+import { Autocomplete, AutocompleteValue, CircularProgress } from '@mui/material';
 import { AutocompleteProps } from '@mui/material/Autocomplete/Autocomplete';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
-import { SyntheticEvent, useEffect } from 'react';
-import { AutocompleteValue } from '@mui/base/AutocompleteUnstyled/useAutocomplete';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
 import { isValidObject } from '../../utils/utils';
 import { useTranslation } from 'next-i18next';
 import { FieldHelperProps, FieldInputProps, FieldMetaProps } from 'formik/dist/types';
 import { Optional } from '../../libs/utilityTypes';
+import { TranslationFieldMetaProps } from '../../types/formik';
 
 interface FullWidthAutoCompleteProps<T,
   Multiple extends boolean | undefined = undefined,
@@ -20,20 +20,9 @@ interface FullWidthAutoCompleteProps<T,
   name: string;
   label?: string;
   isLoading?: boolean;
-  errors?: any
-}
-
-interface TranslationProps {
-  key: string;
-  values: object;
-}
-
-interface TranslationPropsWithLabel extends TranslationProps {
-  label: TranslationProps;
-}
-
-interface TranslationFieldMetaProps<Val> extends Omit<FieldMetaProps<Val>, 'error'> {
-  error?: string | TranslationPropsWithLabel;
+  errors?: any;
+  hidden?: boolean;
+  optionChangeCallback?: (name: string, option: any) => void;
 }
 
 const FullWidthAutoComplete = <T,
@@ -48,6 +37,8 @@ const FullWidthAutoComplete = <T,
       placeholder,
       isLoading,
       errors,
+      hidden = false,
+      optionChangeCallback,
       ...rest
     }: FullWidthAutoCompleteProps<T, Multiple, DisableClearable, FreeSolo>) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -66,11 +57,15 @@ const FullWidthAutoComplete = <T,
 
   const { onChange, multiple, ...restFieldInputProps } = fieldInputProps;
 
-  const handleOptionChange = <T,
+  const handleOnChange = <T,
     Multiple,
     DisableClearable,
     FreeSolo>(event: SyntheticEvent, value: AutocompleteValue<T, Multiple, DisableClearable, FreeSolo>): void => {
     setFieldValue(name, value);
+
+    if (optionChangeCallback) {
+      optionChangeCallback(name, value);
+    }
   };
 
   const renderErrorMessage = () => {
@@ -97,13 +92,14 @@ const FullWidthAutoComplete = <T,
     return null;
   };
 
-  return (
+  // @ts-ignore
+  return hidden ? null : (
     <Autocomplete
-      sx={{ my: 1, ...sx }}
+      sx={{ mt: 2, mb: 1, ...sx }}
       fullWidth
       autoComplete
       disablePortal
-      onChange={handleOptionChange}
+      onChange={handleOnChange}
       renderInput={(params) => {
         return (
           <TextField
@@ -127,6 +123,10 @@ const FullWidthAutoComplete = <T,
       }}
       multiple={multiple as Multiple}
       {...restFieldInputProps}
+      isOptionEqualToValue={(option: T, value: T) =>
+        // @ts-ignore
+        option?.value === value?.value
+      }
       {...rest}
     />
   );

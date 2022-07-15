@@ -1,15 +1,12 @@
 import * as Yup from 'yup';
 
-const createRegisterValidationSchema = () => {
+const resetPasswordValidationSchema = () => {
   return Yup.object({
-    name: Yup.string()
-      .label('name')
-      .required(),
     email: Yup.string()
       .email()
       .label('email')
       .required(),
-    // TODO: Add password pattern rules validation on frontend
+    // TODO: add frontend password validation
     password: Yup.string()
       .label('password')
       .required(),
@@ -19,4 +16,4 @@ const createRegisterValidationSchema = () => {
   });
 };
 
-export default createRegisterValidationSchema;
+export default resetPasswordValidationSchema;

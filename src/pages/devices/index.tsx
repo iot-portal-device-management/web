@@ -10,10 +10,10 @@ import Footer from '../../components/Footer';
 import { NextPageWithLayout } from '../_app';
 import { getSidebarLayout } from '../../layouts';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useDeviceCRUD } from '../../hooks/devices/useDeviceCRUD';
+import { useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import DeleteDevicesAlertDialog from '../../components/DeleteDevicesAlertDialog';
 import DevicesDataGrid from '../../components/DevicesDataGrid';
-import { useDevices } from '../../hooks/devices/useDevices';
+import { useDevices } from '../../hooks/device/useDevices';
 import { QueryOptions } from '../../types/dataGrid';
 import DataGridCreateDeleteToolbar from '../../components/DataGridCreateDeleteToolbar';
 
@@ -62,7 +62,7 @@ const DeviceIndexPage: NextPageWithLayout = () => {
             <Card>
               <DataGridCreateDeleteToolbar
                 disableDelete={!selectionModel || !selectionModel.length}
-                onCreateClick={() => router.push('/devices/create')}
+                onCreateClick={() => router.push('/device/create')}
                 onDeleteClick={confirmDeleteSelectedDevices}
               />
               <Box sx={{ width: '100%' }}>

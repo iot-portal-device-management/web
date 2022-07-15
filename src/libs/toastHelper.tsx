@@ -16,7 +16,9 @@ const toastHelper = {
       >
         {message}
       </Alert>
-    ));
+    ), {
+      duration: Infinity,
+    });
   },
   success: (message: ToastMessage, toastId?: ToastId) => {
     return toast.custom((t) => (
@@ -29,6 +31,7 @@ const toastHelper = {
       </Alert>
     ), {
       ...(toastId && { id: toastId }),
+      duration: 2000,
     });
   },
   error: (message: ToastMessage, toastId?: ToastId) => {
@@ -42,6 +45,7 @@ const toastHelper = {
       </Alert>
     ), {
       ...(toastId && { id: toastId }),
+      duration: 4000,
     });
   }
 };

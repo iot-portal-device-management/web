@@ -8,8 +8,8 @@ type SetErrors = Dispatch<SetStateAction<object | null>>;
 type SetSubmitting = (isSubmitting: boolean) => void;
 
 interface ActionsProps {
-  setSubmitting: SetSubmitting;
   setErrors: SetErrors;
+  setSubmitting: SetSubmitting;
 }
 
 export interface DeviceData {
@@ -20,17 +20,17 @@ export interface DeviceData {
 export const useDeviceCRUD = () => {
   const router = useRouter();
 
-  const createDevice = async ({ name, deviceCategory }: DeviceData, { setSubmitting, setErrors }: ActionsProps) => {
+  const createDevice = ({ name, deviceCategory }: DeviceData, { setErrors, setSubmitting }: ActionsProps) => {
     const data = {
       name: name,
       deviceCategory: deviceCategory
     };
 
-    axios
+    return axios
       .post('/api/devices', data)
       .then(() => {
         toastHelper.success('Device created successfully');
-        router.push('/device');
+        router.push('/devices');
       })
       .catch(error => {
         toastHelper.error(`Failed to create device: ${error.message}`);
@@ -43,20 +43,20 @@ export const useDeviceCRUD = () => {
       .finally(() => setSubmitting(false));
   };
 
-  const updateDevice = async (id: string, { name, deviceCategory }: DeviceData, {
-    setSubmitting,
-    setErrors
+  const updateDevice = (id: string, { name, deviceCategory }: DeviceData, {
+    setErrors,
+    setSubmitting
   }: ActionsProps) => {
     const data = {
       name: name,
       deviceCategory: deviceCategory
     };
 
-    axios
+    return axios
       .patch(`/api/devices/${id}`, data)
       .then(() => {
         toastHelper.success('Device updated successfully');
-        router.push('/device');
+        router.push('/devices');
       })
       .catch(error => {
         toastHelper.error(`Failed to update device: ${error.message}`);
@@ -69,19 +69,19 @@ export const useDeviceCRUD = () => {
       .finally(() => setSubmitting(false));
   };
 
-  const deleteDevices = async (ids: string[], redirectToListing: boolean = false, mutate: KeyedMutator<any>) => {
+  const deleteDevices = (ids: string[], redirectToListing: boolean = false, mutate: KeyedMutator<any>) => {
     const data = { ids: ids };
 
     const toastId = toastHelper.loading('Deleting device');
 
-    axios
+    return axios
       .delete('/api/devices', { data })
       .then(() => {
         mutate();
         toastHelper.success('Device deleted successfully', toastId);
 
         if (redirectToListing)
-          router.push('/device');
+          router.push('/devices');
       })
       .catch(error => {
         toastHelper.error(`Failed to delete device: ${error.message}`, toastId);

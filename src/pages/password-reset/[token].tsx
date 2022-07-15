@@ -7,7 +7,7 @@ import { Formik, FormikProps } from 'formik';
 import BaseLayoutLogo from '../../components/BaseLayoutLogo';
 import { useAuth } from '../../hooks/useAuth';
 import FormValidationErrors from '../../components/FormValidationErrors';
-import createResetPasswordValidationSchema from '../../validationSchemas/auth/createResetPasswordValidationSchema';
+import resetPasswordValidationSchema from '../../validationSchemas/auth/resetPasswordValidationSchema';
 import { useRouter } from 'next/router';
 import BaseLayoutCardButton from '../../components/BaseLayoutCardButton';
 import BaseLayoutMainContentWrapper from '../../components/BaseLayoutMainContentWrapper';
@@ -29,7 +29,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
 
   const { resetPassword } = useAuth({ middleware: 'guest' })
 
-  const validationSchema = createResetPasswordValidationSchema();
+  const validationSchema = resetPasswordValidationSchema();
 
   return (
     <>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const createForgotPasswordValidationSchema = () => {
+const forgotPasswordValidationSchema = () => {
   return Yup.object({
     email: Yup.string()
       .email()
@@ -9,4 +9,4 @@ const createForgotPasswordValidationSchema = () => {
   });
 };
 
-export default createForgotPasswordValidationSchema;
+export default forgotPasswordValidationSchema;
