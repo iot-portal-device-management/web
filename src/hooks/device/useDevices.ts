@@ -9,7 +9,8 @@ export const useDevices = (params: any) => {
   );
 
   return {
-    devices: data,
+    devices: data?.data,
+    devicesMeta:  data?.meta,
     isDevicesLoading: !error && !data,
     isDevicesError: error,
     isDevicesValidating: isValidating,

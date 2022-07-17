@@ -26,10 +26,13 @@ const DeviceIndexPage: NextPageWithLayout = () => {
     sortModel: undefined,
     filterModel: undefined,
     page: 0,
-    pageSize: 25,
+    pageSize: 5,
   });
 
-  const { devices, isDevicesLoading, mutateDevices } = useDevices({ ...queryOptions, page: queryOptions.page + 1 });
+  const { devices, devicesMeta, isDevicesLoading, mutateDevices } = useDevices({
+    ...queryOptions,
+    page: queryOptions.page + 1
+  });
   const { deleteDevices } = useDeviceCRUD();
 
   const confirmDeleteSelectedDevices = useCallback(() => {
@@ -72,6 +75,7 @@ const DeviceIndexPage: NextPageWithLayout = () => {
                   queryOptions={queryOptions}
                   setQueryOptions={setQueryOptions}
                   devices={devices}
+                  devicesMeta={devicesMeta}
                   isDevicesLoading={isDevicesLoading}
                   mutateDevices={mutateDevices}
                 />

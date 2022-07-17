@@ -32,6 +32,7 @@ interface DevicesDataGridProps {
   queryOptions: QueryOptions
   setQueryOptions: Dispatch<SetStateAction<QueryOptions>>;
   devices: any;
+  devicesMeta: any;
   isDevicesLoading: boolean;
   mutateDevices: KeyedMutator<any>;
 }
@@ -42,6 +43,7 @@ const DevicesDataGrid = ({
                            queryOptions,
                            setQueryOptions,
                            devices,
+                           devicesMeta,
                            isDevicesLoading,
                            mutateDevices
                          }: DevicesDataGridProps) => {
@@ -58,9 +60,9 @@ const DevicesDataGrid = ({
 
   useEffect(() => {
     setTotalRowCount((prevTotalRowCount) =>
-      devices?.total !== undefined ? devices?.total : prevTotalRowCount,
+      devicesMeta?.total !== undefined ? devicesMeta?.total : prevTotalRowCount,
     );
-  }, [devices?.total]);
+  }, [devicesMeta?.total]);
 
   const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
     const sortModelFieldMapper = (sortModel: GridSortModel) => sortModel.map(sortField => {
@@ -169,13 +171,13 @@ const DevicesDataGrid = ({
         keepNonExistentRowsSelected
         loading={isDevicesLoading}
         columns={columns}
-        rows={(devices?.data ?? []) as GridRowsProp}
+        rows={(devices ?? []) as GridRowsProp}
         rowCount={totalRowCount}
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
         filterMode="server"
         onFilterModelChange={handleFilterModelChange}
-        rowsPerPageOptions={[25, 50, 100]}
+        rowsPerPageOptions={[5, 25, 50, 100]}
         pagination
         paginationMode="server"
         page={queryOptions.page}
