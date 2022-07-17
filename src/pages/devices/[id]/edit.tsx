@@ -18,7 +18,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useDevice } from '../../../hooks/device/useDevice';
-import editDeviceValidationSchema from '../../../validationSchemas/devices/editDeviceValidationSchema';
+import editDeviceValidationSchema from '../../../validationSchemas/device/editDeviceValidationSchema';
 import { DeviceFormFormikValues } from '../../../types/device';
 
 const EditDevicePage: NextPageWithLayout = () => {

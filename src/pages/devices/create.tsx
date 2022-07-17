@@ -8,16 +8,15 @@ import { getSidebarLayout } from '../../layouts';
 import { useDeviceCategoryOptions } from '../../hooks/useDeviceCategoryOptions';
 import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../components/FullWidthTextField';
-import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
 import { DeviceData, useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { sanitizeOptions } from '../../utils/utils';
 import { LoadingButton } from '@mui/lab';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-import createDeviceValidationSchema from '../../validationSchemas/devices/createDeviceValidationSchema';
-import { DeviceCategoryOption } from '../../types/deviceCategory';
-import { DeviceFormFormikValues } from '../../types/device';
+import createDeviceValidationSchema from '../../validationSchemas/device/createDeviceValidationSchema';
+import { DeviceFormFormikValues, NullableDeviceCategoryOption } from '../../types/device';
+import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
 
 const CreateDevicePage: NextPageWithLayout = () => {
   const [errors, setErrors] = useState<object | null>(null);
@@ -56,7 +55,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
-                  deviceCategory: null as DeviceCategoryOption,
+                  deviceCategory: null as NullableDeviceCategoryOption,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
