@@ -177,7 +177,7 @@ const DevicesDataGrid = ({
         onSortModelChange={handleSortModelChange}
         filterMode="server"
         onFilterModelChange={handleFilterModelChange}
-        rowsPerPageOptions={[5, 25, 50, 100]}
+        rowsPerPageOptions={[25, 50, 100]}
         pagination
         paginationMode="server"
         page={queryOptions.page}

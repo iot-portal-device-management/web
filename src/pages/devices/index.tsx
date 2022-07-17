@@ -26,7 +26,7 @@ const DeviceIndexPage: NextPageWithLayout = () => {
     sortModel: undefined,
     filterModel: undefined,
     page: 0,
-    pageSize: 5,
+    pageSize: 25,
   });
 
   const { devices, devicesMeta, isDevicesLoading, mutateDevices } = useDevices({
