@@ -29,9 +29,9 @@ const FullWidthTextField = ({ name, errors, hidden = false, ...rest }: FullWidth
     if (isString(fieldMetaProps.error)) {
       return fieldMetaProps.error;
     } else if (isValidObject(fieldMetaProps.error)
-      && fieldMetaProps.error!.hasOwnProperty('key')
-      && fieldMetaProps.error!.hasOwnProperty('values')) {
-      return t(fieldMetaProps.error!.key, fieldMetaProps.error!.values)
+      && fieldMetaProps.error?.hasOwnProperty('key')
+      && fieldMetaProps.error?.hasOwnProperty('values')) {
+      return t(fieldMetaProps.error?.key, fieldMetaProps.error?.values)
     } else if (isArray(fieldMetaProps.error)
       && isString(fieldMetaProps.error[0])) {
       return fieldMetaProps.error[0];
@@ -47,7 +47,6 @@ const FullWidthTextField = ({ name, errors, hidden = false, ...rest }: FullWidth
       {...(fieldMetaProps.touched && fieldMetaProps.error && { error: true, helperText: renderErrorMessage() })}
       {...fieldInputProps}
       {...rest}
-      error
     />
   );
 };

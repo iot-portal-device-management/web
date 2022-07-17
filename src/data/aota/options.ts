@@ -33,7 +33,7 @@ export const AOTA_REBOOT_OPTIONS = [
 
 export const AOTA_INITIAL_FIELDS_HIDDEN_STATE = {
   app: false,
-  command: true,
+  cmd: true,
   containerTag: true,
   deviceReboot: true,
   fetch: true,
@@ -51,7 +51,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
   docker: {
     import: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: false,
@@ -66,7 +66,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     load: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: false,
@@ -81,7 +81,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     pull: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: true,
@@ -96,7 +96,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     remove: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: true,
@@ -111,6 +111,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     stats: {
       app: false,
+      cmd: false,
       containerTag: true,
       deviceReboot: true,
       fetch: true,
@@ -127,7 +128,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
   compose: {
     up: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: false,
@@ -142,7 +143,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     down: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: true,
@@ -157,7 +158,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     pull: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: false,
@@ -172,7 +173,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     list: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: true,
@@ -187,7 +188,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
     },
     remove: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: false,
       deviceReboot: true,
       fetch: true,
@@ -204,7 +205,7 @@ export const AOTA_FIELDS_HIDDEN_STATES = {
   application: {
     update: {
       app: false,
-      command: false,
+      cmd: false,
       containerTag: true,
       deviceReboot: false,
       fetch: false,

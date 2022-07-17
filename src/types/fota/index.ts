@@ -16,4 +16,3 @@ export type FotaFormField = keyof FotaFormFormikValues;
 
 export interface FotaPayload extends Record<FotaFormField, string> {
 }
-

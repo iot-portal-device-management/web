@@ -3,4 +3,5 @@ interface Option<Label, Value> {
   value: Value;
 }
 
-export type BaseOption<Label extends string = string, Value extends string = string> = Option<Label, Value>;
+export interface BaseOption<Label extends string = string, Value extends string = string> extends Option<Label, Value> {
+}

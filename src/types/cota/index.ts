@@ -34,15 +34,19 @@ export type CotaConfigurationPathOptionLabel =
 
 export type CotaConfigurationPathOptionValue = CotaConfigurationPathOptionLabel;
 
-export type CotaCommandOption = BaseOption<CotaCommandOptionLabel, CotaCommandOptionValue>;
+export interface CotaCommandOption extends BaseOption<CotaCommandOptionLabel, CotaCommandOptionValue> {
+}
 
-export type CotaConfigurationPathOption = BaseOption<CotaConfigurationPathOptionLabel, CotaConfigurationPathOptionValue>;
+export interface CotaConfigurationPathOption extends BaseOption<CotaConfigurationPathOptionLabel, CotaConfigurationPathOptionValue> {
+}
+
+export type NullableCotaConfigurationPathOption = Nullable<CotaConfigurationPathOption>;
 
 export interface CotaFormFormikValues {
-  cmd: Nullable<CotaCommandOption>,
-  fetch: string,
-  configurations: Configuration[],
-  signature: string
+  cmd: Nullable<CotaCommandOption>;
+  fetch: string;
+  configurations: Configuration[];
+  signature: string;
 }
 
 export type CotaFormField = keyof CotaFormFormikValues;

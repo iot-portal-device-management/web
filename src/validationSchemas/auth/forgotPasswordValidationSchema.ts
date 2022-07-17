@@ -5,7 +5,7 @@ const forgotPasswordValidationSchema = () => {
     email: Yup.string()
       .email()
       .label('email')
-      .required()
+      .required(),
   });
 };
 

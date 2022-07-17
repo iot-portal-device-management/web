@@ -22,7 +22,7 @@ const DeviceFotaTab = ({ deviceId }: DeviceFotaTabProps) => {
 
   return (
     <Card>
-      <SubtitleCardHeader title="Firmware OTA Update" subheader="Trigger Firmware OTA Update for device"/>
+      <SubtitleCardHeader title="Firmware OTA update" subheader="Trigger firmware OTA update for device"/>
       <Divider/>
       <Formik
         innerRef={formRef}

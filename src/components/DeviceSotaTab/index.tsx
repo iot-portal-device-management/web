@@ -53,7 +53,7 @@ const DeviceSotaTab = ({ deviceId }: DeviceSotaTabProps) => {
 
   return (
     <Card>
-      <SubtitleCardHeader title="Software OTA Update" subheader="Trigger Software OTA Update for device"/>
+      <SubtitleCardHeader title="Software OTA update" subheader="Trigger software OTA update for device"/>
       <Divider/>
       <Formik
         innerRef={formRef}
@@ -92,6 +92,7 @@ const DeviceSotaTab = ({ deviceId }: DeviceSotaTabProps) => {
                 />
                 <FullWidthAutoComplete
                   required
+                  disableClearable
                   id="cmd"
                   name="cmd"
                   label="Command"

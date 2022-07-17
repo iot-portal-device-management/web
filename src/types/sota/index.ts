@@ -23,11 +23,14 @@ export type SotaLogToFileOptionValue =
   | 'Y'
   | 'N';
 
-export type SotaOption = BaseOption<SotaOptionLabel, SotaOptionValue>;
+export interface SotaOption extends BaseOption<SotaOptionLabel, SotaOptionValue> {
+}
 
-export type SotaCommandOption = BaseOption<SotaCommandOptionLabel, SotaCommandOptionValue>;
+export interface SotaCommandOption extends BaseOption<SotaCommandOptionLabel, SotaCommandOptionValue> {
+}
 
-export type SotaLogToFileOption = BaseOption<SotaLogToFileOptionLabel, SotaLogToFileOptionValue>;
+export interface SotaLogToFileOption extends BaseOption<SotaLogToFileOptionLabel, SotaLogToFileOptionValue> {
+}
 
 export interface SotaFormFormikValues {
   sota_option: Nullable<SotaOption>;

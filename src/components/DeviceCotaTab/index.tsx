@@ -55,7 +55,7 @@ const DeviceCotaTab = ({ deviceId }: DeviceCotaTabProps) => {
 
   return (
     <Card>
-      <SubtitleCardHeader title="Configuration OTA Update" subheader="Trigger Configuration OTA Update for device"/>
+      <SubtitleCardHeader title="Configuration OTA update" subheader="Trigger configuration OTA update for device"/>
       <Divider/>
       <Formik
         innerRef={formRef}
@@ -80,7 +80,6 @@ const DeviceCotaTab = ({ deviceId }: DeviceCotaTabProps) => {
                 noValidate
                 autoComplete="off"
               >
-                <span>{JSON.stringify(values, null, 4)}</span>
                 <FullWidthAutoComplete
                   required
                   id="cmd"
@@ -105,7 +104,7 @@ const DeviceCotaTab = ({ deviceId }: DeviceCotaTabProps) => {
                     render={arrayHelpers => (
                       values.configurations && values.configurations.length > 0 ? (
                         values.configurations.map((configuration, index) => (
-                          <Grid container spacing={2}>
+                          <Grid key={index} container spacing={2}>
                             <Grid item xs={fieldsHidden.configuration_values ? 10 : 5}>
                               <FullWidthAutoComplete
                                 required

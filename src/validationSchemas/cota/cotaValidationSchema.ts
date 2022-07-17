@@ -1,10 +1,9 @@
 import * as Yup from 'yup';
 
 import { COTA_COMMAND_OPTIONS, COTA_CONFIGURATION_PATH_OPTIONS } from '../../data/cota/options';
-import { CotaConfigurationPathOption, CotaFormField, CotaFormFieldsHiddenState } from '../../types/cota';
+import { CotaFormField, CotaFormFieldsHiddenState, NullableCotaConfigurationPathOption } from '../../types/cota';
 import { ValidationObject } from '../../types/validationSchema';
 import Configuration from '../../models/Configuration';
-import { Nullable } from '../../libs/utilityTypes';
 import { AnyObject, MessageParams } from 'yup/lib/types';
 
 const cotaValidationSchema = (fieldsHidden: CotaFormFieldsHiddenState) => {
@@ -38,7 +37,7 @@ const cotaValidationSchema = (fieldsHidden: CotaFormFieldsHiddenState) => {
           .test('uniqueConfigurationPath', ({ path }: MessageParams) => ({
             key: 'validation.unique',
             values: { attribute: path }
-          }), (value: Nullable<CotaConfigurationPathOption>, context: Yup.TestContext<AnyObject>) => {
+          }), (value: NullableCotaConfigurationPathOption, context: Yup.TestContext<AnyObject>) => {
             if (value) {
               // filter(Boolean) to remove falsy values such as 'null' and 'undefined'
               // @ts-ignore
@@ -59,7 +58,6 @@ const cotaValidationSchema = (fieldsHidden: CotaFormFieldsHiddenState) => {
         value: Yup.string()
           .label('configuration value')
           .test('configurationValueRequired', ({ path }) => ({
-            // todo error messsage
             key: 'validation.required',
             values: { attribute: path }
           }), (value, context) => {
@@ -67,10 +65,10 @@ const cotaValidationSchema = (fieldsHidden: CotaFormFieldsHiddenState) => {
             return context.from[1].value.cmd === null
               ? true
               // @ts-ignore
-              : (context.from[1].value.cmd.value === 'set')
+              : context.from[1].value.cmd.value === 'set'
                 ? Yup.string().required().isValidSync(value)
                 : true;
-          })
+          }),
       })
     )
       .required();

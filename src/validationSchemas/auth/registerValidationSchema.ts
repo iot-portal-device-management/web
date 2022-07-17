@@ -15,7 +15,7 @@ const registerValidationSchema = () => {
       .required(),
     passwordConfirmation: Yup.string()
       .label('password confirmation')
-      .required()
+      .required(),
   });
 };
 

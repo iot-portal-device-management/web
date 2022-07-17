@@ -33,6 +33,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DeviceFotaTab from '../../../components/DeviceFotaTab';
 import DeviceSotaTab from '../../../components/DeviceSotaTab';
 import DeviceCotaTab from '../../../components/DeviceCotaTab';
+import DeviceCommandHistoriesTab from '../../../components/DeviceCommandHistoriesTab';
 
 const TabsWrapper = styled(Tabs)(
   () => `
@@ -50,14 +51,14 @@ const ViewDevicePage = () => {
   const { device, isDeviceLoading, isDeviceError } = useDevice(deviceId);
 
   const tabs = [
-    { value: 'overview', label: 'Overview' },
-    { value: 'metrics', label: 'Metrics' },
-    { value: 'aota', label: 'Application OTA Update' },
-    { value: 'fota', label: 'Firmware OTA Update' },
-    { value: 'sota', label: 'Software OTA Update' },
-    { value: 'cota', label: 'Configuration OTA Update' },
-    { value: 'command-histories', label: 'Command Histories' },
-    { value: 'event-histories', label: 'Event Histories' },
+    { label: 'Overview', value: 'overview' },
+    { label: 'Metrics', value: 'metrics' },
+    { label: 'Application OTA update', value: 'aota' },
+    { label: 'Firmware OTA update', value: 'fota' },
+    { label: 'Software OTA update', value: 'sota' },
+    { label: 'Configuration OTA update', value: 'cota' },
+    { label: 'Command histories', value: 'command-histories' },
+    { label: 'Event histories', value: 'event-histories' },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
@@ -159,6 +160,7 @@ const ViewDevicePage = () => {
             {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
             {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
             {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
+            {currentTab === 'command-histories' && <DeviceCommandHistoriesTab deviceId={deviceId}/>}
           </Grid>
         </Grid>
       </Container>

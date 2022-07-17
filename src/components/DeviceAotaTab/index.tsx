@@ -43,10 +43,10 @@ const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
       // after the reset so that the value is not lost.
       resetForm();
       formRef?.current?.setFieldValue('app', selectedOption);
-      setFieldsHidden({ ...AOTA_INITIAL_FIELDS_HIDDEN_STATE, command: false });
+      setFieldsHidden({ ...AOTA_INITIAL_FIELDS_HIDDEN_STATE, cmd: false });
     } else if (name === 'app' && !selectedOption) {
       resetForm();
-    } else if (name === 'command' && selectedOption) {
+    } else if (name === 'cmd' && selectedOption) {
       // @ts-ignore
       setFieldsHidden(AOTA_FIELDS_HIDDEN_STATES[formRef.current.values.app.value as AotaAppOptionValue][selectedOption.value as AotaCommandOptionValue]);
     }
@@ -56,14 +56,14 @@ const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
 
   return (
     <Card>
-      <SubtitleCardHeader title="Application OTA Update" subheader="Trigger Application OTA Update for device"/>
+      <SubtitleCardHeader title="Application OTA update" subheader="Trigger application OTA update for device"/>
       <Divider/>
       <Formik
         innerRef={formRef}
         enableReinitialize={true}
         initialValues={{
           app: null,
-          command: null,
+          cmd: null,
           containerTag: '',
           deviceReboot: null,
           fetch: '',
@@ -102,13 +102,13 @@ const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
                 />
                 <FullWidthAutoComplete
                   required
-                  id="command"
-                  name="command"
+                  id="cmd"
+                  name="cmd"
                   label="Command"
                   placeholder="Enter your command"
                   options={AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as AotaAppOptionValue ?? 'docker']}
                   optionChangeCallback={updateFormFields}
-                  hidden={fieldsHidden.command}
+                  hidden={fieldsHidden.cmd}
                 />
                 <FullWidthTextField
                   required
@@ -145,7 +145,7 @@ const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
                 />
                 <FullWidthTextField
                   {...((formRef.current?.values.app?.value === 'docker'
-                    && formRef.current?.values.command?.value === 'remove')
+                    && formRef.current?.values.cmd?.value === 'remove')
                     && { required: true })}
                   id="version"
                   name="version"

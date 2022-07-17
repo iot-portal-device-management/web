@@ -25,15 +25,18 @@ export type DeviceRebootOptionValue =
   | 'yes'
   | 'no';
 
-export type AotaAppOption = BaseOption<AotaAppOptionValue, AotaAppOptionValue>;
+export interface AotaAppOption extends BaseOption<AotaAppOptionValue, AotaAppOptionValue> {
+}
 
-export type AotaCommandOption = BaseOption<AotaCommandOptionValue, AotaCommandOptionValue>;
+export interface AotaCommandOption extends BaseOption<AotaCommandOptionValue, AotaCommandOptionValue> {
+}
 
-export type DeviceRebootOption = BaseOption<DeviceRebootOptionLabel, DeviceRebootOptionValue>;
+export interface DeviceRebootOption extends BaseOption<DeviceRebootOptionLabel, DeviceRebootOptionValue> {
+}
 
 export interface AotaFormFormikValues {
   app: Nullable<AotaAppOption>;
-  command: Nullable<AotaCommandOption>;
+  cmd: Nullable<AotaCommandOption>;
   containerTag: string;
   deviceReboot: Nullable<DeviceRebootOption>;
   fetch: string;

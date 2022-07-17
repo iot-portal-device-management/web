@@ -9,7 +9,7 @@ const loginValidationSchema = () => {
     password: Yup.string()
       .label('password')
       .required(),
-    remember: Yup.boolean()
+    remember: Yup.boolean(),
   });
 };
 

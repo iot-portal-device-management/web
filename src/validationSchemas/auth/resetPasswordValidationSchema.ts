@@ -12,7 +12,7 @@ const resetPasswordValidationSchema = () => {
       .required(),
     passwordConfirmation: Yup.string()
       .label('password confirmation')
-      .required()
+      .required(),
   });
 };
 
