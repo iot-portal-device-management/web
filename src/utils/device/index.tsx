@@ -1,7 +1,8 @@
 import Label from '../../components/Label';
 import { DeviceStatus } from '../../types/device';
+import { ReactNode } from 'react';
 
-export const getDeviceStatusLabel = (deviceStatus: DeviceStatus): React.ReactNode => {
+export const getDeviceStatusLabel = (deviceStatus: DeviceStatus): ReactNode => {
   if (!deviceStatus) {
     return null;
   }

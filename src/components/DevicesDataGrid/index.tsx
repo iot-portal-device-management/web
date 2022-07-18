@@ -56,13 +56,13 @@ const DevicesDataGrid = ({
 
   const { deleteDevices } = useDeviceCRUD();
 
-  const relations = ['deviceCategory', 'deviceStatus'];
-
   useEffect(() => {
     setTotalRowCount((prevTotalRowCount) =>
       devicesMeta?.total !== undefined ? devicesMeta?.total : prevTotalRowCount,
     );
   }, [devicesMeta?.total]);
+
+  const relations = ['deviceCategory', 'deviceStatus'];
 
   const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
     const sortModelFieldMapper = (sortModel: GridSortModel) => sortModel.map(sortField => {
@@ -161,7 +161,7 @@ const DevicesDataGrid = ({
         />
       ]
     }
-  ], [getDeviceStatusLabel, handleClickConnectDevice, confirmDeleteDevice])
+  ], [getDeviceStatusLabel, handleClickConnectDevice, confirmDeleteDevice]);
 
   return (
     <>
