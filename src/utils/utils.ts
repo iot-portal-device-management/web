@@ -26,6 +26,22 @@ export const removeLastCharacterIfMatch = (str: string, needle: string) => {
   return str;
 };
 
+export const isValidObject = (object: any) => {
+  return typeof object === 'object' && !Array.isArray(object) && object !== null && object !== undefined;
+};
+
+export const isValidJsonString = (str: string) => {
+  if (str === null) return false;
+
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+
+  return true;
+};
+
 export const sanitizeOptions = (object: Record<string, any>) => {
   const clonedObject = cloneDeep(object);
 
@@ -79,8 +95,3 @@ export const sanitizeFormValues = (object: Record<string, any>) => {
 export const camelizeObjectPropertyAndSanitizeOptions = (object: Record<string, any>) => {
   return camelizeObjectProperty(sanitizeOptions(object));
 };
-
-export const isValidObject = (object: any) => {
-  return typeof object === 'object' && !Array.isArray(object) && object !== null && object !== undefined;
-};
-

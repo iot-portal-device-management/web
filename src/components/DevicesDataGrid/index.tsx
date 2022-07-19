@@ -23,7 +23,7 @@ import ConnectDeviceDialog from '../ConnectDeviceDialog';
 import DeleteDeviceAlertDialog from '../DeleteDeviceAlertDialog';
 import { useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { QueryOptions } from '../../types/dataGrid';
-import { getDeviceStatusLabel } from '../../utils/device';
+import { getDeviceStatusLabel } from '../../utils/deviceStatus';
 import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 
 interface DevicesDataGridProps {

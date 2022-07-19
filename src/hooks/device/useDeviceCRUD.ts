@@ -72,7 +72,7 @@ export const useDeviceCRUD = () => {
   const deleteDevices = (ids: string[], redirectToListing: boolean = false, mutate: KeyedMutator<any>) => {
     const data = { ids: ids };
 
-    const toastId = toastHelper.loading('Deleting device');
+    const toastId = toastHelper.loading('Deleting deviceStatus');
 
     return axios
       .delete('/api/devices', { data })

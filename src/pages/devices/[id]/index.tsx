@@ -20,7 +20,7 @@ import { Toaster } from 'react-hot-toast';
 import { useDevice } from '../../../hooks/device/useDevice';
 import { useRouter } from 'next/router';
 import { getDeviceCategoryLabel } from '../../../utils/deviceCategory';
-import { getDeviceStatusLabel } from '../../../utils/device';
+import { getDeviceStatusLabel } from '../../../utils/deviceStatus';
 import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
 import PowerSettingsNewTwoToneIcon from '@mui/icons-material/PowerSettingsNewTwoTone';
 import RestartAltTwoToneIcon from '@mui/icons-material/RestartAltTwoTone';
@@ -34,6 +34,7 @@ import DeviceFotaTab from '../../../components/DeviceFotaTab';
 import DeviceSotaTab from '../../../components/DeviceSotaTab';
 import DeviceCotaTab from '../../../components/DeviceCotaTab';
 import DeviceCommandHistoriesTab from '../../../components/DeviceCommandHistoriesTab';
+import DeviceEventHistoriesTab from '../../../components/DeviceEventHistoriesTab';
 
 const TabsWrapper = styled(Tabs)(
   () => `
@@ -161,6 +162,7 @@ const ViewDevicePage = () => {
             {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
             {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
             {currentTab === 'command-histories' && <DeviceCommandHistoriesTab deviceId={deviceId}/>}
+            {currentTab === 'event-histories' && <DeviceEventHistoriesTab deviceId={deviceId}/>}
           </Grid>
         </Grid>
       </Container>
@@ -171,7 +173,7 @@ const ViewDevicePage = () => {
 };
 
 ViewDevicePage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('View device', page);
+  return getSidebarLayout('View deviceStatus', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

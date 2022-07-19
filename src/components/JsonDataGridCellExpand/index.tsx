@@ -1,10 +1,13 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, Paper, Popper, Typography } from '@mui/material';
 import { JSONTree } from 'react-json-tree';
+import isString from 'lodash/isString';
+import { isValidJsonString } from '../../utils/utils';
 
-interface GridCellExpandProps {
-  value: string;
+interface JsonDataGridCellExpandProps {
+  header: string;
   width: number;
+  value: string;
 }
 
 const theme = {
@@ -28,8 +31,8 @@ const theme = {
   base0F: '#cc6633',
 };
 
-const JsonDataGridCellExpand = (props: GridCellExpandProps) => {
-  const { value, width } = props;
+const JsonDataGridCellExpand = (props: JsonDataGridCellExpandProps) => {
+  const { header = 'Data', width, value } = props;
   const wrapper = useRef<HTMLDivElement | null>(null);
   const cellDiv = useRef(null);
   const cellValue = useRef(null);
@@ -64,7 +67,30 @@ const JsonDataGridCellExpand = (props: GridCellExpandProps) => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [setShowFullCell, showFullCell]);
+  }, [showFullCell, setShowFullCell]);
+
+  const renderJSONView = () => {
+    if (isValidJsonString(value)) {
+      return (
+        <>
+          <Typography variant="body2" style={{ padding: 8 }}>
+            {header}
+          </Typography>
+          <Box sx={{ pb: 1 }}>
+            <JSONTree data={JSON.parse(value)} theme={theme} invertTheme={false}/>
+          </Box>
+        </>
+      );
+    } else if (isString(value)) {
+      return (
+        <Typography variant="body2" style={{ padding: 8 }}>
+          {value}
+        </Typography>
+      );
+    }
+  };
+
+  const JSONView = useMemo(renderJSONView, [value]);
 
   return (
     <Box
@@ -100,19 +126,13 @@ const JsonDataGridCellExpand = (props: GridCellExpandProps) => {
         <Popper
           open={showFullCell && anchorEl !== null}
           anchorEl={anchorEl}
-          style={{ width, marginLeft: -17 }}
+          style={{ width }}
         >
           <Paper
             elevation={1}
             style={{ minHeight: wrapper.current!.offsetHeight - 3 }}
           >
-            <Typography variant="body2" style={{ padding: 8 }}>
-              Payload
-            </Typography>
-            <Box sx={{ pb: 1 }}>
-              <JSONTree data={JSON.parse(value)} theme={theme} invertTheme={false}/>
-            </Box>
-
+            {JSONView}
           </Paper>
         </Popper>
       )}

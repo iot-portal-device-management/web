@@ -5,7 +5,7 @@ import { AotaPayload } from '../../types/aota';
 
 export const useAota = () => {
   const submitAota = (id: string, payload: AotaPayload, { setSubmitting }: ActionsProps) => {
-    const toastId = toastHelper.loading('Submitting AOTA command. Waiting for device acknowledgement...');
+    const toastId = toastHelper.loading('Submitting AOTA command. Waiting for deviceStatus acknowledgement...');
 
     const data = { command: 'AOTA', payload: payload };
 

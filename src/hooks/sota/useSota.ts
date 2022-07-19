@@ -5,7 +5,7 @@ import { SotaPayload } from '../../types/sota';
 
 export const useSota = () => {
   const submitSota = (id: string, payload: SotaPayload, { setSubmitting }: ActionsProps) => {
-    const toastId = toastHelper.loading('Submitting SOTA command. Waiting for device acknowledgement...');
+    const toastId = toastHelper.loading('Submitting SOTA command. Waiting for deviceStatus acknowledgement...');
 
     const data = { command: 'SOTA', payload: payload };
 

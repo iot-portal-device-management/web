@@ -34,11 +34,11 @@ const aotaValidationSchema = (commandOptions: NonNullable<AotaCommandOption>[], 
     validationObject.deviceReboot = Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string()
-        .label('device reboot')
+        .label('deviceStatus reboot')
         .required()
         .oneOf(AOTA_REBOOT_OPTIONS.map(({ label }) => label))
     })
-      .label('device reboot')
+      .label('deviceStatus reboot')
       .nullable()
       .required();
   }

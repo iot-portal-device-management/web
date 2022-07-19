@@ -1,7 +1,6 @@
 import { Box, Card } from '@mui/material';
 import SubtitleCardHeader from '../SubtitleCardHeader';
 import { useState } from 'react';
-import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../types/dataGrid';
 import { useCommandHistories } from '../../hooks/commandHistory/useCommandHistories';
 import CommandHistoriesDataGrid from '../CommandHistoriesDataGrid';

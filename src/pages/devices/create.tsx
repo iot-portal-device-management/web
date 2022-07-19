@@ -15,8 +15,9 @@ import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import createDeviceValidationSchema from '../../validationSchemas/device/createDeviceValidationSchema';
-import { DeviceFormFormikValues, NullableDeviceCategoryOption } from '../../types/device';
+import { DeviceFormFormikValues } from '../../types/device';
 import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
+import { NullableDeviceCategoryOption } from '../../types/deviceCategory';
 
 const CreateDevicePage: NextPageWithLayout = () => {
   const [errors, setErrors] = useState<object | null>(null);
@@ -120,7 +121,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
 };
 
 CreateDevicePage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Create device', page);
+  return getSidebarLayout('Create deviceStatus', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

@@ -5,7 +5,7 @@ import { CotaPayload } from '../../types/cota';
 
 export const useCota = () => {
   const submitCota = (id: string, payload: CotaPayload, { setSubmitting }: ActionsProps) => {
-    const toastId = toastHelper.loading('Submitting COTA command. Waiting for device acknowledgement...');
+    const toastId = toastHelper.loading('Submitting COTA command. Waiting for deviceStatus acknowledgement...');
 
     const data = { command: 'COTA', payload: payload };
 

@@ -1,5 +1,5 @@
 import Label from '../../components/Label';
-import { DeviceStatus } from '../../types/device';
+import { DeviceStatus } from '../../types/deviceStatus';
 import { ReactNode } from 'react';
 
 export const getDeviceStatusLabel = (deviceStatus: DeviceStatus): ReactNode => {
@@ -19,7 +19,7 @@ export const getDeviceStatusLabel = (deviceStatus: DeviceStatus): ReactNode => {
     offline: {
       text: 'Offline',
       color: 'warning'
-    }
+    },
   };
 
   // @ts-ignore

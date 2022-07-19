@@ -65,7 +65,7 @@ const DeviceIndexPage: NextPageWithLayout = () => {
             <Card>
               <DataGridCreateDeleteToolbar
                 disableDelete={!selectionModel || !selectionModel.length}
-                onCreateClick={() => router.push('/device/create')}
+                onCreateClick={() => router.push('/deviceStatus/create')}
                 onDeleteClick={confirmDeleteSelectedDevices}
               />
               <Box sx={{ width: '100%' }}>

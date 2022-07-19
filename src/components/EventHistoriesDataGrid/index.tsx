@@ -12,37 +12,38 @@ import { KeyedMutator } from 'swr/dist/types';
 import { QueryOptions } from '../../types/dataGrid';
 import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 import JsonDataGridCellExpand from '../JsonDataGridCellExpand';
+import { getDeviceEventLabel } from '../../utils/deviceEvent';
 
-interface CommandHistoriesDataGridProps {
+interface EventHistoriesDataGridProps {
   queryOptions: QueryOptions
   setQueryOptions: Dispatch<SetStateAction<QueryOptions>>;
-  commandHistories: any;
-  commandHistoriesMeta: any;
-  isCommandHistoriesLoading: boolean;
-  mutateCommandHistories: KeyedMutator<any>;
+  eventHistories: any;
+  eventHistoriesMeta: any;
+  isEventHistoriesLoading: boolean;
+  mutateEventHistories: KeyedMutator<any>;
 }
 
-const CommandHistoriesDataGrid = ({
-                                    queryOptions,
-                                    setQueryOptions,
-                                    commandHistories,
-                                    commandHistoriesMeta,
-                                    isCommandHistoriesLoading,
-                                    mutateCommandHistories
-                                  }: CommandHistoriesDataGridProps) => {
+const EventHistoriesDataGrid = ({
+                                  queryOptions,
+                                  setQueryOptions,
+                                  eventHistories,
+                                  eventHistoriesMeta,
+                                  isEventHistoriesLoading,
+                                  mutateEventHistories
+                                }: EventHistoriesDataGridProps) => {
   const [totalRowCount, setTotalRowCount] = useState(0);
 
   useEffect(() => {
     setTotalRowCount((prevTotalRowCount) =>
-      commandHistoriesMeta?.total !== undefined ? commandHistoriesMeta?.total : prevTotalRowCount,
+      eventHistoriesMeta?.total !== undefined ? eventHistoriesMeta?.total : prevTotalRowCount,
     );
-  }, [commandHistoriesMeta?.total]);
+  }, [eventHistoriesMeta?.total]);
 
-  const relations = ['command'];
+  const relations = ['event'];
 
   const renderCellExpand = (params: GridRenderCellParams<string>) => {
     return (
-      <JsonDataGridCellExpand header="Payload" width={params.colDef.computedWidth} value={params.value || ''}/>
+      <JsonDataGridCellExpand header="Raw data" width={params.colDef.computedWidth} value={params.value || ''}/>
     );
   }
 
@@ -80,20 +81,16 @@ const CommandHistoriesDataGrid = ({
   const columns = useMemo<GridColumns>(() => [
     { field: 'id', hide: true, },
     {
-      field: 'payload', type: 'string', headerName: 'Payload', sortable: false, flex: 0.4,
+      field: 'rawData', type: 'string', headerName: 'Raw data', sortable: false, flex: 0.7,
       renderCell: renderCellExpand,
     },
     {
-      field: 'command', type: 'string', headerName: 'Command', flex: 0.2,
+      field: 'event', type: 'string', headerName: 'Event', flex: 0.1, align: 'right',
       renderCell: (params: GridRenderCellParams) => (
         <>
-          {params.value.name}
+          {getDeviceEventLabel(params.value.name)}
         </>
       ),
-    },
-    {
-      field: 'respondedAt', type: 'dateTime', headerName: 'Responded at', filterable: false, flex: 0.2,
-      valueGetter: ({ value }) => value && new Date(value),
     },
     {
       field: 'createdAt', type: 'dateTime', headerName: 'Created at', filterable: false, flex: 0.2,
@@ -106,9 +103,9 @@ const CommandHistoriesDataGrid = ({
       <DataGrid
         autoHeight
         keepNonExistentRowsSelected
-        loading={isCommandHistoriesLoading}
+        loading={isEventHistoriesLoading}
         columns={columns}
-        rows={(commandHistories ?? []) as GridRowsProp}
+        rows={(eventHistories ?? []) as GridRowsProp}
         rowCount={totalRowCount}
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
@@ -133,4 +130,4 @@ const CommandHistoriesDataGrid = ({
   );
 };
 
-export default CommandHistoriesDataGrid;
+export default EventHistoriesDataGrid;

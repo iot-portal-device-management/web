@@ -5,7 +5,7 @@ import { FotaPayload } from '../../types/fota';
 
 export const useFota = () => {
   const submitFota = (id: string, payload: FotaPayload, { setSubmitting }: ActionsProps) => {
-    const toastId = toastHelper.loading('Submitting FOTA command. Waiting for device acknowledgement...');
+    const toastId = toastHelper.loading('Submitting FOTA command. Waiting for deviceStatus acknowledgement...');
 
     const data = { command: 'FOTA', payload: payload };
 

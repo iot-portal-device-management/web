@@ -1,9 +1,4 @@
-import { DeviceCategoryOption } from '../deviceCategory';
-import { Nullable } from '../../libs/utilityTypes';
-
-export type DeviceStatus = 'registered' | 'online' | 'offline';
-
-export type NullableDeviceCategoryOption = Nullable<DeviceCategoryOption>;
+import { NullableDeviceCategoryOption } from '../deviceCategory';
 
 export interface DeviceFormFormikValues {
   name: string;
