@@ -121,7 +121,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
 };
 
 CreateDevicePage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Create deviceStatus', page);
+  return getSidebarLayout('Create device', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

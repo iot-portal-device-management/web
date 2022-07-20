@@ -132,7 +132,7 @@ const EditDevicePage: NextPageWithLayout = () => {
 };
 
 EditDevicePage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Edit deviceStatus', page);
+  return getSidebarLayout('Edit device', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({

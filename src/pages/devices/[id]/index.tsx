@@ -173,7 +173,7 @@ const ViewDevicePage = () => {
 };
 
 ViewDevicePage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('View deviceStatus', page);
+  return getSidebarLayout('View device', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
