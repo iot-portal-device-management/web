@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import axios from '../libs/axios';
+import axios from '../../libs/axios';
 
 interface Parameters {
   name?: string;

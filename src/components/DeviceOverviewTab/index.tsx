@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import Text from '../Text';
+import LargeCardHeader from '../LargeCardHeader';
 
 interface DeviceOverviewTabProps {
   device: any;
@@ -20,44 +21,35 @@ const DeviceOverviewTab = ({ device }: DeviceOverviewTabProps) => {
   ];
 
   return (
-    <Card>
-      <Box
-        p={3}
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Box>
-          <Typography variant="h4" gutterBottom>
-            Device overview
-          </Typography>
+    <Grid item xs={12}>
+      <Card>
+        <LargeCardHeader
+          title="Device overview"
+          subheader="Summary of device information"
+        />
+        <Divider/>
+        <CardContent sx={{ p: 4 }}>
           <Typography variant="subtitle2">
-            Summary of device information
+            <Grid container spacing={0}>
+              {deviceInformationList.map((deviceInformation) => ((
+                <Fragment key={deviceInformation.property}>
+                  <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>
+                    <Box pr={3} pb={2}>
+                      {deviceInformation.label}:
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={8} md={9}>
+                    <Text color="black">
+                      <b>{device?.[deviceInformation.property]}</b>
+                    </Text>
+                  </Grid>
+                </Fragment>
+              )))}
+            </Grid>
           </Typography>
-        </Box>
-      </Box>
-      <Divider/>
-      <CardContent sx={{ p: 4 }}>
-        <Typography variant="subtitle2">
-          <Grid container spacing={0}>
-            {deviceInformationList.map((deviceInformation) => ((
-              <Fragment key={deviceInformation.property}>
-                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>
-                  <Box pr={3} pb={2}>
-                    {deviceInformation.label}:
-                  </Box>
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Text color="black">
-                    <b>{device?.[deviceInformation.property]}</b>
-                  </Text>
-                </Grid>
-              </Fragment>
-            )))}
-          </Grid>
-        </Typography>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 

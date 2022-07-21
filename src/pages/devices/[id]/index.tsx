@@ -35,6 +35,7 @@ import DeviceSotaTab from '../../../components/DeviceSotaTab';
 import DeviceCotaTab from '../../../components/DeviceCotaTab';
 import DeviceCommandHistoriesTab from '../../../components/DeviceCommandHistoriesTab';
 import DeviceEventHistoriesTab from '../../../components/DeviceEventHistoriesTab';
+import DeviceMetricsTab from '../../../components/DeviceMetricsTab';
 
 const TabsWrapper = styled(Tabs)(
   () => `
@@ -155,15 +156,14 @@ const ViewDevicePage = () => {
               ))}
             </TabsWrapper>
           </Grid>
-          <Grid item xs={12}>
-            {currentTab === 'overview' && <DeviceOverviewTab device={device}/>}
-            {currentTab === 'aota' && <DeviceAotaTab deviceId={deviceId}/>}
-            {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
-            {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
-            {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
-            {currentTab === 'command-histories' && <DeviceCommandHistoriesTab deviceId={deviceId}/>}
-            {currentTab === 'event-histories' && <DeviceEventHistoriesTab deviceId={deviceId}/>}
-          </Grid>
+          {currentTab === 'overview' && <DeviceOverviewTab device={device}/>}
+          {currentTab === 'metrics' && <DeviceMetricsTab deviceId={deviceId}/>}
+          {currentTab === 'aota' && <DeviceAotaTab deviceId={deviceId}/>}
+          {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
+          {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
+          {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
+          {currentTab === 'command-histories' && <DeviceCommandHistoriesTab deviceId={deviceId}/>}
+          {currentTab === 'event-histories' && <DeviceEventHistoriesTab deviceId={deviceId}/>}
         </Grid>
       </Container>
       <Footer/>

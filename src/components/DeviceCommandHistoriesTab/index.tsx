@@ -1,5 +1,5 @@
-import { Box, Card } from '@mui/material';
-import SubtitleCardHeader from '../SubtitleCardHeader';
+import { Box, Card, Grid } from '@mui/material';
+import LargeCardHeader from '../LargeCardHeader';
 import { useState } from 'react';
 import { QueryOptions } from '../../types/dataGrid';
 import { useCommandHistories } from '../../hooks/commandHistory/useCommandHistories';
@@ -28,22 +28,24 @@ const DeviceCommandHistoriesTab = ({ deviceId }: DeviceCommandHistoriesTabProps)
   });
 
   return (
-    <Card>
-      <SubtitleCardHeader
-        title="Command Histories"
-        subheader="Commands that you have triggered in the past"
-      />
-      <Box sx={{ width: '100%' }}>
-        <CommandHistoriesDataGrid
-          queryOptions={queryOptions}
-          setQueryOptions={setQueryOptions}
-          commandHistories={commandHistories}
-          commandHistoriesMeta={commandHistoriesMeta}
-          isCommandHistoriesLoading={isCommandHistoriesLoading}
-          mutateCommandHistories={mutateCommandHistories}
+    <Grid item xs={12}>
+      <Card>
+        <LargeCardHeader
+          title="Command Histories"
+          subheader="Commands that you have triggered in the past"
         />
-      </Box>
-    </Card>
+        <Box sx={{ width: '100%' }}>
+          <CommandHistoriesDataGrid
+            queryOptions={queryOptions}
+            setQueryOptions={setQueryOptions}
+            commandHistories={commandHistories}
+            commandHistoriesMeta={commandHistoriesMeta}
+            isCommandHistoriesLoading={isCommandHistoriesLoading}
+            mutateCommandHistories={mutateCommandHistories}
+          />
+        </Box>
+      </Card>
+    </Grid>
   );
 };
 

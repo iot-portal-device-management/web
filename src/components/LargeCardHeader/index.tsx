@@ -1,11 +1,13 @@
 import { Box, Typography } from '@mui/material';
+import { ReactNode } from 'react';
 
 interface SubtitleCardHeaderProps {
   title: string;
-  subheader: string;
+  subheader?: string;
+  action?: ReactNode
 }
 
-const SubtitleCardHeader = ({ title, subheader }: SubtitleCardHeaderProps) => {
+const LargeCardHeader = ({ title, subheader, action }: SubtitleCardHeaderProps) => {
   return (
     <Box
       p={3}
@@ -25,8 +27,9 @@ const SubtitleCardHeader = ({ title, subheader }: SubtitleCardHeaderProps) => {
           </Typography>
         )}
       </Box>
+      {action && action}
     </Box>
   );
 };
 
-export default SubtitleCardHeader;
+export default LargeCardHeader;

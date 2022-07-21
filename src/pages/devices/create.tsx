@@ -5,7 +5,7 @@ import { Box, Card, CardActions, CardContent, CardHeader, Container, Divider, Gr
 import Footer from '../../components/Footer';
 import { NextPageWithLayout } from '../_app';
 import { getSidebarLayout } from '../../layouts';
-import { useDeviceCategoryOptions } from '../../hooks/useDeviceCategoryOptions';
+import { useDeviceCategoryOptions } from '../../hooks/deviceCategory/useDeviceCategoryOptions';
 import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../components/FullWidthTextField';
 import { DeviceData, useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';

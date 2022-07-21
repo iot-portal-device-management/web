@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { Box, Card, CardActions, CardContent, Divider } from '@mui/material';
-import SubtitleCardHeader from '../SubtitleCardHeader';
+import { Box, Card, CardActions, CardContent, Divider, Grid } from '@mui/material';
+import LargeCardHeader from '../LargeCardHeader';
 import { Formik, FormikProps } from 'formik';
 import FullWidthAutoComplete from '../FullWidthAutoComplete';
 import { LoadingButton } from '@mui/lab';
@@ -55,163 +55,168 @@ const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
   const validationSchema = aotaValidationSchema(AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as AotaAppOptionValue ?? 'docker'], fieldsHidden);
 
   return (
-    <Card>
-      <SubtitleCardHeader title="Application OTA update" subheader="Trigger application OTA update for device"/>
-      <Divider/>
-      <Formik
-        innerRef={formRef}
-        enableReinitialize={true}
-        initialValues={{
-          app: null,
-          cmd: null,
-          containerTag: '',
-          deviceReboot: null,
-          fetch: '',
-          signature: '',
-          version: '',
-          username: '',
-          password: '',
-          dockerRegistry: '',
-          dockerUsername: '',
-          dockerPassword: '',
-          file: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          submitAota(deviceId, sanitizeFormValues(values), { setSubmitting });
-        }}
-      >
-        {({ handleSubmit, isSubmitting }: FormikProps<AotaFormFormikValues>) => (
-          <>
-            <CardContent>
-              <Box
-                component="form"
-                sx={{ p: 1 }}
-                noValidate
-                autoComplete="off"
-              >
-                <FullWidthAutoComplete
-                  required
-                  id="app"
-                  name="app"
-                  label="Application"
-                  placeholder="Choose your application"
-                  options={AOTA_APP_OPTIONS}
-                  optionChangeCallback={updateFormFields}
-                  hidden={fieldsHidden.app}
-                />
-                <FullWidthAutoComplete
-                  required
-                  id="cmd"
-                  name="cmd"
-                  label="Command"
-                  placeholder="Enter your command"
-                  options={AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as AotaAppOptionValue ?? 'docker']}
-                  optionChangeCallback={updateFormFields}
-                  hidden={fieldsHidden.cmd}
-                />
-                <FullWidthTextField
-                  required
-                  id="containerTag"
-                  name="containerTag"
-                  label="Container tag"
-                  placeholder="Enter container tag"
-                  hidden={fieldsHidden.containerTag}
-                />
-                <FullWidthAutoComplete
-                  required
-                  id="deviceReboot"
-                  name="deviceReboot"
-                  label="Device reboot"
-                  placeholder="Choose device reboot"
-                  options={AOTA_REBOOT_OPTIONS}
-                  hidden={fieldsHidden.deviceReboot}
-                />
-                <FullWidthTextField
-                  required
-                  id="fetch"
-                  name="fetch"
-                  label="Fetch link"
-                  placeholder="Enter fetch link"
-                  hidden={fieldsHidden.fetch}
-                />
-                <FullWidthTextField
-                  required
-                  id="signature"
-                  name="signature"
-                  label="Signature"
-                  placeholder="Enter signature"
-                  hidden={fieldsHidden.signature}
-                />
-                <FullWidthTextField
-                  {...((formRef.current?.values.app?.value === 'docker'
-                    && formRef.current?.values.cmd?.value === 'remove')
-                    && { required: true })}
-                  id="version"
-                  name="version"
-                  label="Version"
-                  placeholder="Enter version"
-                  hidden={fieldsHidden.version}
-                />
-                <FullWidthTextField
-                  id="username"
-                  name="username"
-                  label="Server username"
-                  placeholder="Enter server username"
-                  hidden={fieldsHidden.username}
-                />
-                <FullWidthTextField
-                  id="password"
-                  name="password"
-                  label="Server password"
-                  placeholder="Enter server password"
-                  hidden={fieldsHidden.password}
-                />
-                <FullWidthTextField
-                  id="dockerRegistry"
-                  name="dockerRegistry"
-                  label="Docker registry"
-                  placeholder="Enter Docker registry"
-                  hidden={fieldsHidden.dockerRegistry}
-                />
-                <FullWidthTextField
-                  id="dockerUsername"
-                  name="dockerUsername"
-                  label="Docker username"
-                  placeholder="Enter Docker username"
-                  hidden={fieldsHidden.dockerUsername}
-                />
-                <FullWidthTextField
-                  id="dockerPassword"
-                  name="dockerPassword"
-                  label="Docker password"
-                  placeholder="Enter Docker password"
-                  hidden={fieldsHidden.dockerPassword}
-                />
-                <FullWidthTextField
-                  id="file"
-                  name="file"
-                  label="Docker compose file"
-                  placeholder="Enter Docker Compose file"
-                  hidden={fieldsHidden.file}
-                />
-              </Box>
-            </CardContent>
-            <Divider/>
-            <CardActions>
-              <LoadingButton
-                sx={{ m: 1 }}
-                variant="contained"
-                loading={isSubmitting}
-                onClick={() => handleSubmit()}
-              >
-                Submit
-              </LoadingButton>
-            </CardActions>
-          </>
-        )}
-      </Formik>
-    </Card>
+    <Grid item xs={12}>
+      <Card>
+        <LargeCardHeader
+          title="Application OTA update"
+          subheader="Trigger application OTA update for device"
+        />
+        <Divider/>
+        <Formik
+          innerRef={formRef}
+          enableReinitialize={true}
+          initialValues={{
+            app: null,
+            cmd: null,
+            containerTag: '',
+            deviceReboot: null,
+            fetch: '',
+            signature: '',
+            version: '',
+            username: '',
+            password: '',
+            dockerRegistry: '',
+            dockerUsername: '',
+            dockerPassword: '',
+            file: '',
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values, { setSubmitting }) => {
+            submitAota(deviceId, sanitizeFormValues(values), { setSubmitting });
+          }}
+        >
+          {({ handleSubmit, isSubmitting }: FormikProps<AotaFormFormikValues>) => (
+            <>
+              <CardContent>
+                <Box
+                  component="form"
+                  sx={{ p: 1 }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <FullWidthAutoComplete
+                    required
+                    id="app"
+                    name="app"
+                    label="Application"
+                    placeholder="Choose your application"
+                    options={AOTA_APP_OPTIONS}
+                    optionChangeCallback={updateFormFields}
+                    hidden={fieldsHidden.app}
+                  />
+                  <FullWidthAutoComplete
+                    required
+                    id="cmd"
+                    name="cmd"
+                    label="Command"
+                    placeholder="Enter your command"
+                    options={AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as AotaAppOptionValue ?? 'docker']}
+                    optionChangeCallback={updateFormFields}
+                    hidden={fieldsHidden.cmd}
+                  />
+                  <FullWidthTextField
+                    required
+                    id="containerTag"
+                    name="containerTag"
+                    label="Container tag"
+                    placeholder="Enter container tag"
+                    hidden={fieldsHidden.containerTag}
+                  />
+                  <FullWidthAutoComplete
+                    required
+                    id="deviceReboot"
+                    name="deviceReboot"
+                    label="Device reboot"
+                    placeholder="Choose device reboot"
+                    options={AOTA_REBOOT_OPTIONS}
+                    hidden={fieldsHidden.deviceReboot}
+                  />
+                  <FullWidthTextField
+                    required
+                    id="fetch"
+                    name="fetch"
+                    label="Fetch link"
+                    placeholder="Enter fetch link"
+                    hidden={fieldsHidden.fetch}
+                  />
+                  <FullWidthTextField
+                    required
+                    id="signature"
+                    name="signature"
+                    label="Signature"
+                    placeholder="Enter signature"
+                    hidden={fieldsHidden.signature}
+                  />
+                  <FullWidthTextField
+                    {...((formRef.current?.values.app?.value === 'docker'
+                      && formRef.current?.values.cmd?.value === 'remove')
+                      && { required: true })}
+                    id="version"
+                    name="version"
+                    label="Version"
+                    placeholder="Enter version"
+                    hidden={fieldsHidden.version}
+                  />
+                  <FullWidthTextField
+                    id="username"
+                    name="username"
+                    label="Server username"
+                    placeholder="Enter server username"
+                    hidden={fieldsHidden.username}
+                  />
+                  <FullWidthTextField
+                    id="password"
+                    name="password"
+                    label="Server password"
+                    placeholder="Enter server password"
+                    hidden={fieldsHidden.password}
+                  />
+                  <FullWidthTextField
+                    id="dockerRegistry"
+                    name="dockerRegistry"
+                    label="Docker registry"
+                    placeholder="Enter Docker registry"
+                    hidden={fieldsHidden.dockerRegistry}
+                  />
+                  <FullWidthTextField
+                    id="dockerUsername"
+                    name="dockerUsername"
+                    label="Docker username"
+                    placeholder="Enter Docker username"
+                    hidden={fieldsHidden.dockerUsername}
+                  />
+                  <FullWidthTextField
+                    id="dockerPassword"
+                    name="dockerPassword"
+                    label="Docker password"
+                    placeholder="Enter Docker password"
+                    hidden={fieldsHidden.dockerPassword}
+                  />
+                  <FullWidthTextField
+                    id="file"
+                    name="file"
+                    label="Docker compose file"
+                    placeholder="Enter Docker Compose file"
+                    hidden={fieldsHidden.file}
+                  />
+                </Box>
+              </CardContent>
+              <Divider/>
+              <CardActions>
+                <LoadingButton
+                  sx={{ m: 1 }}
+                  variant="contained"
+                  loading={isSubmitting}
+                  onClick={() => handleSubmit()}
+                >
+                  Submit
+                </LoadingButton>
+              </CardActions>
+            </>
+          )}
+        </Formik>
+      </Card>
+    </Grid>
   );
 };
 

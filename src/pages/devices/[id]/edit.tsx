@@ -6,7 +6,7 @@ import Footer from '../../../components/Footer';
 import Box from '@mui/material/Box';
 import { NextPageWithLayout } from '../../_app';
 import { getSidebarLayout } from '../../../layouts';
-import { useDeviceCategoryOptions } from '../../../hooks/useDeviceCategoryOptions';
+import { useDeviceCategoryOptions } from '../../../hooks/deviceCategory/useDeviceCategoryOptions';
 import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../../components/FullWidthTextField';
 import FullWidthAutoComplete from '../../../components/FullWidthAutoComplete';
