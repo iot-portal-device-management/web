@@ -9,23 +9,22 @@ interface DeviceMetricsTabProps {
 }
 
 const DeviceMetricsTab = ({ deviceId }: DeviceMetricsTabProps) => {
-    return (
-      <>
-        <Grid item xs={12}>
-          <DeviceMetricCpuTemperaturesChartCard deviceId={deviceId}/>
-        </Grid>
-        <Grid item xs={12}>
-          <DeviceMetricCpuUsagesChartCard deviceId={deviceId}/>
-        </Grid>
-        <Grid item xs={12}>
-          <DeviceMetricDiskUsagesChartCard deviceId={deviceId}/>
-        </Grid>
-        <Grid item xs={12}>
-          <DeviceMetricAvailableMemoriesChartCard deviceId={deviceId}/>
-        </Grid>
-      </>
-    );
-  }
-;
+  return (
+    <>
+      <Grid item xs={12}>
+        <DeviceMetricCpuTemperaturesChartCard deviceId={deviceId}/>
+      </Grid>
+      <Grid item xs={12}>
+        <DeviceMetricCpuUsagesChartCard deviceId={deviceId}/>
+      </Grid>
+      <Grid item xs={12}>
+        <DeviceMetricDiskUsagesChartCard deviceId={deviceId}/>
+      </Grid>
+      <Grid item xs={12}>
+        <DeviceMetricAvailableMemoriesChartCard deviceId={deviceId}/>
+      </Grid>
+    </>
+  );
+};
 
 export default DeviceMetricsTab;
