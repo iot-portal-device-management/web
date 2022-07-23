@@ -1,18 +1,9 @@
-import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
-import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
-import MmsTwoToneIcon from '@mui/icons-material/MmsTwoTone';
-import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
-import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
-import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
-import BeachAccessTwoToneIcon from '@mui/icons-material/BeachAccessTwoTone';
-import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
-import FilterVintageTwoToneIcon from '@mui/icons-material/FilterVintageTwoTone';
-import HowToVoteTwoToneIcon from '@mui/icons-material/HowToVoteTwoTone';
-import LocalPharmacyTwoToneIcon from '@mui/icons-material/LocalPharmacyTwoTone';
-import RedeemTwoToneIcon from '@mui/icons-material/RedeemTwoTone';
-import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
-import TrafficTwoToneIcon from '@mui/icons-material/TrafficTwoTone';
+import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
 import VerifiedUserTwoToneIcon from '@mui/icons-material/VerifiedUserTwoTone';
+import DevicesTwoToneIcon from '@mui/icons-material/DevicesTwoTone';
+import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import CategoryTwoToneIcon from '@mui/icons-material/CategoryTwoTone';
+import WorkTwoToneIcon from '@mui/icons-material/WorkTwoTone';
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { SvgIconTypeMap } from "@mui/material/SvgIcon/SvgIcon";
 
@@ -34,125 +25,92 @@ const menuItems: MenuItems[] = [
     heading: '',
     items: [
       {
-        name: 'Overview',
-        link: '/overview',
-        icon: DesignServicesTwoToneIcon
+        name: 'Dashboard',
+        link: '/',
+        icon: DashboardTwoToneIcon
       }
     ]
   },
   {
-    heading: 'Dashboards',
+    heading: 'Device Management',
     items: [
       {
-        name: 'Crypto',
-        link: '/dashboards/crypto',
-        icon: BrightnessLowTwoToneIcon
-      },
-      {
-        name: 'Messenger',
-        icon: MmsTwoToneIcon,
-        link: '/dashboards/messenger'
-      },
-    ]
-  },
-  {
-    heading: 'Management',
-    items: [
-      {
-        name: 'Transactions',
-        icon: TableChartTwoToneIcon,
-        link: '/management/transactions'
-      },
-      {
-        name: 'User Profile',
-        icon: AccountCircleTwoToneIcon,
-        link: '/management/profile',
+        name: 'Devices',
+        icon: DevicesTwoToneIcon,
+        link: '/devices',
         items: [
           {
-            name: 'Profile Details',
-            link: '/management/profile/details'
+            name: 'Devices',
+            link: '/devices'
           },
           {
-            name: 'User Settings',
-            link: '/management/profile/settings'
+            name: 'Create Device',
+            link: '/devices/create'
+          }
+        ]
+      },
+      {
+        name: 'Device Groups',
+        icon: AccountTreeTwoToneIcon,
+        link: '/device/groups',
+        items: [
+          {
+            name: 'Devices Groups',
+            link: '/device/groups'
+          },
+          {
+            name: 'Create Device Group',
+            link: '/device/groups/create'
+          }
+        ]
+      },
+      {
+        name: 'Device Categories',
+        icon: CategoryTwoToneIcon,
+        link: '/device/categories',
+        items: [
+          {
+            name: 'Devices Categories',
+            link: '/device/categories'
+          },
+          {
+            name: 'Create Device Category',
+            link: '/device/categories/create'
+          }
+        ]
+      },
+      {
+        name: 'Device Jobs',
+        icon: WorkTwoToneIcon,
+        link: '/device/jobs',
+        items: [
+          {
+            name: 'Devices Jobs',
+            link: '/device/jobs'
+          },
+          {
+            name: 'Create Device Job',
+            link: '/device/jobs/create'
           }
         ]
       }
     ]
   },
   {
-    heading: 'Components',
+    heading: 'Commands',
     items: [
       {
-        name: 'Buttons',
-        icon: BallotTwoToneIcon,
-        link: '/components/buttons'
-      },
-      {
-        name: 'Modals',
-        icon: BeachAccessTwoToneIcon,
-        link: '/components/modals'
-      },
-      {
-        name: 'Accordions',
-        icon: EmojiEventsTwoToneIcon,
-        link: '/components/accordions'
-      },
-      {
-        name: 'Tabs',
-        icon: FilterVintageTwoToneIcon,
-        link: '/components/tabs'
-      },
-      {
-        name: 'Badges',
-        icon: HowToVoteTwoToneIcon,
-        link: '/components/badges'
-      },
-      {
-        name: 'Tooltips',
-        icon: LocalPharmacyTwoToneIcon,
-        link: '/components/tooltips'
-      },
-      {
-        name: 'Avatars',
-        icon: RedeemTwoToneIcon,
-        link: '/components/avatars'
-      },
-      {
-        name: 'Cards',
-        icon: SettingsTwoToneIcon,
-        link: '/components/cards'
-      },
-      {
-        name: 'Forms',
-        icon: TrafficTwoToneIcon,
-        link: '/components/forms'
-      },
-    ]
-  },
-  {
-    heading: 'Extra Pages',
-    items: [
-      {
-        name: 'Status',
+        name: 'Saved Commands',
         icon: VerifiedUserTwoToneIcon,
-        link: '/status',
+        link: '/commands/saved',
         items: [
           {
-            name: 'Error 404',
-            link: '/status/404'
+            name: 'Saved Commands',
+            link: '/commands/saved'
           },
           {
-            name: 'Error 500',
-            link: '/status/500'
-          },
-          {
-            name: 'Maintenance',
-            link: '/status/maintenance'
-          },
-          {
-            name: 'Coming Soon',
-            link: '/status/coming-soon'
+            name: 'Create Saved Command',
+            link: '/commands/saved/create'
           }
         ]
       }

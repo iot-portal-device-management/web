@@ -1,16 +1,8 @@
 import axios from '../../libs/axios';
 import { useRouter } from 'next/router';
 import toastHelper from '../../libs/toastHelper';
-import { Dispatch, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr/dist/types';
-
-type SetErrors = Dispatch<SetStateAction<object | null>>;
-type SetSubmitting = (isSubmitting: boolean) => void;
-
-interface ActionsProps {
-  setErrors: SetErrors;
-  setSubmitting: SetSubmitting;
-}
+import { ActionsProps } from '../../types/formik';
 
 export interface DeviceData {
   name: string;
@@ -38,7 +30,9 @@ export const useDeviceCRUD = () => {
         if (error.response.status !== 422)
           throw error;
 
-        setErrors(error.response.data.errors);
+        if (setErrors) {
+          setErrors(error.response.data.errors);
+        }
       })
       .finally(() => setSubmitting(false));
   };
@@ -64,7 +58,9 @@ export const useDeviceCRUD = () => {
         if (error.response.status !== 422)
           throw error;
 
-        setErrors(error.response.data.errors);
+        if (setErrors) {
+          setErrors(error.response.data.errors);
+        }
       })
       .finally(() => setSubmitting(false));
   };
@@ -72,7 +68,7 @@ export const useDeviceCRUD = () => {
   const deleteDevices = (ids: string[], redirectToListing: boolean = false, mutate: KeyedMutator<any>) => {
     const data = { ids: ids };
 
-    const toastId = toastHelper.loading('Deleting deviceStatus');
+    const toastId = toastHelper.loading('Deleting devices');
 
     return axios
       .delete('/api/devices', { data })
