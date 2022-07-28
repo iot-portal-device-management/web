@@ -11,7 +11,6 @@ import FullWidthTextField from '../../../components/FullWidthTextField';
 import FullWidthAutoComplete from '../../../components/FullWidthAutoComplete';
 import { DeviceData, useDeviceCRUD } from '../../../hooks/device/useDeviceCRUD';
 import { sanitizeOptions } from '../../../utils/utils';
-import { LoadingButton } from '@mui/lab';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
@@ -19,6 +18,7 @@ import { useRouter } from 'next/router';
 import { useDevice } from '../../../hooks/device/useDevice';
 import editDeviceValidationSchema from '../../../validationSchemas/device/editDeviceValidationSchema';
 import { EditDeviceFormFormikValues } from '../../../types/device';
+import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
 
 const EditDevicePage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -105,14 +105,12 @@ const EditDevicePage: NextPageWithLayout = () => {
                     </CardContent>
                     <Divider/>
                     <CardActions>
-                      <LoadingButton
-                        sx={{ m: 1 }}
-                        variant="contained"
+                      <CardActionsLoadingButton
                         loading={isSubmitting}
                         onClick={() => handleSubmit()}
                       >
                         Update
-                      </LoadingButton>
+                      </CardActionsLoadingButton>
                     </CardActions>
                   </>
                 )}

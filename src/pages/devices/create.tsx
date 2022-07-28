@@ -10,7 +10,6 @@ import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../components/FullWidthTextField';
 import { DeviceData, useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { sanitizeOptions } from '../../utils/utils';
-import { LoadingButton } from '@mui/lab';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
@@ -18,6 +17,7 @@ import createDeviceValidationSchema from '../../validationSchemas/device/createD
 import { CreateDeviceFormFormikValues } from '../../types/device';
 import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
 import { NullableDeviceCategoryOption } from '../../types/deviceCategory';
+import CardActionsLoadingButton from '../../components/CardActionsLoadingButton';
 
 const CreateDevicePage: NextPageWithLayout = () => {
   const [deviceCategoryInputValue, setDeviceCategoryInputValue] = useState('');
@@ -96,14 +96,12 @@ const CreateDevicePage: NextPageWithLayout = () => {
                     </CardContent>
                     <Divider/>
                     <CardActions>
-                      <LoadingButton
-                        sx={{ m: 1 }}
-                        variant="contained"
+                      <CardActionsLoadingButton
                         loading={isSubmitting}
                         onClick={() => handleSubmit()}
                       >
                         Create
-                      </LoadingButton>
+                      </CardActionsLoadingButton>
                     </CardActions>
                   </>
                 )}
