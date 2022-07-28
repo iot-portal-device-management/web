@@ -16,7 +16,7 @@ const aotaValidationSchema = (commandOptions: NonNullable<AotaCommandOption>[], 
       .label('application')
       .nullable()
       .required(),
-    command: Yup.object().shape({
+    cmd: Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string()
         .label('command')

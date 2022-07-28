@@ -36,6 +36,7 @@ import DeviceCotaTab from '../../../components/DeviceCotaTab';
 import DeviceCommandHistoriesTab from '../../../components/DeviceCommandHistoriesTab';
 import DeviceEventHistoriesTab from '../../../components/DeviceEventHistoriesTab';
 import DeviceMetricsTab from '../../../components/DeviceMetricsTab';
+import LargeCardHeader from '../../../components/LargeCardHeader';
 
 const TabsWrapper = styled(Tabs)(
   () => `
@@ -91,21 +92,10 @@ const ViewDevicePage = () => {
         >
           <Grid item xs={12}>
             <Card>
-              <Box
-                p={3}
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Box>
-                  <Typography variant="h4" gutterBottom>
-                    Power controls
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    Control the power state of your device
-                  </Typography>
-                </Box>
-              </Box>
+              <LargeCardHeader
+                title="Power controls"
+                subheader="Control the power state of your device"
+              />
               <Divider/>
               <CardContent>
                 <Grid container p={3} spacing={2}>

@@ -3,68 +3,62 @@ import {
   GridActionsCellItem,
   GridColumns,
   GridFilterModel,
-  GridRenderCellParams,
   GridRowModel,
   GridRowParams,
   GridRowsProp,
   GridSelectionModel,
   GridSortModel,
-  GridToolbar,
-  GridValueFormatterParams
+  GridToolbar
 } from '@mui/x-data-grid';
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { KeyedMutator } from 'swr/dist/types';
-import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import ConnectDeviceDialog from '../ConnectDeviceDialog';
-import DeleteDeviceAlertDialog from '../DeleteDeviceAlertDialog';
-import { useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { QueryOptions } from '../../types/dataGrid';
-import { getDeviceStatusLabel } from '../../utils/deviceStatus';
 import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
+import { useDeviceGroupCRUD } from '../../hooks/deviceGroup/useDeviceGroupCRUD';
+import DeleteDeviceGroupAlertDialog from '../DeleteDeviceGroupAlertDialog';
 
-interface DevicesDataGridProps {
+interface DeviceGroupsDataGridProps {
   selectionModel: GridSelectionModel;
   setSelectionModel: Dispatch<SetStateAction<GridSelectionModel>>;
   queryOptions: QueryOptions
   setQueryOptions: Dispatch<SetStateAction<QueryOptions>>;
-  devices: any;
-  devicesMeta: any;
-  isDevicesLoading: boolean;
-  mutateDevices: KeyedMutator<any>;
+  deviceGroups: any;
+  deviceGroupsMeta: any;
+  isDeviceGroupsLoading: boolean;
+  mutateDeviceGroups: KeyedMutator<any>;
   hideActionsColumn?: boolean
 }
 
-const DevicesDataGrid = ({
-                           selectionModel,
-                           setSelectionModel,
-                           queryOptions,
-                           setQueryOptions,
-                           devices,
-                           devicesMeta,
-                           isDevicesLoading,
-                           mutateDevices,
-                           hideActionsColumn = undefined
-                         }: DevicesDataGridProps) => {
+const DeviceGroupsDataGrid = ({
+                                selectionModel,
+                                setSelectionModel,
+                                queryOptions,
+                                setQueryOptions,
+                                deviceGroups,
+                                deviceGroupsMeta,
+                                isDeviceGroupsLoading,
+                                mutateDeviceGroups,
+                                hideActionsColumn = undefined
+                              }: DeviceGroupsDataGridProps) => {
   const router = useRouter();
 
   const [totalRowCount, setTotalRowCount] = useState(0);
-  const [device, setDevice] = useState<GridRowModel>(null);
-  const [openConnectDeviceAlertDialog, setOpenConnectDeviceAlertDialog] = useState(false);
-  const [openDeleteDeviceAlertDialog, setOpenDeleteDeviceAlertDialog] = useState(false);
+  const [deviceGroup, setDeviceGroup] = useState<GridRowModel>(null);
+  const [openDeleteDeviceGroupAlertDialog, setOpenDeleteDeviceGroupAlertDialog] = useState(false);
 
-  const { deleteDevices } = useDeviceCRUD();
+  const { deleteDeviceGroups } = useDeviceGroupCRUD();
 
   useEffect(() => {
     setTotalRowCount((prevTotalRowCount) =>
-      devicesMeta?.total !== undefined ? devicesMeta?.total : prevTotalRowCount,
+      deviceGroupsMeta?.total !== undefined ? deviceGroupsMeta?.total : prevTotalRowCount,
     );
-  }, [devicesMeta?.total]);
+  }, [deviceGroupsMeta?.total]);
 
-  const relations = ['deviceCategory', 'deviceStatus'];
+  const relations: string[] = [];
 
   const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
     const sortModelFieldMapper = (sortModel: GridSortModel) => sortModel.map(sortField => {
@@ -101,65 +95,38 @@ const DevicesDataGrid = ({
     setQueryOptions({ ...queryOptions, pageSize: pageSize });
   }, [queryOptions]);
 
-  const handleClickConnectDevice = useCallback((row: GridRowModel) =>
+  const confirmDeleteDeviceGroup = useCallback((row: GridRowModel) =>
     () => {
-      setDevice(row);
-      setOpenConnectDeviceAlertDialog(true);
+      setDeviceGroup(row);
+      setOpenDeleteDeviceGroupAlertDialog(true);
     }, []);
 
-  const confirmDeleteDevice = useCallback((row: GridRowModel) =>
-    () => {
-      setDevice(row);
-      setOpenDeleteDeviceAlertDialog(true);
-    }, []);
-
-  const deleteDevice = useCallback(() => {
-    deleteDevices([device?.id], false, mutateDevices);
-    setOpenDeleteDeviceAlertDialog(false);
-    setDevice(null);
-  }, [device?.id, mutateDevices]);
+  const deleteDeviceGroup = useCallback(() => {
+    deleteDeviceGroups([deviceGroup?.id], false, mutateDeviceGroups);
+    setOpenDeleteDeviceGroupAlertDialog(false);
+    setDeviceGroup(null);
+  }, [deviceGroup?.id, mutateDeviceGroups]);
 
   const columns = useMemo<GridColumns>(() => [
-    { field: 'id', type: 'string', headerName: 'Device ID', hide: true, },
-    { field: 'name', type: 'string', headerName: 'Device name', flex: 0.3, },
-    { field: 'biosVendor', type: 'string', headerName: 'BIOS vendor', flex: 0.2, },
-    { field: 'biosVersion', type: 'string', headerName: 'BIOS version', flex: 0.1, },
-    {
-      field: 'deviceCategory', headerName: 'Device category', flex: 0.2,
-      valueFormatter: (params: GridValueFormatterParams) => params.value.name
-    },
-    {
-      field: 'deviceStatus', headerName: 'Device status', flex: 0.1, align: 'right',
-      renderCell: (params: GridRenderCellParams) => (
-        <>
-          {getDeviceStatusLabel(params.value.name)}
-        </>
-      )
-    },
+    { field: 'id', type: 'string', headerName: 'Device group ID', hide: true, },
+    { field: 'name', type: 'string', headerName: 'Device group name', flex: 0.9, },
     {
       field: 'actions', type: 'actions', headerName: 'Actions', flex: 0.1, hide: hideActionsColumn,
       getActions: (params: GridRowParams) => [
         <GridActionsCellItem
-          icon={<VpnKeyTwoToneIcon/>}
-          label="Connect"
-          onClick={handleClickConnectDevice(params.row)}
-        />,
-        <GridActionsCellItem
           icon={<InfoTwoToneIcon/>}
           label="View"
-          onClick={() => router.push(`/devices/${params.row.id}`)}
+          onClick={() => router.push(`/device/groups/${params.row.id}`)}
         />,
         <GridActionsCellItem
           icon={<EditTwoToneIcon/>}
           label="Edit"
-          showInMenu
-          onClick={() => router.push(`/devices/${params.row.id}/edit`)}
+          onClick={() => router.push(`/device/groups/${params.row.id}/edit`)}
         />,
         <GridActionsCellItem
           icon={<DeleteTwoToneIcon/>}
           label="Delete"
-          showInMenu
-          onClick={confirmDeleteDevice(params.row)}
+          onClick={confirmDeleteDeviceGroup(params.row)}
         />
       ]
     }
@@ -171,9 +138,9 @@ const DevicesDataGrid = ({
         autoHeight
         checkboxSelection
         keepNonExistentRowsSelected
-        loading={isDevicesLoading}
+        loading={isDeviceGroupsLoading}
         columns={columns}
-        rows={(devices ?? []) as GridRowsProp}
+        rows={(deviceGroups ?? []) as GridRowsProp}
         rowCount={totalRowCount}
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
@@ -196,19 +163,14 @@ const DevicesDataGrid = ({
           }
         }}
       />
-      <ConnectDeviceDialog
-        device={device}
-        open={openConnectDeviceAlertDialog}
-        handleClose={() => setOpenConnectDeviceAlertDialog(false)}
-      />
-      <DeleteDeviceAlertDialog
-        device={device}
-        open={openDeleteDeviceAlertDialog}
-        handleClose={() => setOpenDeleteDeviceAlertDialog(false)}
-        handleConfirm={deleteDevice}
+      <DeleteDeviceGroupAlertDialog
+        deviceGroup={deviceGroup}
+        open={openDeleteDeviceGroupAlertDialog}
+        handleClose={() => setOpenDeleteDeviceGroupAlertDialog(false)}
+        handleConfirm={deleteDeviceGroup}
       />
     </>
   );
 };
 
-export default DevicesDataGrid;
+export default DeviceGroupsDataGrid;

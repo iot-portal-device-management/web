@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import toastHelper from '../../libs/toastHelper';
 import { KeyedMutator } from 'swr/dist/types';
 import { ActionsProps } from '../../types/formik';
+import { CreateDeviceFormFormikValues, EditDeviceFormFormikValues } from '../../types/device';
 
 export interface DeviceData {
   name: string;
@@ -12,12 +13,10 @@ export interface DeviceData {
 export const useDeviceCRUD = () => {
   const router = useRouter();
 
-  const createDevice = ({ name, deviceCategory }: DeviceData, { setErrors, setSubmitting }: ActionsProps) => {
-    const data = {
-      name: name,
-      deviceCategory: deviceCategory
-    };
-
+  const createDevice = (data: DeviceData, {
+    setErrors,
+    setSubmitting
+  }: ActionsProps<CreateDeviceFormFormikValues>) => {
     return axios
       .post('/api/devices', data)
       .then(() => {
@@ -37,15 +36,10 @@ export const useDeviceCRUD = () => {
       .finally(() => setSubmitting(false));
   };
 
-  const updateDevice = (id: string, { name, deviceCategory }: DeviceData, {
+  const updateDevice = (id: string, data: DeviceData, {
     setErrors,
     setSubmitting
-  }: ActionsProps) => {
-    const data = {
-      name: name,
-      deviceCategory: deviceCategory
-    };
-
+  }: ActionsProps<EditDeviceFormFormikValues>) => {
     return axios
       .patch(`/api/devices/${id}`, data)
       .then(() => {
@@ -87,6 +81,6 @@ export const useDeviceCRUD = () => {
   return {
     createDevice,
     updateDevice,
-    deleteDevices
+    deleteDevices,
   };
 };

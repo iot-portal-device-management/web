@@ -1,11 +1,10 @@
-import { Dispatch, SetStateAction } from 'react';
-import { FieldMetaProps } from 'formik/dist/types';
+import { FieldMetaProps, FormikErrors } from 'formik/dist/types';
 
-type SetErrors = Dispatch<SetStateAction<object | null>>;
+type SetErrors<Values> = (errors: FormikErrors<Values>) => void;
 type SetSubmitting = (isSubmitting: boolean) => void;
 
-export interface ActionsProps {
-  setErrors?: SetErrors;
+export interface ActionsProps<Values> {
+  setErrors?: SetErrors<Values>;
   setSubmitting: SetSubmitting;
 }
 

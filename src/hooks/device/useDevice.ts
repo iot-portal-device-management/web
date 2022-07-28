@@ -14,6 +14,6 @@ export const useDevice = (id: string) => {
     isDeviceLoading: !error && !data,
     isDeviceError: error,
     isDeviceValidating: isValidating,
-    mutateDevice: mutate
+    mutateDevice: mutate,
   };
 };

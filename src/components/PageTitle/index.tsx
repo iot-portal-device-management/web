@@ -1,12 +1,13 @@
+import { ReactElement } from 'react';
 import PropTypes from 'prop-types';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { Button, Grid, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
 interface PageTitleProps {
   heading?: string;
   subHeading?: string;
-  labels?: JSX.Element;
+  labels?: ReactElement;
   docs?: string;
 }
 
@@ -43,18 +44,20 @@ const PageTitle = ({ heading = '', subHeading = '', labels = undefined, docs = '
           {subHeading}
         </Typography>
       </Grid>
-      {!!docs && <Grid item>
-        <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ mt: { xs: 2, md: 0 } }}
-          variant="contained"
-          startIcon={<AddTwoToneIcon fontSize="small"/>}
-        >
-          {heading} Documentation
-        </Button>
-      </Grid>}
+      {!!docs && (
+        <Grid item>
+          <Button
+            href={docs}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ mt: { xs: 2, md: 0 } }}
+            variant="contained"
+            startIcon={<AddTwoToneIcon fontSize="small"/>}
+          >
+            {heading} Documentation
+          </Button>
+        </Grid>
+      )}
     </PageTitleWrapper>
   );
 };

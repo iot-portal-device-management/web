@@ -1,37 +1,27 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { GridRowModel } from '@mui/x-data-grid';
 
-interface DeleteDeviceAlertDialogProps {
-  device?: GridRowModel;
+interface DeleteDeviceGroupsAlertDialogProps {
   open: boolean;
   handleClose: () => void;
   handleConfirm: () => void;
 }
 
-const DeleteDeviceAlertDialog = ({
-                                   device = undefined,
-                                   open = false,
-                                   handleClose,
-                                   handleConfirm
-                                 }: DeleteDeviceAlertDialogProps) => {
-  const renderDialogMessage = () => (
-    <>
-      Device ID: <b>{device?.id}</b><br/>
-      Device name: <b>{device?.name}</b>
-    </>
-  );
-
+const DeleteDeviceGroupsAlertDialog = ({
+                                         open = false,
+                                         handleClose,
+                                         handleConfirm
+                                       }: DeleteDeviceGroupsAlertDialogProps) => {
   return (
     <Dialog
       open={open}
       onClose={handleClose}
     >
       <DialogTitle>
-        Delete this device permanently?
+        Delete device groups permanently?
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {renderDialogMessage()}
+          Are you sure you want to permanently delete the selected device groups?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -50,4 +40,4 @@ const DeleteDeviceAlertDialog = ({
   );
 };
 
-export default DeleteDeviceAlertDialog;
+export default DeleteDeviceGroupsAlertDialog;

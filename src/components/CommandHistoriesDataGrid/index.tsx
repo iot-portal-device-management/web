@@ -78,9 +78,9 @@ const CommandHistoriesDataGrid = ({
   }, [queryOptions]);
 
   const columns = useMemo<GridColumns>(() => [
-    { field: 'id', hide: true, },
+    { field: 'id', type: 'string', headerName: 'Command history ID', hide: true, },
     {
-      field: 'payload', type: 'string', headerName: 'Payload', sortable: false, flex: 0.4,
+      field: 'payload', type: 'string', headerName: 'Payload', flex: 0.4, sortable: false,
       renderCell: renderCellExpand,
     },
     {
@@ -92,11 +92,11 @@ const CommandHistoriesDataGrid = ({
       ),
     },
     {
-      field: 'respondedAt', type: 'dateTime', headerName: 'Responded at', filterable: false, flex: 0.2,
+      field: 'respondedAt', type: 'dateTime', headerName: 'Responded at', flex: 0.2, filterable: false,
       valueGetter: ({ value }) => value && new Date(value),
     },
     {
-      field: 'createdAt', type: 'dateTime', headerName: 'Created at', filterable: false, flex: 0.2,
+      field: 'createdAt', type: 'dateTime', headerName: 'Created at', flex: 0.2, filterable: false,
       valueGetter: ({ value }) => value && new Date(value),
     },
   ], []);

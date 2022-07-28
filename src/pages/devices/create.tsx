@@ -15,12 +15,11 @@ import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import createDeviceValidationSchema from '../../validationSchemas/device/createDeviceValidationSchema';
-import { DeviceFormFormikValues } from '../../types/device';
+import { CreateDeviceFormFormikValues } from '../../types/device';
 import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
 import { NullableDeviceCategoryOption } from '../../types/deviceCategory';
 
 const CreateDevicePage: NextPageWithLayout = () => {
-  const [errors, setErrors] = useState<object | null>(null);
   const [deviceCategoryInputValue, setDeviceCategoryInputValue] = useState('');
 
   const {
@@ -28,6 +27,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
     isDeviceCategoryOptionsLoading,
     isDeviceCategoryOptionsError
   } = useDeviceCategoryOptions(deviceCategoryInputValue);
+
   const { createDevice } = useDeviceCRUD();
 
   const validationSchema = createDeviceValidationSchema();
@@ -59,11 +59,11 @@ const CreateDevicePage: NextPageWithLayout = () => {
                   deviceCategory: null as NullableDeviceCategoryOption,
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values, { setErrors, setSubmitting }) => {
                   createDevice(sanitizeOptions(values) as DeviceData, { setErrors, setSubmitting });
                 }}
               >
-                {({ handleSubmit, isSubmitting }: FormikProps<DeviceFormFormikValues>) => (
+                {({ handleSubmit, isSubmitting }: FormikProps<CreateDeviceFormFormikValues>) => (
                   <>
                     <CardContent>
                       <Box
@@ -78,7 +78,6 @@ const CreateDevicePage: NextPageWithLayout = () => {
                           name="name"
                           label="Device name"
                           placeholder="Enter device name"
-                          errors={errors}
                         />
                         <FullWidthAutoComplete
                           required
@@ -89,7 +88,6 @@ const CreateDevicePage: NextPageWithLayout = () => {
                           placeholder="Select a device category"
                           options={deviceCategoryOptions ?? []}
                           isLoading={isDeviceCategoryOptionsLoading}
-                          errors={errors}
                           inputValue={deviceCategoryInputValue}
                           onInputChange={(event, value) => setDeviceCategoryInputValue(value)}
                           filterOptions={(x) => x}

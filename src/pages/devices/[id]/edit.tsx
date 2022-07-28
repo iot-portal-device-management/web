@@ -1,9 +1,8 @@
 import PageTitle from '../../../components/PageTitle';
 import { ReactElement, useState } from 'react';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
-import { Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
+import { Box, Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
 import Footer from '../../../components/Footer';
-import Box from '@mui/material/Box';
 import { NextPageWithLayout } from '../../_app';
 import { getSidebarLayout } from '../../../layouts';
 import { useDeviceCategoryOptions } from '../../../hooks/deviceCategory/useDeviceCategoryOptions';
@@ -19,13 +18,12 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useDevice } from '../../../hooks/device/useDevice';
 import editDeviceValidationSchema from '../../../validationSchemas/device/editDeviceValidationSchema';
-import { DeviceFormFormikValues } from '../../../types/device';
+import { EditDeviceFormFormikValues } from '../../../types/device';
 
 const EditDevicePage: NextPageWithLayout = () => {
   const router = useRouter();
   const deviceId = router.query.id as string;
 
-  const [errors, setErrors] = useState<object | null>(null);
   const [deviceCategoryInputValue, setDeviceCategoryInputValue] = useState('');
 
   const { device, isDeviceLoading, isDeviceError } = useDevice(deviceId);
@@ -70,11 +68,11 @@ const EditDevicePage: NextPageWithLayout = () => {
                   deviceCategory: transformedDevice?.deviceCategory ?? null,
                 }}
                 validationSchema={validationSchema}
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values, { setErrors, setSubmitting }) => {
                   updateDevice(deviceId, sanitizeOptions(values) as DeviceData, { setErrors, setSubmitting });
                 }}
               >
-                {({ handleSubmit, isSubmitting }: FormikProps<DeviceFormFormikValues>) => (
+                {({ handleSubmit, isSubmitting }: FormikProps<EditDeviceFormFormikValues>) => (
                   <>
                     <CardContent>
                       <Box
@@ -89,7 +87,6 @@ const EditDevicePage: NextPageWithLayout = () => {
                           name="name"
                           label="Device name"
                           placeholder="Enter device name"
-                          errors={errors}
                         />
                         <FullWidthAutoComplete
                           required
@@ -100,7 +97,6 @@ const EditDevicePage: NextPageWithLayout = () => {
                           placeholder="Select a device category"
                           options={deviceCategoryOptions ?? []}
                           isLoading={isDeviceCategoryOptionsLoading}
-                          errors={errors}
                           inputValue={deviceCategoryInputValue}
                           onInputChange={(event, value) => setDeviceCategoryInputValue(value)}
                           filterOptions={(x) => x}

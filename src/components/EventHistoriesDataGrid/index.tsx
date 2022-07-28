@@ -79,9 +79,9 @@ const EventHistoriesDataGrid = ({
   }, [queryOptions]);
 
   const columns = useMemo<GridColumns>(() => [
-    { field: 'id', hide: true, },
+    { field: 'id', type: 'string', headerName: 'Event history ID', hide: true, },
     {
-      field: 'rawData', type: 'string', headerName: 'Raw data', sortable: false, flex: 0.7,
+      field: 'rawData', type: 'string', headerName: 'Raw data', flex: 0.7, sortable: false,
       renderCell: renderCellExpand,
     },
     {
@@ -93,7 +93,7 @@ const EventHistoriesDataGrid = ({
       ),
     },
     {
-      field: 'createdAt', type: 'dateTime', headerName: 'Created at', filterable: false, flex: 0.2,
+      field: 'createdAt', type: 'dateTime', headerName: 'Created at', flex: 0.2, filterable: false,
       valueGetter: ({ value }) => value && new Date(value),
     },
   ], []);
