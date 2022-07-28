@@ -8,7 +8,7 @@ import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../../types/dataGrid';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
 import { Toaster } from 'react-hot-toast';
-import { Box, Card, Container, Grid } from '@mui/material';
+import { Box, Card, CardContent, Container, Grid } from '@mui/material';
 import PageTitle from '../../../components/PageTitle';
 import Footer from '../../../components/Footer';
 import { useDeviceGroups } from '../../../hooks/deviceGroup/useDeviceGroups';
@@ -63,23 +63,25 @@ const DeviceGroupIndexPage: NextPageWithLayout = () => {
         >
           <Grid item xs={12}>
             <Card>
-              <DataGridCreateDeleteToolbar
-                disableDelete={!selectionModel || !selectionModel.length}
-                onCreateClick={() => router.push('/device/groups/create')}
-                onDeleteClick={confirmDeleteSelectedDeviceGroups}
-              />
-              <Box sx={{ width: '100%' }}>
-                <DeviceGroupsDataGrid
-                  selectionModel={selectionModel}
-                  setSelectionModel={setSelectionModel}
-                  queryOptions={queryOptions}
-                  setQueryOptions={setQueryOptions}
-                  deviceGroups={deviceGroups}
-                  deviceGroupsMeta={deviceGroupsMeta}
-                  isDeviceGroupsLoading={isDeviceGroupsLoading}
-                  mutateDeviceGroups={mutateDeviceGroups}
+              <CardContent>
+                <DataGridCreateDeleteToolbar
+                  disableDelete={!selectionModel || !selectionModel.length}
+                  onCreateClick={() => router.push('/device/groups/create')}
+                  onDeleteClick={confirmDeleteSelectedDeviceGroups}
                 />
-              </Box>
+                <Box sx={{ width: '100%' }}>
+                  <DeviceGroupsDataGrid
+                    selectionModel={selectionModel}
+                    setSelectionModel={setSelectionModel}
+                    queryOptions={queryOptions}
+                    setQueryOptions={setQueryOptions}
+                    deviceGroups={deviceGroups}
+                    deviceGroupsMeta={deviceGroupsMeta}
+                    isDeviceGroupsLoading={isDeviceGroupsLoading}
+                    mutateDeviceGroups={mutateDeviceGroups}
+                  />
+                </Box>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>

@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
@@ -17,26 +17,27 @@ const DataGridCreateDeleteToolbar = ({
                                        onDeleteClick,
                                      }: DataGridCreateDeleteToolbarProps) => {
   return (
-    <Box flex={1} p={2}>
-      <Button
-        variant="contained"
-        color="success"
-        startIcon={<AddTwoToneIcon/>}
-        disabled={disableCreate}
-        onClick={onCreateClick}
-      >
-        New
-      </Button>
-      <Button
-        sx={{ ml: 1 }}
-        variant="contained"
-        color="error"
-        startIcon={<DeleteTwoToneIcon/>}
-        disabled={disableDelete}
-        onClick={onDeleteClick}
-      >
-        Delete
-      </Button>
+    <Box mb={2}>
+      <Stack direction="row" spacing={1}>
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<AddTwoToneIcon/>}
+          disabled={disableCreate}
+          onClick={onCreateClick}
+        >
+          New
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          startIcon={<DeleteTwoToneIcon/>}
+          disabled={disableDelete}
+          onClick={onDeleteClick}
+        >
+          Delete
+        </Button>
+      </Stack>
     </Box>
   );
 };

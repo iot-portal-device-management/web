@@ -1,7 +1,7 @@
 import { ReactElement, useCallback, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { Box, Card, Container, Grid } from '@mui/material';
+import { Box, Card, CardContent, Container, Grid } from '@mui/material';
 import { GridSelectionModel } from '@mui/x-data-grid';
 import { Toaster } from 'react-hot-toast';
 import PageTitle from '../../components/PageTitle';
@@ -63,23 +63,25 @@ const DeviceIndexPage: NextPageWithLayout = () => {
         >
           <Grid item xs={12}>
             <Card>
-              <DataGridCreateDeleteToolbar
-                disableDelete={!selectionModel || !selectionModel.length}
-                onCreateClick={() => router.push('/devices/create')}
-                onDeleteClick={confirmDeleteSelectedDevices}
-              />
-              <Box sx={{ width: '100%' }}>
-                <DevicesDataGrid
-                  selectionModel={selectionModel}
-                  setSelectionModel={setSelectionModel}
-                  queryOptions={queryOptions}
-                  setQueryOptions={setQueryOptions}
-                  devices={devices}
-                  devicesMeta={devicesMeta}
-                  isDevicesLoading={isDevicesLoading}
-                  mutateDevices={mutateDevices}
+              <CardContent>
+                <DataGridCreateDeleteToolbar
+                  disableDelete={!selectionModel || !selectionModel.length}
+                  onCreateClick={() => router.push('/devices/create')}
+                  onDeleteClick={confirmDeleteSelectedDevices}
                 />
-              </Box>
+                <Box sx={{ width: '100%' }}>
+                  <DevicesDataGrid
+                    selectionModel={selectionModel}
+                    setSelectionModel={setSelectionModel}
+                    queryOptions={queryOptions}
+                    setQueryOptions={setQueryOptions}
+                    devices={devices}
+                    devicesMeta={devicesMeta}
+                    isDevicesLoading={isDevicesLoading}
+                    mutateDevices={mutateDevices}
+                  />
+                </Box>
+              </CardContent>
             </Card>
           </Grid>
         </Grid>
