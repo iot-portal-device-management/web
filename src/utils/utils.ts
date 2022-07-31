@@ -68,7 +68,10 @@ export const sanitizeFormValues = (object: Record<string, any>) => {
       && clonedObject[key].value
       && clonedObject[key].label) {
       clonedObject[key] = clonedObject[key].value;
-    } else if (clonedObject[key] === null || clonedObject[key] === '' || key === 'sota_option') {
+    } else if (clonedObject[key] === undefined
+      || clonedObject[key] === null
+      || clonedObject[key] === ''
+      || key === 'sota_option') {
       delete clonedObject[key];
     } else if (Array.isArray(clonedObject[key]) && key === 'configurations') {
       // Here we add the 'path' string from the 'configurations' object and delete the 'configurations' property

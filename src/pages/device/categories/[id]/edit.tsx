@@ -11,23 +11,24 @@ import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { useDeviceGroup } from '../../../../hooks/deviceGroup/useDeviceGroup';
-import { useDeviceGroupCRUD } from '../../../../hooks/deviceGroup/useDeviceGroupCRUD';
-import { EditDeviceGroupFormFormikValues } from '../../../../types/deviceGroup';
+import { useDeviceCategory } from '../../../../hooks/deviceCategory/useDeviceCategory';
+import { DeviceCategoryData, useDeviceCategoryCRUD } from '../../../../hooks/deviceCategory/useDeviceCategoryCRUD';
+import { EditDeviceCategoryFormFormikValues } from '../../../../types/deviceCategory';
 import DevicesDataGrid from '../../../../components/DevicesDataGrid';
-import { GridRowModel, GridSelectionModel } from '@mui/x-data-grid';
+import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../../../types/dataGrid';
 import { useDevices } from '../../../../hooks/device/useDevices';
-import { useDeviceGroupDevices } from '../../../../hooks/deviceGroup/useDeviceGroupDevices';
-import NoDeviceSelectedDeviceGroupEditAlert from '../../../../components/NoDeviceSelectedDeviceGroupEditAlert';
-import editDeviceGroupValidationSchema from '../../../../validationSchemas/deviceGroup/editDeviceGroupValidationSchema';
+import editDeviceCategoryValidationSchema
+  from '../../../../validationSchemas/deviceCategory/editDeviceCategoryValidationSchema';
 import CardActionsLoadingButton from '../../../../components/CardActionsLoadingButton';
+import AssignDeviceToDeviceCategoryAlert from '../../../../components/AssignDeviceToDeviceCategoryAlert';
+import { sanitizeFormValues } from '../../../../utils/utils';
 
-const EditDeviceGroupPage: NextPageWithLayout = () => {
+const EditDeviceCategoryPage: NextPageWithLayout = () => {
   const router = useRouter();
-  const deviceGroupId = router.query.id as string;
+  const deviceCategoryId = router.query.id as string;
 
-  const formRef = useRef<FormikProps<EditDeviceGroupFormFormikValues>>(null);
+  const formRef = useRef<FormikProps<EditDeviceCategoryFormFormikValues>>(null);
 
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [queryOptions, setQueryOptions] = useState<QueryOptions>({
@@ -37,40 +38,31 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
     pageSize: 25,
   });
 
+  useEffect(() => {
+    if (selectionModel && selectionModel?.length) {
+      formRef.current?.setFieldValue('deviceIds', selectionModel);
+    } else {
+      formRef.current?.setFieldValue('deviceIds', undefined);
+    }
+  }, [selectionModel]);
+
+  const { deviceCategory, isDeviceCategoryLoading, isDeviceCategoryError } = useDeviceCategory(deviceCategoryId);
+
   const { devices, devicesMeta, isDevicesLoading, mutateDevices } = useDevices({
     ...queryOptions,
     page: queryOptions.page + 1
   });
 
-  const { deviceGroup, isDeviceGroupLoading, isDeviceGroupError } = useDeviceGroup(deviceGroupId);
+  const { updateDeviceCategory } = useDeviceCategoryCRUD();
 
-  const {
-    deviceGroupDevices,
-    deviceGroupDevicesMeta,
-    isDeviceGroupDevicesLoading,
-    isDeviceGroupDevicesError
-  } = useDeviceGroupDevices(deviceGroupId, { fetchAll: true });
-
-  useEffect(() => {
-    if (deviceGroupDevices) {
-      setSelectionModel(deviceGroupDevices?.map(({ id }: GridRowModel) => (id)));
-    }
-  }, [deviceGroupDevices]);
-
-  useEffect(() => {
-    formRef.current?.setFieldValue('deviceIds', selectionModel);
-  }, [selectionModel]);
-
-  const { updateDeviceGroup } = useDeviceGroupCRUD();
-
-  const validationSchema = editDeviceGroupValidationSchema();
+  const validationSchema = editDeviceCategoryValidationSchema();
 
   return (
     <>
       <PageTitleWrapper>
         <PageTitle
-          heading="Edit device group"
-          subHeading="You can change the device group name, add or remove devices from the device group."
+          heading="Edit device category"
+          subHeading="You can change the device category name and change the device category of devices to this device category by checking the checkbox."
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -83,21 +75,24 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
         >
           <Grid item xs={12}>
             <Card>
-              <CardHeader title={`Device group ${deviceGroupId}`}/>
+              <CardHeader title={`Device category ${deviceCategoryId}`}/>
               <Divider/>
               <Formik
                 innerRef={formRef}
                 enableReinitialize={true}
                 initialValues={{
-                  name: deviceGroup?.name ?? '',
-                  deviceIds: [],
+                  name: deviceCategory?.name ?? '',
+                  deviceIds: undefined,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
-                  updateDeviceGroup(deviceGroupId, values, { setErrors, setSubmitting });
+                  updateDeviceCategory(deviceCategoryId, sanitizeFormValues(values) as DeviceCategoryData, {
+                    setErrors,
+                    setSubmitting
+                  });
                 }}
               >
-                {({ handleSubmit, isSubmitting }: FormikProps<EditDeviceGroupFormFormikValues>) => (
+                {({ handleSubmit, isSubmitting }: FormikProps<EditDeviceCategoryFormFormikValues>) => (
                   <>
                     <CardContent>
                       <Box
@@ -110,12 +105,10 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
                           required
                           id="name"
                           name="name"
-                          label="Device group name"
-                          placeholder="Enter device group name"
+                          label="Device category name"
+                          placeholder="Enter device category name"
                         />
-                        {(formRef.current?.touched.deviceIds && formRef.current?.errors.deviceIds) && (
-                          <NoDeviceSelectedDeviceGroupEditAlert/>
-                        )}
+                        <AssignDeviceToDeviceCategoryAlert/>
                         <DevicesDataGrid
                           selectionModel={selectionModel}
                           setSelectionModel={setSelectionModel}
@@ -151,8 +144,8 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
   );
 };
 
-EditDeviceGroupPage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Edit device group', page);
+EditDeviceCategoryPage.getLayout = function getLayout(page: ReactElement) {
+  return getSidebarLayout('Edit device category', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
@@ -161,4 +154,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   }
 });
 
-export default EditDeviceGroupPage;
+export default EditDeviceCategoryPage;

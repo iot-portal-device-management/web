@@ -10,19 +10,20 @@ import FullWidthTextField from '../../../components/FullWidthTextField';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
-import { CreateDeviceGroupFormFormikValues } from '../../../types/deviceGroup';
+import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
+import { CreateDeviceCategoryFormFormikValues } from '../../../types/deviceCategory';
+import { DeviceCategoryData, useDeviceCategoryCRUD } from '../../../hooks/deviceCategory/useDeviceCategoryCRUD';
+import createDeviceCategoryValidationSchema
+  from '../../../validationSchemas/deviceCategory/createDeviceCategoryValidationSchema';
+import AssignDeviceToDeviceCategoryAlert from '../../../components/AssignDeviceToDeviceCategoryAlert';
+import DevicesDataGrid from '../../../components/DevicesDataGrid';
 import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../../types/dataGrid';
 import { useDevices } from '../../../hooks/device/useDevices';
-import DevicesDataGrid from '../../../components/DevicesDataGrid';
-import createDeviceGroupValidationSchema
-  from '../../../validationSchemas/deviceGroup/createDeviceGroupValidationSchema';
-import { useDeviceGroupCRUD } from '../../../hooks/deviceGroup/useDeviceGroupCRUD';
-import NoDeviceSelectedDeviceGroupCreateAlert from '../../../components/NoDeviceSelectedDeviceGroupCreateAlert';
-import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
+import { sanitizeFormValues } from '../../../utils/utils';
 
-const CreateDeviceGroupPage: NextPageWithLayout = () => {
-  const formRef = useRef<FormikProps<CreateDeviceGroupFormFormikValues>>(null);
+const CreateDeviceCategoryPage: NextPageWithLayout = () => {
+  const formRef = useRef<FormikProps<CreateDeviceCategoryFormFormikValues>>(null);
 
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [queryOptions, setQueryOptions] = useState<QueryOptions>({
@@ -33,7 +34,11 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
   });
 
   useEffect(() => {
-    formRef.current?.setFieldValue('deviceIds', selectionModel);
+    if (selectionModel && selectionModel?.length) {
+      formRef.current?.setFieldValue('deviceIds', selectionModel);
+    } else {
+      formRef.current?.setFieldValue('deviceIds', undefined);
+    }
   }, [selectionModel]);
 
   const { devices, devicesMeta, isDevicesLoading, mutateDevices } = useDevices({
@@ -41,16 +46,16 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
     page: queryOptions.page + 1
   });
 
-  const { createDeviceGroup } = useDeviceGroupCRUD();
+  const { createDeviceCategory } = useDeviceCategoryCRUD();
 
-  const validationSchema = createDeviceGroupValidationSchema();
+  const validationSchema = createDeviceCategoryValidationSchema();
 
   return (
     <>
       <PageTitleWrapper>
         <PageTitle
-          heading="Create device group"
-          subHeading="To create a new device group, enter a device group name and select the devices below by checking the checkbox."
+          heading="Create device category"
+          subHeading="To create a new device category, enter a device category name."
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -63,21 +68,22 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
         >
           <Grid item xs={12}>
             <Card>
-              <CardHeader title="Create new device group"/>
+              <CardHeader title="Create new device category"/>
               <Divider/>
               <Formik
                 innerRef={formRef}
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
-                  deviceIds: [],
-                }}
+                  deviceIds: undefined,
+                } as CreateDeviceCategoryFormFormikValues
+                }
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
-                  createDeviceGroup(values, { setErrors, setSubmitting });
+                  createDeviceCategory(sanitizeFormValues(values) as DeviceCategoryData, { setErrors, setSubmitting });
                 }}
               >
-                {({ handleSubmit, isSubmitting }: FormikProps<CreateDeviceGroupFormFormikValues>) => (
+                {({ handleSubmit, isSubmitting }: FormikProps<CreateDeviceCategoryFormFormikValues>) => (
                   <>
                     <CardContent>
                       <Box
@@ -90,12 +96,10 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
                           required
                           id="name"
                           name="name"
-                          label="Device group name"
-                          placeholder="Enter device group name"
+                          label="Device category name"
+                          placeholder="Enter device category name"
                         />
-                        {(formRef.current?.touched.deviceIds && formRef.current?.errors.deviceIds) && (
-                          <NoDeviceSelectedDeviceGroupCreateAlert/>
-                        )}
+                        <AssignDeviceToDeviceCategoryAlert/>
                         <DevicesDataGrid
                           selectionModel={selectionModel}
                           setSelectionModel={setSelectionModel}
@@ -131,8 +135,8 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
   );
 };
 
-CreateDeviceGroupPage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Create device group', page);
+CreateDeviceCategoryPage.getLayout = function getLayout(page: ReactElement) {
+  return getSidebarLayout('Create device category', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
@@ -141,4 +145,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   }
 });
 
-export default CreateDeviceGroupPage;
+export default CreateDeviceCategoryPage;

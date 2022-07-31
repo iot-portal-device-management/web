@@ -1,16 +1,15 @@
 import * as Yup from 'yup';
 
-const createDeviceGroupValidationSchema = () => {
+const createDeviceCategoryValidationSchema = () => {
   return Yup.object({
     name: Yup.string()
-      .label('device group name')
+      .label('device category name')
       .required()
       .max(255),
     deviceIds: Yup.array()
       .label('devices')
-      .required()
-      .min(1),
+      .optional(),
   });
 };
 
-export default createDeviceGroupValidationSchema;
+export default createDeviceCategoryValidationSchema;

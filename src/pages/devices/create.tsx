@@ -16,7 +16,6 @@ import { GetServerSideProps } from 'next';
 import createDeviceValidationSchema from '../../validationSchemas/device/createDeviceValidationSchema';
 import { CreateDeviceFormFormikValues } from '../../types/device';
 import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
-import { NullableDeviceCategoryOption } from '../../types/deviceCategory';
 import CardActionsLoadingButton from '../../components/CardActionsLoadingButton';
 
 const CreateDevicePage: NextPageWithLayout = () => {
@@ -56,8 +55,9 @@ const CreateDevicePage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
-                  deviceCategory: null as NullableDeviceCategoryOption,
-                }}
+                  deviceCategory: null,
+                } as CreateDeviceFormFormikValues
+                }
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
                   createDevice(sanitizeOptions(values) as DeviceData, { setErrors, setSubmitting });
