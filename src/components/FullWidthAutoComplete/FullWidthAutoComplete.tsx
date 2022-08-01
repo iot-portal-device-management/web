@@ -3,12 +3,12 @@ import { Autocomplete, AutocompleteValue, CircularProgress } from '@mui/material
 import { AutocompleteProps } from '@mui/material/Autocomplete/Autocomplete';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect } from 'react';
 import isString from 'lodash/isString';
 import isArray from 'lodash/isArray';
 import { isValidObject } from '../../utils/utils';
 import { useTranslation } from 'next-i18next';
-import { FieldHelperProps, FieldInputProps, FieldMetaProps } from 'formik/dist/types';
+import { FieldHelperProps, FieldInputProps } from 'formik/dist/types';
 import { Optional } from '../../libs/utilityTypes';
 import { TranslationFieldMetaProps } from '../../types/formik';
 

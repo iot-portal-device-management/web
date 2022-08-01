@@ -3,7 +3,6 @@ import { Box, Button, Card, CardActions, CardContent, Divider, Grid, IconButton 
 import LargeCardHeader from '../LargeCardHeader';
 import { FieldArray, Formik, FormikProps } from 'formik';
 import FullWidthAutoComplete from '../FullWidthAutoComplete';
-import { LoadingButton } from '@mui/lab';
 import FullWidthTextField from '../FullWidthTextField';
 import { BaseOption } from '../../types/option';
 import { sanitizeFormValues } from '../../utils/utils';
@@ -19,6 +18,7 @@ import cotaValidationSchema from '../../validationSchemas/cota/cotaValidationSch
 import { useCota } from '../../hooks/cota/useCota';
 import RemoveCircleTwoToneIcon from '@mui/icons-material/RemoveCircleTwoTone';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import CardActionsLoadingButton from '../CardActionsLoadingButton';
 
 interface DeviceCotaTabProps {
   deviceId: string;
@@ -170,14 +170,12 @@ const DeviceCotaTab = ({ deviceId }: DeviceCotaTabProps) => {
               </CardContent>
               <Divider/>
               <CardActions>
-                <LoadingButton
-                  sx={{ m: 1 }}
-                  variant="contained"
+                <CardActionsLoadingButton
                   loading={isSubmitting}
                   onClick={() => handleSubmit()}
                 >
                   Submit
-                </LoadingButton>
+                </CardActionsLoadingButton>
               </CardActions>
             </>
           )}

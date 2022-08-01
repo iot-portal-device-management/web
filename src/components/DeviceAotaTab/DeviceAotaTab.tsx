@@ -3,7 +3,6 @@ import { Box, Card, CardActions, CardContent, Divider, Grid } from '@mui/materia
 import LargeCardHeader from '../LargeCardHeader';
 import { Formik, FormikProps } from 'formik';
 import FullWidthAutoComplete from '../FullWidthAutoComplete';
-import { LoadingButton } from '@mui/lab';
 import {
   AOTA_APP_OPTIONS,
   AOTA_COMMAND_OPTIONS,
@@ -17,6 +16,7 @@ import { BaseOption } from '../../types/option';
 import aotaValidationSchema from '../../validationSchemas/aota/aotaValidationSchema';
 import { useAota } from '../../hooks/aota/useAota';
 import { sanitizeFormValues } from '../../utils/utils';
+import CardActionsLoadingButton from '../CardActionsLoadingButton';
 
 interface DeviceAotaTabProps {
   deviceId: string;
@@ -203,14 +203,12 @@ const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
               </CardContent>
               <Divider/>
               <CardActions>
-                <LoadingButton
-                  sx={{ m: 1 }}
-                  variant="contained"
+                <CardActionsLoadingButton
                   loading={isSubmitting}
                   onClick={() => handleSubmit()}
                 >
                   Submit
-                </LoadingButton>
+                </CardActionsLoadingButton>
               </CardActions>
             </>
           )}

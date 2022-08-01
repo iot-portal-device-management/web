@@ -2,12 +2,12 @@ import { useRef } from 'react';
 import { Box, Card, CardActions, CardContent, Divider, Grid } from '@mui/material';
 import LargeCardHeader from '../LargeCardHeader';
 import { Formik, FormikProps } from 'formik';
-import { LoadingButton } from '@mui/lab';
 import FullWidthTextField from '../FullWidthTextField';
 import { sanitizeFormValues } from '../../utils/utils';
 import { FotaFormFormikValues } from '../../types/fota';
 import fotaValidationSchema from '../../validationSchemas/fota/fotaValidationSchema';
 import { useFota } from '../../hooks/fota/useFota';
+import CardActionsLoadingButton from '../CardActionsLoadingButton';
 
 interface DeviceFotaTabProps {
   deviceId: string;
@@ -134,14 +134,12 @@ const DeviceFotaTab = ({ deviceId }: DeviceFotaTabProps) => {
               </CardContent>
               <Divider/>
               <CardActions>
-                <LoadingButton
-                  sx={{ m: 1 }}
-                  variant="contained"
+                <CardActionsLoadingButton
                   loading={isSubmitting}
                   onClick={() => handleSubmit()}
                 >
                   Submit
-                </LoadingButton>
+                </CardActionsLoadingButton>
               </CardActions>
             </>
           )}

@@ -3,7 +3,6 @@ import { Box, Card, CardActions, CardContent, Divider, Grid } from '@mui/materia
 import LargeCardHeader from '../LargeCardHeader';
 import { Formik, FormikProps } from 'formik';
 import FullWidthAutoComplete from '../FullWidthAutoComplete';
-import { LoadingButton } from '@mui/lab';
 import {
   SOTA_COMMAND_OPTIONS,
   SOTA_FIELDS_HIDDEN_STATES,
@@ -17,6 +16,7 @@ import { sanitizeFormValues } from '../../utils/utils';
 import { SotaFormFormikValues, SotaOptionValue } from '../../types/sota';
 import { useSota } from '../../hooks/sota/useSota';
 import sotaValidationSchema from '../../validationSchemas/sota/sotaValidationSchema';
+import CardActionsLoadingButton from '../CardActionsLoadingButton';
 
 interface DeviceSotaTabProps {
   deviceId: string;
@@ -140,14 +140,12 @@ const DeviceSotaTab = ({ deviceId }: DeviceSotaTabProps) => {
               </CardContent>
               <Divider/>
               <CardActions>
-                <LoadingButton
-                  sx={{ m: 1 }}
-                  variant="contained"
+                <CardActionsLoadingButton
                   loading={isSubmitting}
                   onClick={() => handleSubmit()}
                 >
                   Submit
-                </LoadingButton>
+                </CardActionsLoadingButton>
               </CardActions>
             </>
           )}
