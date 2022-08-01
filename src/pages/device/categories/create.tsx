@@ -80,7 +80,10 @@ const CreateDeviceCategoryPage: NextPageWithLayout = () => {
                 }
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
-                  createDeviceCategory(sanitizeFormValues(values) as DeviceCategoryData, { setErrors, setSubmitting });
+                  createDeviceCategory(sanitizeFormValues(values) as DeviceCategoryData, {
+                    setErrors,
+                    setSubmitting
+                  });
                 }}
               >
                 {({ handleSubmit, isSubmitting }: FormikProps<CreateDeviceCategoryFormFormikValues>) => (
