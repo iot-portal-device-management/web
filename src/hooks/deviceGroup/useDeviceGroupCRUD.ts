@@ -2,7 +2,7 @@ import axios from '../../libs/axios';
 import { useRouter } from 'next/router';
 import toastHelper from '../../libs/toastHelper';
 import { KeyedMutator } from 'swr/dist/types';
-import { ActionsProps } from '../../types/formik';
+import { FormFormikActions } from '../../types/formik';
 import { CreateDeviceGroupFormFormikValues, EditDeviceGroupFormFormikValues } from '../../types/deviceGroup';
 
 export interface DeviceGroupData {
@@ -16,7 +16,7 @@ export const useDeviceGroupCRUD = () => {
   const createDeviceGroup = (data: DeviceGroupData, {
     setErrors,
     setSubmitting
-  }: ActionsProps<CreateDeviceGroupFormFormikValues>) => {
+  }: FormFormikActions<CreateDeviceGroupFormFormikValues>) => {
     return axios
       .post('/api/device/groups', data)
       .then(() => {
@@ -39,7 +39,7 @@ export const useDeviceGroupCRUD = () => {
   const updateDeviceGroup = (id: string, data: DeviceGroupData, {
     setErrors,
     setSubmitting
-  }: ActionsProps<EditDeviceGroupFormFormikValues>) => {
+  }: FormFormikActions<EditDeviceGroupFormFormikValues>) => {
     return axios
       .patch(`/api/device/groups/${id}`, data)
       .then(() => {

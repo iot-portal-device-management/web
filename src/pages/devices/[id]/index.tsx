@@ -2,19 +2,7 @@ import { ChangeEvent, ReactElement, useState } from 'react';
 import { getSidebarLayout } from '../../../layouts';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
 import PageTitle from '../../../components/PageTitle';
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Card,
-  CardContent,
-  Container,
-  Divider,
-  Grid,
-  Tab,
-  Tabs,
-  Typography
-} from '@mui/material';
+import { Button, ButtonGroup, Card, CardContent, Container, Divider, Grid, Tab, Typography } from '@mui/material';
 import Footer from '../../../components/Footer';
 import { Toaster } from 'react-hot-toast';
 import { useDevice } from '../../../hooks/device/useDevice';
@@ -25,7 +13,6 @@ import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
 import PowerSettingsNewTwoToneIcon from '@mui/icons-material/PowerSettingsNewTwoTone';
 import RestartAltTwoToneIcon from '@mui/icons-material/RestartAltTwoTone';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import { styled } from '@mui/material/styles';
 import DeviceOverviewTab from '../../../components/DeviceOverviewTab';
 import DeviceAotaTab from '../../../components/DeviceAotaTab';
 import { GetServerSideProps } from 'next';
@@ -37,14 +24,7 @@ import DeviceCommandHistoriesTab from '../../../components/DeviceCommandHistorie
 import DeviceEventHistoriesTab from '../../../components/DeviceEventHistoriesTab';
 import DeviceMetricsTab from '../../../components/DeviceMetricsTab';
 import LargeCardHeader from '../../../components/LargeCardHeader';
-
-const TabsWrapper = styled(Tabs)(
-  () => `
-    .MuiTabs-scrollableX {
-      overflow-x: auto !important;
-    }
-`
-);
+import TabsWrapper from '../../../components/TabsWrapper';
 
 const ViewDevicePage = () => {
   const router = useRouter();

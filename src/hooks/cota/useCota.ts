@@ -1,10 +1,10 @@
-import { ActionsProps } from '../../types/formik';
+import { FormFormikActions } from '../../types/formik';
 import axios from '../../libs/axios';
 import toastHelper from '../../libs/toastHelper';
 import { CotaPayload } from '../../types/cota';
 
 export const useCota = () => {
-  const submitCota = (id: string, payload: CotaPayload, { setSubmitting }: ActionsProps) => {
+  const submitCota = (id: string, payload: CotaPayload, { setSubmitting }: FormFormikActions) => {
     const toastId = toastHelper.loading('Submitting COTA command. Waiting for deviceStatus acknowledgement...');
 
     const data = { command: 'COTA', payload: payload };

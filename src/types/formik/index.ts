@@ -3,7 +3,7 @@ import { FieldMetaProps, FormikErrors } from 'formik/dist/types';
 type SetErrors<Values> = (errors: FormikErrors<Values>) => void;
 type SetSubmitting = (isSubmitting: boolean) => void;
 
-export interface ActionsProps<Values> {
+export interface FormFormikActions<Values> {
   setErrors?: SetErrors<Values>;
   setSubmitting: SetSubmitting;
 }

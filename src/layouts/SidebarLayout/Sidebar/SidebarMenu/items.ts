@@ -97,20 +97,20 @@ const menuItems: MenuItems[] = [
     ]
   },
   {
-    heading: 'Commands',
+    heading: 'Device Commands',
     items: [
       {
-        name: 'Saved Commands',
+        name: 'Saved Device Commands',
         icon: VerifiedUserTwoToneIcon,
-        link: '/commands/saved',
+        link: '/device/commands/saved',
         items: [
           {
-            name: 'Saved Commands',
-            link: '/commands/saved'
+            name: 'Saved Device Commands',
+            link: '/device/commands/saved'
           },
           {
-            name: 'Create Saved Command',
-            link: '/commands/saved/create'
+            name: 'Create Saved Device Command',
+            link: '/device/commands/saved/create'
           }
         ]
       }

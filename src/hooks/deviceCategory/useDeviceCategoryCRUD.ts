@@ -2,7 +2,7 @@ import axios from '../../libs/axios';
 import { useRouter } from 'next/router';
 import toastHelper from '../../libs/toastHelper';
 import { KeyedMutator } from 'swr/dist/types';
-import { ActionsProps } from '../../types/formik';
+import { FormFormikActions } from '../../types/formik';
 import { CreateDeviceCategoryFormFormikValues, EditDeviceCategoryFormFormikValues } from '../../types/deviceCategory';
 
 export interface DeviceCategoryData {
@@ -16,7 +16,7 @@ export const useDeviceCategoryCRUD = () => {
   const createDeviceCategory = (data: DeviceCategoryData, {
     setErrors,
     setSubmitting
-  }: ActionsProps<CreateDeviceCategoryFormFormikValues>) => {
+  }: FormFormikActions<CreateDeviceCategoryFormFormikValues>) => {
     return axios
       .post('/api/device/categories', data)
       .then(() => {
@@ -39,7 +39,7 @@ export const useDeviceCategoryCRUD = () => {
   const updateDeviceCategory = (id: string, data: DeviceCategoryData, {
     setErrors,
     setSubmitting
-  }: ActionsProps<EditDeviceCategoryFormFormikValues>) => {
+  }: FormFormikActions<EditDeviceCategoryFormFormikValues>) => {
     return axios
       .patch(`/api/device/categories/${id}`, data)
       .then(() => {
