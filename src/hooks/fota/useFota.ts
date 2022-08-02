@@ -1,11 +1,11 @@
 import { FormFormikActions } from '../../types/formik';
 import axios from '../../libs/axios';
 import toastHelper from '../../libs/toastHelper';
-import { FotaPayload } from '../../types/fota';
+import { FotaFormFormikValues, FotaPayload } from '../../types/fota';
 
 export const useFota = () => {
-  const submitFota = (id: string, payload: FotaPayload, { setSubmitting }: FormFormikActions) => {
-    const toastId = toastHelper.loading('Submitting FOTA command. Waiting for deviceStatus acknowledgement...');
+  const submitFota = (id: string, payload: FotaPayload, { setSubmitting }: FormFormikActions<FotaFormFormikValues>) => {
+    const toastId = toastHelper.loading('Submitting FOTA command. Waiting for device acknowledgement...');
 
     const data = { command: 'FOTA', payload: payload };
 

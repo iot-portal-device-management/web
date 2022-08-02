@@ -19,7 +19,18 @@ import TabsWrapper from '../../../../components/TabsWrapper';
 import DeviceAotaFormCard from '../../../../components/DeviceAotaFormCard';
 import { FormFormikActions } from '../../../../types/formik';
 import { AotaFormFormikValues, AotaPayload } from '../../../../types/aota';
-import DeviceFotaTab from '../../../../components/DeviceFotaTab';
+import DeviceFotaFormCard from '../../../../components/DeviceFotaFormCard';
+import { FotaPayload } from '../../../../types/fota';
+import { SotaPayload } from '../../../../types/sota';
+import { CotaPayload } from '../../../../types/cota';
+import DeviceSotaFormCard from '../../../../components/DeviceSotaFormCard';
+import DeviceCotaFormCard from '../../../../components/DeviceCotaFormCard';
+
+export type OTAPayload =
+  | AotaPayload
+  | FotaPayload
+  | SotaPayload
+  | CotaPayload;
 
 const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
   const formRef = useRef<FormikProps<CreateSavedDeviceCommandFormFormikValues>>(null);
@@ -41,17 +52,20 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
     setCurrentTab(value);
   };
 
-  const handleCommandPayloadSubmit = (commandType: string, data: AotaPayload, { setSubmitting }: FormFormikActions<AotaFormFormikValues>) => {
+  const handleCommandPayloadSubmit = (commandType: string, data: OTAPayload, { setSubmitting }: FormFormikActions<AotaFormFormikValues>) => {
     setSavedCommandPayload({ command: commandType, payload: data });
     setSubmitting(false);
   };
 
-  const handleFormSubmit = (values: CreateSavedDeviceCommandFormFormikValues, actionProps: FormFormikActions<CreateSavedDeviceCommandFormFormikValues>) => {
+  const handleFormSubmit = (values: CreateSavedDeviceCommandFormFormikValues, formFormikActions: FormFormikActions<CreateSavedDeviceCommandFormFormikValues>) => {
     if (savedCommandPayload) {
       const data = { ...values, ...savedCommandPayload };
-      createSavedDeviceCommand(data, actionProps);
+      createSavedDeviceCommand(data, formFormikActions);
     } else {
+      const { setSubmitting } = formFormikActions;
+
       alert('The command payload is required. Please click on the Validate button to validate first.')
+      setSubmitting(false);
     }
   };
 
@@ -133,9 +147,30 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
                                 }}
                               />
                             )}
-                            {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
-                            {/*{currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}*/}
-                            {/*{currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}*/}
+                            {currentTab === 'fota' && (
+                              <DeviceFotaFormCard
+                                submitButtonChildren="Validate"
+                                onSubmit={(data, formFormikActions) => {
+                                  handleCommandPayloadSubmit('FOTA', data, formFormikActions);
+                                }}
+                              />
+                            )}
+                            {currentTab === 'sota' && (
+                              <DeviceSotaFormCard
+                                submitButtonChildren="Validate"
+                                onSubmit={(data, formFormikActions) => {
+                                  handleCommandPayloadSubmit('SOTA', data, formFormikActions);
+                                }}
+                              />
+                            )}
+                            {currentTab === 'cota' && (
+                              <DeviceCotaFormCard
+                                submitButtonChildren="Validate"
+                                onSubmit={(data, formFormikActions) => {
+                                  handleCommandPayloadSubmit('COTA', data, formFormikActions);
+                                }}
+                              />
+                            )}
                           </Grid>
                         </Grid>
                       </Box>
@@ -163,7 +198,7 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
 };
 
 CreateSavedDeviceCommandPage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Create device group', page);
+  return getSidebarLayout('Create saved device command', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
