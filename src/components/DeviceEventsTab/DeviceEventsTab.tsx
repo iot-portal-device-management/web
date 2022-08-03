@@ -2,14 +2,14 @@ import { Box, Card, Grid } from '@mui/material';
 import LargeCardHeader from '../LargeCardHeader';
 import { useState } from 'react';
 import { QueryOptions } from '../../types/dataGrid';
-import { useEventHistories } from '../../hooks/eventHistory/useEventHistories';
-import EventHistoriesDataGrid from '../EventHistoriesDataGrid';
+import { useDeviceEvents } from '../../hooks/deviceEvent/useDeviceEvents';
+import DeviceEventsDataGrid from '../DeviceEventsDataGrid';
 
-interface DeviceEventHistoriesTabProps {
+interface DeviceEventsTabProps {
   deviceId: string;
 }
 
-const DeviceEventHistoriesTab = ({ deviceId }: DeviceEventHistoriesTabProps) => {
+const DeviceEventsTab = ({ deviceId }: DeviceEventsTabProps) => {
   const [queryOptions, setQueryOptions] = useState<QueryOptions>({
     sortModel: undefined,
     filterModel: undefined,
@@ -18,11 +18,11 @@ const DeviceEventHistoriesTab = ({ deviceId }: DeviceEventHistoriesTabProps) => 
   });
 
   const {
-    eventHistories,
-    eventHistoriesMeta,
-    isEventHistoriesLoading,
-    mutateEventHistories
-  } = useEventHistories(deviceId, {
+    deviceEvents,
+    deviceEventsMeta,
+    isDeviceEventsLoading,
+    mutateDeviceEvents
+  } = useDeviceEvents(deviceId, {
     ...queryOptions,
     page: queryOptions.page + 1
   });
@@ -31,17 +31,17 @@ const DeviceEventHistoriesTab = ({ deviceId }: DeviceEventHistoriesTabProps) => 
     <Grid item xs={12}>
       <Card>
         <LargeCardHeader
-          title="Event Histories"
+          title="Device events"
           subheader="List of past device events"
         />
         <Box sx={{ width: '100%' }}>
-          <EventHistoriesDataGrid
+          <DeviceEventsDataGrid
             queryOptions={queryOptions}
             setQueryOptions={setQueryOptions}
-            eventHistories={eventHistories}
-            eventHistoriesMeta={eventHistoriesMeta}
-            isEventHistoriesLoading={isEventHistoriesLoading}
-            mutateEventHistories={mutateEventHistories}
+            deviceEvents={deviceEvents}
+            deviceEventsMeta={deviceEventsMeta}
+            isDeviceEventsLoading={isDeviceEventsLoading}
+            mutateDeviceEvents={mutateDeviceEvents}
           />
         </Box>
       </Card>
@@ -49,4 +49,4 @@ const DeviceEventHistoriesTab = ({ deviceId }: DeviceEventHistoriesTabProps) => 
   );
 };
 
-export default DeviceEventHistoriesTab;
+export default DeviceEventsTab;

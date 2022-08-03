@@ -1,13 +1,13 @@
 import Label from '../../components/Label';
 import { ReactNode } from 'react';
-import { DeviceEvent } from '../../types/deviceEvent';
+import { DeviceEventType } from '../../types/deviceEventType';
 
-export const getDeviceEventLabel = (deviceEvent: DeviceEvent): ReactNode => {
-  if (!deviceEvent) {
+export const getDeviceEventTypeLabel = (deviceEventType: DeviceEventType): ReactNode => {
+  if (!deviceEventType) {
     return null;
   }
 
-  const deviceEventMap = {
+  const deviceEventTypeMap = {
     property: {
       text: 'Property',
       color: 'info'
@@ -19,7 +19,7 @@ export const getDeviceEventLabel = (deviceEvent: DeviceEvent): ReactNode => {
   };
 
   // @ts-ignore
-  const { text, color }: any = deviceEventMap[deviceEvent?.toLowerCase()];
+  const { text, color }: any = deviceEventTypeMap[deviceEventType?.toLowerCase()];
 
   return (<Label color={color}>{text}</Label>);
 };

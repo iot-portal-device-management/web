@@ -20,8 +20,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DeviceFotaTab from '../../../components/DeviceFotaTab';
 import DeviceSotaTab from '../../../components/DeviceSotaTab';
 import DeviceCotaTab from '../../../components/DeviceCotaTab';
-import DeviceCommandHistoriesTab from '../../../components/DeviceCommandHistoriesTab';
-import DeviceEventHistoriesTab from '../../../components/DeviceEventHistoriesTab';
+import DeviceCommandsTab from '../../../components/DeviceCommandsTab';
+import DeviceEventsTab from '../../../components/DeviceEventsTab';
 import DeviceMetricsTab from '../../../components/DeviceMetricsTab';
 import LargeCardHeader from '../../../components/LargeCardHeader';
 import TabsWrapper from '../../../components/TabsWrapper';
@@ -40,8 +40,8 @@ const ViewDevicePage = () => {
     { label: 'Firmware OTA update', value: 'fota' },
     { label: 'Software OTA update', value: 'sota' },
     { label: 'Configuration OTA update', value: 'cota' },
-    { label: 'Command histories', value: 'command-histories' },
-    { label: 'Event histories', value: 'event-histories' },
+    { label: 'Commands', value: 'commands' },
+    { label: 'Events', value: 'events' },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
@@ -132,8 +132,8 @@ const ViewDevicePage = () => {
           {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
           {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
           {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
-          {currentTab === 'command-histories' && <DeviceCommandHistoriesTab deviceId={deviceId}/>}
-          {currentTab === 'event-histories' && <DeviceEventHistoriesTab deviceId={deviceId}/>}
+          {currentTab === 'commands' && <DeviceCommandsTab deviceId={deviceId}/>}
+          {currentTab === 'events' && <DeviceEventsTab deviceId={deviceId}/>}
         </Grid>
       </Container>
       <Footer/>

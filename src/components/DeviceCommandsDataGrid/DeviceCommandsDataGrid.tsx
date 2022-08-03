@@ -13,32 +13,32 @@ import { QueryOptions } from '../../types/dataGrid';
 import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 import JsonDataGridCellExpand from '../JsonDataGridCellExpand';
 
-interface CommandHistoriesDataGridProps {
+interface DeviceCommandsDataGridProps {
   queryOptions: QueryOptions
   setQueryOptions: Dispatch<SetStateAction<QueryOptions>>;
-  commandHistories: any;
-  commandHistoriesMeta: any;
-  isCommandHistoriesLoading: boolean;
-  mutateCommandHistories: KeyedMutator<any>;
+  deviceCommands: any;
+  deviceCommandsMeta: any;
+  isDeviceCommandsLoading: boolean;
+  mutateDeviceCommands: KeyedMutator<any>;
 }
 
-const CommandHistoriesDataGrid = ({
-                                    queryOptions,
-                                    setQueryOptions,
-                                    commandHistories,
-                                    commandHistoriesMeta,
-                                    isCommandHistoriesLoading,
-                                    mutateCommandHistories
-                                  }: CommandHistoriesDataGridProps) => {
+const DeviceCommandsDataGrid = ({
+                                  queryOptions,
+                                  setQueryOptions,
+                                  deviceCommands,
+                                  deviceCommandsMeta,
+                                  isDeviceCommandsLoading,
+                                  mutateDeviceCommands
+                                }: DeviceCommandsDataGridProps) => {
   const [totalRowCount, setTotalRowCount] = useState(0);
 
   useEffect(() => {
     setTotalRowCount((prevTotalRowCount) =>
-      commandHistoriesMeta?.total !== undefined ? commandHistoriesMeta?.total : prevTotalRowCount,
+      deviceCommandsMeta?.total !== undefined ? deviceCommandsMeta?.total : prevTotalRowCount,
     );
-  }, [commandHistoriesMeta?.total]);
+  }, [deviceCommandsMeta?.total]);
 
-  const relations = ['command'];
+  const relations = ['deviceCommandType'];
 
   const renderCellExpand = (params: GridRenderCellParams<string>) => {
     return (
@@ -84,7 +84,7 @@ const CommandHistoriesDataGrid = ({
       renderCell: renderCellExpand,
     },
     {
-      field: 'command', type: 'string', headerName: 'Command', flex: 0.2,
+      field: 'deviceCommandType', type: 'string', headerName: 'Command type', flex: 0.2,
       renderCell: (params: GridRenderCellParams) => (
         <>
           {params.value.name}
@@ -106,9 +106,9 @@ const CommandHistoriesDataGrid = ({
       <DataGrid
         autoHeight
         keepNonExistentRowsSelected
-        loading={isCommandHistoriesLoading}
+        loading={isDeviceCommandsLoading}
         columns={columns}
-        rows={(commandHistories ?? []) as GridRowsProp}
+        rows={(deviceCommands ?? []) as GridRowsProp}
         rowCount={totalRowCount}
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
@@ -133,4 +133,4 @@ const CommandHistoriesDataGrid = ({
   );
 };
 
-export default CommandHistoriesDataGrid;
+export default DeviceCommandsDataGrid;

@@ -12,34 +12,34 @@ import { KeyedMutator } from 'swr/dist/types';
 import { QueryOptions } from '../../types/dataGrid';
 import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 import JsonDataGridCellExpand from '../JsonDataGridCellExpand';
-import { getDeviceEventLabel } from '../../utils/deviceEvent';
+import { getDeviceEventTypeLabel } from '../../utils/deviceEventType';
 
-interface EventHistoriesDataGridProps {
+interface DeviceEventsDataGridProps {
   queryOptions: QueryOptions
   setQueryOptions: Dispatch<SetStateAction<QueryOptions>>;
-  eventHistories: any;
-  eventHistoriesMeta: any;
-  isEventHistoriesLoading: boolean;
-  mutateEventHistories: KeyedMutator<any>;
+  deviceEvents: any;
+  deviceEventsMeta: any;
+  isDeviceEventsLoading: boolean;
+  mutateDeviceEvents: KeyedMutator<any>;
 }
 
-const EventHistoriesDataGrid = ({
-                                  queryOptions,
-                                  setQueryOptions,
-                                  eventHistories,
-                                  eventHistoriesMeta,
-                                  isEventHistoriesLoading,
-                                  mutateEventHistories
-                                }: EventHistoriesDataGridProps) => {
+const DeviceEventsDataGrid = ({
+                                queryOptions,
+                                setQueryOptions,
+                                deviceEvents,
+                                deviceEventsMeta,
+                                isDeviceEventsLoading,
+                                mutateDeviceEvents
+                              }: DeviceEventsDataGridProps) => {
   const [totalRowCount, setTotalRowCount] = useState(0);
 
   useEffect(() => {
     setTotalRowCount((prevTotalRowCount) =>
-      eventHistoriesMeta?.total !== undefined ? eventHistoriesMeta?.total : prevTotalRowCount,
+      deviceEventsMeta?.total !== undefined ? deviceEventsMeta?.total : prevTotalRowCount,
     );
-  }, [eventHistoriesMeta?.total]);
+  }, [deviceEventsMeta?.total]);
 
-  const relations = ['event'];
+  const relations = ['deviceEventType'];
 
   const renderCellExpand = (params: GridRenderCellParams<string>) => {
     return (
@@ -85,10 +85,10 @@ const EventHistoriesDataGrid = ({
       renderCell: renderCellExpand,
     },
     {
-      field: 'event', type: 'string', headerName: 'Event', flex: 0.1, align: 'right',
+      field: 'deviceEventType', type: 'string', headerName: 'Event type', flex: 0.1, align: 'right',
       renderCell: (params: GridRenderCellParams) => (
         <>
-          {getDeviceEventLabel(params.value.name)}
+          {getDeviceEventTypeLabel(params.value.name)}
         </>
       ),
     },
@@ -103,9 +103,9 @@ const EventHistoriesDataGrid = ({
       <DataGrid
         autoHeight
         keepNonExistentRowsSelected
-        loading={isEventHistoriesLoading}
+        loading={isDeviceEventsLoading}
         columns={columns}
-        rows={(eventHistories ?? []) as GridRowsProp}
+        rows={(deviceEvents ?? []) as GridRowsProp}
         rowCount={totalRowCount}
         sortingMode="server"
         onSortModelChange={handleSortModelChange}
@@ -130,4 +130,4 @@ const EventHistoriesDataGrid = ({
   );
 };
 
-export default EventHistoriesDataGrid;
+export default DeviceEventsDataGrid;

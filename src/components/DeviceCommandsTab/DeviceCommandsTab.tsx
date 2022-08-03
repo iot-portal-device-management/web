@@ -2,14 +2,14 @@ import { Box, Card, Grid } from '@mui/material';
 import LargeCardHeader from '../LargeCardHeader';
 import { useState } from 'react';
 import { QueryOptions } from '../../types/dataGrid';
-import { useCommandHistories } from '../../hooks/commandHistory/useCommandHistories';
-import CommandHistoriesDataGrid from '../CommandHistoriesDataGrid';
+import { useDeviceCommands } from '../../hooks/deviceCommand/useDeviceCommands';
+import DeviceCommandsDataGrid from '../DeviceCommandsDataGrid';
 
-interface DeviceCommandHistoriesTabProps {
+interface DeviceCommandsTabProps {
   deviceId: string;
 }
 
-const DeviceCommandHistoriesTab = ({ deviceId }: DeviceCommandHistoriesTabProps) => {
+const DeviceCommandsTab = ({ deviceId }: DeviceCommandsTabProps) => {
   const [queryOptions, setQueryOptions] = useState<QueryOptions>({
     sortModel: undefined,
     filterModel: undefined,
@@ -18,11 +18,11 @@ const DeviceCommandHistoriesTab = ({ deviceId }: DeviceCommandHistoriesTabProps)
   });
 
   const {
-    commandHistories,
-    commandHistoriesMeta,
-    isCommandHistoriesLoading,
-    mutateCommandHistories
-  } = useCommandHistories(deviceId, {
+    deviceCommands,
+    deviceCommandsMeta,
+    isDeviceCommandsLoading,
+    mutateDeviceCommands
+  } = useDeviceCommands(deviceId, {
     ...queryOptions,
     page: queryOptions.page + 1
   });
@@ -31,17 +31,17 @@ const DeviceCommandHistoriesTab = ({ deviceId }: DeviceCommandHistoriesTabProps)
     <Grid item xs={12}>
       <Card>
         <LargeCardHeader
-          title="Command Histories"
+          title="Device commands"
           subheader="Commands that you have triggered in the past"
         />
         <Box sx={{ width: '100%' }}>
-          <CommandHistoriesDataGrid
+          <DeviceCommandsDataGrid
             queryOptions={queryOptions}
             setQueryOptions={setQueryOptions}
-            commandHistories={commandHistories}
-            commandHistoriesMeta={commandHistoriesMeta}
-            isCommandHistoriesLoading={isCommandHistoriesLoading}
-            mutateCommandHistories={mutateCommandHistories}
+            deviceCommands={deviceCommands}
+            deviceCommandsMeta={deviceCommandsMeta}
+            isDeviceCommandsLoading={isDeviceCommandsLoading}
+            mutateDeviceCommands={mutateDeviceCommands}
           />
         </Box>
       </Card>
@@ -49,4 +49,4 @@ const DeviceCommandHistoriesTab = ({ deviceId }: DeviceCommandHistoriesTabProps)
   );
 };
 
-export default DeviceCommandHistoriesTab;
+export default DeviceCommandsTab;
