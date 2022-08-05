@@ -11,7 +11,7 @@ interface DeviceEventsTabProps {
 
 const DeviceEventsTab = ({ deviceId }: DeviceEventsTabProps) => {
   const [queryOptions, setQueryOptions] = useState<QueryOptions>({
-    sortModel: undefined,
+    sortModel: [{ field: 'createdAt', sort: 'desc' }],
     filterModel: undefined,
     page: 0,
     pageSize: 25,
