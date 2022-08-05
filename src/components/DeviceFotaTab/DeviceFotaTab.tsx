@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import { FotaFormFormikValues, FotaPayload } from '../../types/fota';
-import { useFota } from '../../hooks/fota/useFota';
+import { DeviceFotaFormFormikValues, DeviceFotaPayload } from '../../types/deviceFota';
+import { useDeviceFota } from '../../hooks/deviceFota/useDeviceFota';
 import DeviceFotaFormCard from '../DeviceFotaFormCard';
 import { FormFormikActions } from '../../types/formik';
 
@@ -9,10 +9,10 @@ interface DeviceFotaTabProps {
 }
 
 const DeviceFotaTab = ({ deviceId }: DeviceFotaTabProps) => {
-  const { submitFota } = useFota();
+  const { submitDeviceFota } = useDeviceFota();
 
-  const onSubmit = (data: FotaPayload, formFormikActions: FormFormikActions<FotaFormFormikValues>) => {
-    submitFota(deviceId, data, formFormikActions);
+  const onSubmit = (data: DeviceFotaPayload, formFormikActions: FormFormikActions<DeviceFotaFormFormikValues>) => {
+    submitDeviceFota(deviceId, data, formFormikActions);
   };
 
   return (

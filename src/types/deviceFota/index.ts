@@ -1,4 +1,4 @@
-export interface FotaFormFormikValues {
+export interface DeviceFotaFormFormikValues {
   biosversion: string;
   fetch: string;
   manufacturer: string;
@@ -12,7 +12,7 @@ export interface FotaFormFormikValues {
   password: string;
 }
 
-export type FotaFormField = keyof FotaFormFormikValues;
+export type DeviceFotaFormField = keyof DeviceFotaFormFormikValues;
 
-export interface FotaPayload extends Record<FotaFormField, string> {
+export interface DeviceFotaPayload extends Record<DeviceFotaFormField, string> {
 }

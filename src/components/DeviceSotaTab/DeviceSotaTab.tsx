@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import { SotaFormFormikValues, SotaPayload } from '../../types/sota';
-import { useSota } from '../../hooks/sota/useSota';
+import { DeviceSotaFormFormikValues, DeviceSotaPayload } from '../../types/deviceSota';
+import { useDeviceSota } from '../../hooks/deviceSota/useDeviceSota';
 import DeviceSotaFormCard from '../DeviceSotaFormCard';
 import { FormFormikActions } from '../../types/formik';
 
@@ -9,10 +9,10 @@ interface DeviceSotaTabProps {
 }
 
 const DeviceSotaTab = ({ deviceId }: DeviceSotaTabProps) => {
-  const { submitSota } = useSota();
+  const { submitDeviceSota } = useDeviceSota();
 
-  const onSubmit = (data: SotaPayload, formFormikActions: FormFormikActions<SotaFormFormikValues>) => {
-    submitSota(deviceId, data, formFormikActions);
+  const onSubmit = (data: DeviceSotaPayload, formFormikActions: FormFormikActions<DeviceSotaFormFormikValues>) => {
+    submitDeviceSota(deviceId, data, formFormikActions);
   };
 
   return (

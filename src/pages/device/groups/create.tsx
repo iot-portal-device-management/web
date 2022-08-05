@@ -17,9 +17,10 @@ import { useDevices } from '../../../hooks/device/useDevices';
 import DevicesDataGrid from '../../../components/DevicesDataGrid';
 import createDeviceGroupValidationSchema
   from '../../../validationSchemas/deviceGroup/createDeviceGroupValidationSchema';
-import { useDeviceGroupCRUD } from '../../../hooks/deviceGroup/useDeviceGroupCRUD';
-import NoDeviceSelectedDeviceGroupCreateAlert from '../../../components/NoDeviceSelectedDeviceGroupCreateAlert';
+import { DeviceGroupData, useDeviceGroupCRUD } from '../../../hooks/deviceGroup/useDeviceGroupCRUD';
 import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
+import AddDeviceToDeviceGroupAlert from '../../../components/AddDeviceToDeviceGroupAlert';
+import { sanitizeFormValues } from '../../../utils/utils';
 
 const CreateDeviceGroupPage: NextPageWithLayout = () => {
   const formRef = useRef<FormikProps<CreateDeviceGroupFormFormikValues>>(null);
@@ -33,7 +34,11 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
   });
 
   useEffect(() => {
-    formRef.current?.setFieldValue('deviceIds', selectionModel);
+    if (selectionModel && selectionModel?.length) {
+      formRef.current?.setFieldValue('deviceIds', selectionModel);
+    } else {
+      formRef.current?.setFieldValue('deviceIds', undefined);
+    }
   }, [selectionModel]);
 
   const { devices, devicesMeta, isDevicesLoading, mutateDevices } = useDevices({
@@ -70,11 +75,11 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
-                  deviceIds: [],
+                  deviceIds: undefined,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
-                  createDeviceGroup(values, { setErrors, setSubmitting });
+                  createDeviceGroup(sanitizeFormValues(values) as DeviceGroupData, { setErrors, setSubmitting });
                 }}
               >
                 {({ handleSubmit, isSubmitting }: FormikProps<CreateDeviceGroupFormFormikValues>) => (
@@ -93,9 +98,7 @@ const CreateDeviceGroupPage: NextPageWithLayout = () => {
                           label="Device group name"
                           placeholder="Enter device group name"
                         />
-                        {(formRef.current?.touched.deviceIds && formRef.current?.errors.deviceIds) && (
-                          <NoDeviceSelectedDeviceGroupCreateAlert/>
-                        )}
+                        <AddDeviceToDeviceGroupAlert/>
                         <DevicesDataGrid
                           selectionModel={selectionModel}
                           setSelectionModel={setSelectionModel}

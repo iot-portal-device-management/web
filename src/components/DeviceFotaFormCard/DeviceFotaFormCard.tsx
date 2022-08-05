@@ -4,24 +4,24 @@ import LargeCardHeader from '../LargeCardHeader';
 import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../FullWidthTextField';
 import { sanitizeFormValues } from '../../utils/utils';
-import { FotaFormFormikValues, FotaPayload } from '../../types/fota';
-import fotaValidationSchema from '../../validationSchemas/fota/fotaValidationSchema';
+import { DeviceFotaFormFormikValues, DeviceFotaPayload } from '../../types/deviceFota';
+import deviceFotaValidationSchema from '../../validationSchemas/deviceFota/deviceFotaValidationSchema';
 import CardActionsLoadingButton from '../CardActionsLoadingButton';
 import isFunction from 'lodash/isFunction';
-import { AotaFormFormikValues } from '../../types/aota';
+import { DeviceAotaFormFormikValues } from '../../types/deviceAota';
 import { FormFormikActions } from '../../types/formik';
 
 interface DeviceFotaFormCardProps {
   submitButtonChildren?: ReactNode;
-  onSubmit: (data: FotaPayload, formFormikActions: FormFormikActions<AotaFormFormikValues>) => void;
+  onSubmit: (data: DeviceFotaPayload, formFormikActions: FormFormikActions<DeviceAotaFormFormikValues>) => void;
 }
 
 const DeviceFotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: DeviceFotaFormCardProps, ref) => {
-  const formRef = useRef<FormikProps<FotaFormFormikValues>>(null);
+  const formRef = useRef<FormikProps<DeviceFotaFormFormikValues>>(null);
 
   useImperativeHandle(ref, () => formRef.current);
 
-  const validationSchema = fotaValidationSchema();
+  const validationSchema = deviceFotaValidationSchema();
 
   return (
     <Card>
@@ -53,7 +53,7 @@ const DeviceFotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
           }
         }}
       >
-        {({ handleSubmit, isSubmitting }: FormikProps<FotaFormFormikValues>) => (
+        {({ handleSubmit, isSubmitting }: FormikProps<DeviceFotaFormFormikValues>) => (
           <>
             <CardContent>
               <Box

@@ -6,7 +6,7 @@ const createDeviceValidationSchema = () => {
       .label('device name')
       .required()
       .max(255),
-    deviceCategory: Yup.object().shape({
+    deviceCategoryId: Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string()
         .label('device category')

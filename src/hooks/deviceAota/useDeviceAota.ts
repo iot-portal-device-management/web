@@ -1,15 +1,15 @@
 import { FormFormikActions } from '../../types/formik';
 import axios from '../../libs/axios';
 import toastHelper from '../../libs/toastHelper';
-import { AotaFormFormikValues, AotaPayload } from '../../types/aota';
+import { DeviceAotaFormFormikValues, DeviceAotaPayload } from '../../types/deviceAota';
 
-export const useAota = () => {
-  const submitAota = (deviceId: string, payload: AotaPayload, { setSubmitting }: FormFormikActions<AotaFormFormikValues>) => {
+export const useDeviceAota = () => {
+  const submitDeviceAota = (deviceId: string, payload: DeviceAotaPayload, { setSubmitting }: FormFormikActions<DeviceAotaFormFormikValues>) => {
     const toastId = toastHelper.loading('Submitting AOTA command. Waiting for device acknowledgement...');
 
-    const data = { command: 'AOTA', payload: payload };
+    const data = { device_command_type_name: 'AOTA', payload: payload };
 
-    return axios.post(`/api/devices/${deviceId}/commands`, data)
+    return axios.post(`/api/devices/${deviceId}/triggerDeviceCommand`, data)
       .then(result => {
         toastHelper.success('Submitted AOTA command successfully!', toastId);
       })
@@ -20,6 +20,6 @@ export const useAota = () => {
   };
 
   return {
-    submitAota
+    submitDeviceAota,
   };
 };

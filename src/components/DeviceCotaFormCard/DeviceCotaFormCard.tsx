@@ -6,29 +6,29 @@ import FullWidthAutoComplete from '../FullWidthAutoComplete';
 import FullWidthTextField from '../FullWidthTextField';
 import { BaseOption } from '../../types/option';
 import { sanitizeFormValues } from '../../utils/utils';
-import Configuration from '../../models/Configuration';
-import { CotaCommandOptionValue, CotaFormFormikValues, CotaPayload } from '../../types/cota';
+import DeviceCotaConfiguration from '../../models/DeviceCotaConfiguration';
+import { DeviceCotaCommandOptionValue, DeviceCotaFormFormikValues, DeviceCotaPayload } from '../../types/deviceCota';
 import {
   COTA_COMMAND_OPTIONS,
   COTA_CONFIGURATION_PATH_OPTIONS,
   COTA_FIELDS_HIDDEN_STATES,
   COTA_INITIAL_FIELDS_HIDDEN_STATE
 } from '../../data/cota/options';
-import cotaValidationSchema from '../../validationSchemas/cota/cotaValidationSchema';
+import deviceCotaValidationSchema from '../../validationSchemas/deviceCota/deviceCotaValidationSchema';
 import RemoveCircleTwoToneIcon from '@mui/icons-material/RemoveCircleTwoTone';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import CardActionsLoadingButton from '../CardActionsLoadingButton';
 import { FormFormikActions } from '../../types/formik';
-import { AotaFormFormikValues } from '../../types/aota';
+import { DeviceAotaFormFormikValues } from '../../types/deviceAota';
 import isFunction from 'lodash/isFunction';
 
 interface DeviceCotaFormCardProps {
   submitButtonChildren?: ReactNode;
-  onSubmit: (data: CotaPayload, formFormikActions: FormFormikActions<AotaFormFormikValues>) => void;
+  onSubmit: (data: DeviceCotaPayload, formFormikActions: FormFormikActions<DeviceAotaFormFormikValues>) => void;
 }
 
 const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: DeviceCotaFormCardProps, ref) => {
-  const formRef = useRef<FormikProps<CotaFormFormikValues>>(null);
+  const formRef = useRef<FormikProps<DeviceCotaFormFormikValues>>(null);
 
   useImperativeHandle(ref, () => formRef.current);
 
@@ -48,13 +48,13 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
       // selected option after the reset so that the value is not lost.
       resetForm();
       formRef?.current?.setFieldValue('cmd', selectedOption);
-      setFieldsHidden(COTA_FIELDS_HIDDEN_STATES[selectedOption.value as CotaCommandOptionValue]);
+      setFieldsHidden(COTA_FIELDS_HIDDEN_STATES[selectedOption.value as DeviceCotaCommandOptionValue]);
     } else if (name === 'cmd' && !selectedOption) {
       resetForm();
     }
   };
 
-  const validationSchema = cotaValidationSchema(fieldsHidden);
+  const validationSchema = deviceCotaValidationSchema(fieldsHidden);
 
   return (
     <Card>
@@ -69,7 +69,7 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
         initialValues={{
           cmd: null,
           fetch: '',
-          configurations: [new Configuration()],
+          configurations: [new DeviceCotaConfiguration()],
           signature: '',
         }}
         validationSchema={validationSchema}
@@ -79,7 +79,7 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
           }
         }}
       >
-        {({ values, handleSubmit, isSubmitting }: FormikProps<CotaFormFormikValues>) => (
+        {({ values, handleSubmit, isSubmitting }: FormikProps<DeviceCotaFormFormikValues>) => (
           <>
             <CardContent>
               <Box
@@ -143,7 +143,7 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                               )}
                               <IconButton
                                 color="success"
-                                onClick={() => arrayHelpers.insert(index + 1, new Configuration())}
+                                onClick={() => arrayHelpers.insert(index + 1, new DeviceCotaConfiguration())}
                               >
                                 <AddCircleTwoToneIcon/>
                               </IconButton>
@@ -154,7 +154,7 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                         <Button
                           variant="contained"
                           startIcon={<AddCircleTwoToneIcon/>}
-                          onClick={() => arrayHelpers.push(new Configuration())}
+                          onClick={() => arrayHelpers.push(new DeviceCotaConfiguration())}
                         >
                           Add configuration
                         </Button>

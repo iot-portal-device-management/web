@@ -18,41 +18,41 @@ import createSavedDeviceCommandValidationSchema
 import TabsWrapper from '../../../../components/TabsWrapper';
 import DeviceAotaFormCard from '../../../../components/DeviceAotaFormCard';
 import { FormFormikActions } from '../../../../types/formik';
-import { AotaFormFormikValues, AotaPayload } from '../../../../types/aota';
+import { DeviceAotaFormFormikValues, DeviceAotaPayload } from '../../../../types/deviceAota';
 import DeviceFotaFormCard from '../../../../components/DeviceFotaFormCard';
-import { FotaPayload } from '../../../../types/fota';
-import { SotaPayload } from '../../../../types/sota';
-import { CotaPayload } from '../../../../types/cota';
+import { DeviceFotaPayload } from '../../../../types/deviceFota';
+import { DeviceSotaPayload } from '../../../../types/deviceSota';
+import { DeviceCotaPayload } from '../../../../types/deviceCota';
 import DeviceSotaFormCard from '../../../../components/DeviceSotaFormCard';
 import DeviceCotaFormCard from '../../../../components/DeviceCotaFormCard';
 
 export type OTAPayload =
-  | AotaPayload
-  | FotaPayload
-  | SotaPayload
-  | CotaPayload;
+  | DeviceAotaPayload
+  | DeviceFotaPayload
+  | DeviceSotaPayload
+  | DeviceCotaPayload;
 
 const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
   const formRef = useRef<FormikProps<CreateSavedDeviceCommandFormFormikValues>>(null);
 
-  const [currentTab, setCurrentTab] = useState('aota');
+  const [currentTab, setCurrentTab] = useState('deviceAota');
   const [savedCommandPayload, setSavedCommandPayload] = useState<any>(null);
   const { createSavedDeviceCommand } = useSavedDeviceCommandCRUD();
 
   const validationSchema = createSavedDeviceCommandValidationSchema();
 
   const tabs = [
-    { label: 'Application OTA update', value: 'aota' },
-    { label: 'Firmware OTA update', value: 'fota' },
-    { label: 'Software OTA update', value: 'sota' },
-    { label: 'Configuration OTA update', value: 'cota' },
+    { label: 'Application OTA update', value: 'deviceAota' },
+    { label: 'Firmware OTA update', value: 'deviceFota' },
+    { label: 'Software OTA update', value: 'deviceSota' },
+    { label: 'DeviceCotaConfiguration OTA update', value: 'deviceCota' },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
     setCurrentTab(value);
   };
 
-  const handleCommandPayloadSubmit = (commandType: string, data: OTAPayload, { setSubmitting }: FormFormikActions<AotaFormFormikValues>) => {
+  const handleCommandPayloadSubmit = (commandType: string, data: OTAPayload, { setSubmitting }: FormFormikActions<DeviceAotaFormFormikValues>) => {
     setSavedCommandPayload({ command: commandType, payload: data });
     setSubmitting(false);
   };
@@ -139,7 +139,7 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
                             </TabsWrapper>
                           </Grid>
                           <Grid item xs={12}>
-                            {currentTab === 'aota' && (
+                            {currentTab === 'deviceAota' && (
                               <DeviceAotaFormCard
                                 submitButtonChildren="Validate"
                                 onSubmit={(data, formFormikActions) => {
@@ -147,7 +147,7 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
                                 }}
                               />
                             )}
-                            {currentTab === 'fota' && (
+                            {currentTab === 'deviceFota' && (
                               <DeviceFotaFormCard
                                 submitButtonChildren="Validate"
                                 onSubmit={(data, formFormikActions) => {
@@ -155,7 +155,7 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
                                 }}
                               />
                             )}
-                            {currentTab === 'sota' && (
+                            {currentTab === 'deviceSota' && (
                               <DeviceSotaFormCard
                                 submitButtonChildren="Validate"
                                 onSubmit={(data, formFormikActions) => {
@@ -163,7 +163,7 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
                                 }}
                               />
                             )}
-                            {currentTab === 'cota' && (
+                            {currentTab === 'deviceCota' && (
                               <DeviceCotaFormCard
                                 submitButtonChildren="Validate"
                                 onSubmit={(data, formFormikActions) => {

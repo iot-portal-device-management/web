@@ -2,7 +2,7 @@ import { NullableDeviceCategoryOption } from '../deviceCategory';
 
 export interface CreateDeviceFormFormikValues {
   name: string;
-  deviceCategory: NullableDeviceCategoryOption;
+  deviceCategoryId: NullableDeviceCategoryOption;
 }
 
 export interface EditDeviceFormFormikValues extends CreateDeviceFormFormikValues {

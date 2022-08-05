@@ -7,7 +7,7 @@ import { CreateDeviceFormFormikValues, EditDeviceFormFormikValues } from '../../
 
 export interface DeviceData {
   name: string;
-  deviceCategory: string;
+  deviceCategoryId: string;
 }
 
 export const useDeviceCRUD = () => {

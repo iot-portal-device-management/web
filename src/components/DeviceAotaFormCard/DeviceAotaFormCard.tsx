@@ -11,9 +11,9 @@ import {
   AOTA_REBOOT_OPTIONS
 } from '../../data/aota/options';
 import FullWidthTextField from '../FullWidthTextField';
-import { AotaAppOptionValue, AotaCommandOptionValue, AotaFormFormikValues, AotaPayload } from '../../types/aota';
+import { DeviceAotaAppOptionValue, DeviceAotaCommandOptionValue, DeviceAotaFormFormikValues, DeviceAotaPayload } from '../../types/deviceAota';
 import { BaseOption } from '../../types/option';
-import aotaValidationSchema from '../../validationSchemas/aota/aotaValidationSchema';
+import deviceAotaValidationSchema from '../../validationSchemas/deviceAota/deviceAotaValidationSchema';
 import CardActionsLoadingButton from '../CardActionsLoadingButton';
 import { sanitizeFormValues } from '../../utils/utils';
 import isFunction from 'lodash/isFunction';
@@ -21,11 +21,11 @@ import { FormFormikActions } from '../../types/formik';
 
 interface DeviceAotaFormCardProps {
   submitButtonChildren?: ReactNode;
-  onSubmit: (data: AotaPayload, formFormikActions: FormFormikActions<AotaFormFormikValues>) => void;
+  onSubmit: (data: DeviceAotaPayload, formFormikActions: FormFormikActions<DeviceAotaFormFormikValues>) => void;
 }
 
 const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: DeviceAotaFormCardProps, ref) => {
-  const formRef = useRef<FormikProps<AotaFormFormikValues>>(null);
+  const formRef = useRef<FormikProps<DeviceAotaFormFormikValues>>(null);
 
   useImperativeHandle(ref, () => formRef.current);
 
@@ -50,11 +50,11 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
       resetForm();
     } else if (name === 'cmd' && selectedOption) {
       // @ts-ignore
-      setFieldsHidden(AOTA_FIELDS_HIDDEN_STATES[formRef.current.values.app.value as AotaAppOptionValue][selectedOption.value as AotaCommandOptionValue]);
+      setFieldsHidden(AOTA_FIELDS_HIDDEN_STATES[formRef.current.values.app.value as DeviceAotaAppOptionValue][selectedOption.value as DeviceAotaCommandOptionValue]);
     }
   };
 
-  const validationSchema = aotaValidationSchema(AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as AotaAppOptionValue ?? 'docker'], fieldsHidden);
+  const validationSchema = deviceAotaValidationSchema(AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as DeviceAotaAppOptionValue ?? 'docker'], fieldsHidden);
 
   return (
     <Card>
@@ -88,7 +88,7 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
           }
         }}
       >
-        {({ handleSubmit, isSubmitting }: FormikProps<AotaFormFormikValues>) => (
+        {({ handleSubmit, isSubmitting }: FormikProps<DeviceAotaFormFormikValues>) => (
           <>
             <CardContent>
               <Box
@@ -113,7 +113,7 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="cmd"
                   label="Command"
                   placeholder="Enter your command"
-                  options={AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as AotaAppOptionValue ?? 'docker']}
+                  options={AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as DeviceAotaAppOptionValue ?? 'docker']}
                   optionChangeCallback={updateFormFields}
                   hidden={fieldsHidden.cmd}
                 />

@@ -3,7 +3,7 @@ import camelCase from 'lodash/camelCase';
 import transform from 'lodash/transform';
 import isArray from 'lodash/isArray';
 import isObject from 'lodash/isObject';
-import Configuration from '../models/Configuration';
+import DeviceCotaConfiguration from '../models/DeviceCotaConfiguration';
 
 export const camelizeObjectProperty = (object: Record<string, unknown>) =>
   transform(object, (result: Record<string, unknown>, value: unknown, key: string, target) => {
@@ -77,7 +77,7 @@ export const sanitizeFormValues = (object: Record<string, any>) => {
       // Here we add the 'path' string from the 'configurations' object and delete the 'configurations' property
       let pathString = '';
 
-      clonedObject[key].forEach((value: Configuration) => {
+      clonedObject[key].forEach((value: DeviceCotaConfiguration) => {
         if (value.value) {
           pathString += `${value.path?.value}:${value.value};`;
         } else {

@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 
 import { SOTA_COMMAND_OPTIONS, SOTA_LOG_TO_FILE_OPTIONS, SOTA_OPTIONS } from '../../data/sota/options';
-import { SotaFormField, SotaFormFieldsHiddenState } from '../../types/sota';
+import { DeviceSotaFormField, DeviceSotaFormFieldsHiddenState } from '../../types/deviceSota';
 import { ValidationObject } from '../../types/validationSchema';
 
-const sotaValidationSchema = (fieldsHidden: SotaFormFieldsHiddenState) => {
-  const validationObject: ValidationObject<SotaFormField> = {
+const deviceSotaValidationSchema = (fieldsHidden: DeviceSotaFormFieldsHiddenState) => {
+  const validationObject: ValidationObject<DeviceSotaFormField> = {
     sota_option: Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string()
@@ -49,4 +49,4 @@ const sotaValidationSchema = (fieldsHidden: SotaFormFieldsHiddenState) => {
   return Yup.object(validationObject);
 };
 
-export default sotaValidationSchema;
+export default deviceSotaValidationSchema;

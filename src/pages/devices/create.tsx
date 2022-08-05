@@ -55,7 +55,7 @@ const CreateDevicePage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
-                  deviceCategory: null,
+                  deviceCategoryId: null,
                 } as CreateDeviceFormFormikValues
                 }
                 validationSchema={validationSchema}
@@ -82,8 +82,8 @@ const CreateDevicePage: NextPageWithLayout = () => {
                         <FullWidthAutoComplete
                           required
                           autoHighlight
-                          id="deviceCategory"
-                          name="deviceCategory"
+                          id="deviceCategoryId"
+                          name="deviceCategoryId"
                           label="Device category"
                           placeholder="Select a device category"
                           options={deviceCategoryOptions ?? []}

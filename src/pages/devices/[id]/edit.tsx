@@ -38,7 +38,7 @@ const EditDevicePage: NextPageWithLayout = () => {
 
   const transformedDevice = device ? {
     ...device,
-    deviceCategory: { label: device.deviceCategory.name, value: device.deviceCategory.id }
+    deviceCategoryId: { label: device.deviceCategory.name, value: device.deviceCategory.id }
   } : device;
 
   return (
@@ -65,7 +65,7 @@ const EditDevicePage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: transformedDevice?.name ?? '',
-                  deviceCategory: transformedDevice?.deviceCategory ?? null,
+                  deviceCategoryId: transformedDevice?.deviceCategoryId ?? null,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
@@ -91,8 +91,8 @@ const EditDevicePage: NextPageWithLayout = () => {
                         <FullWidthAutoComplete
                           required
                           autoHighlight
-                          id="deviceCategory"
-                          name="deviceCategory"
+                          id="deviceCategoryId"
+                          name="deviceCategoryId"
                           label="Device category"
                           placeholder="Select a device category"
                           options={deviceCategoryOptions ?? []}

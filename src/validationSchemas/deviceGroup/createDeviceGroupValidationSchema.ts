@@ -8,8 +8,7 @@ const createDeviceGroupValidationSchema = () => {
       .max(255),
     deviceIds: Yup.array()
       .label('devices')
-      .required()
-      .min(1),
+      .optional(),
   });
 };
 

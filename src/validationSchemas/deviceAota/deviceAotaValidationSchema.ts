@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 
 import { AOTA_APP_OPTIONS, AOTA_REBOOT_OPTIONS } from '../../data/aota/options';
-import { AotaAppOption, AotaCommandOption, AotaFormField, AotaFormFieldsHiddenState } from '../../types/aota';
+import { DeviceAotaAppOption, DeviceAotaCommandOption, DeviceAotaFormField, DeviceAotaFormFieldsHiddenState } from '../../types/deviceAota';
 import { ValidationObject } from '../../types/validationSchema';
 
-const aotaValidationSchema = (commandOptions: NonNullable<AotaCommandOption>[], fieldsHidden: AotaFormFieldsHiddenState) => {
-  const validationObject: ValidationObject<AotaFormField> = {
+const deviceAotaValidationSchema = (commandOptions: NonNullable<DeviceAotaCommandOption>[], fieldsHidden: DeviceAotaFormFieldsHiddenState) => {
+  const validationObject: ValidationObject<DeviceAotaFormField> = {
     app: Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string()
@@ -34,11 +34,11 @@ const aotaValidationSchema = (commandOptions: NonNullable<AotaCommandOption>[], 
     validationObject.deviceReboot = Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string()
-        .label('deviceStatus reboot')
+        .label('device reboot')
         .required()
         .oneOf(AOTA_REBOOT_OPTIONS.map(({ label }) => label))
     })
-      .label('deviceStatus reboot')
+      .label('device reboot')
       .nullable()
       .required();
   }
@@ -50,7 +50,7 @@ const aotaValidationSchema = (commandOptions: NonNullable<AotaCommandOption>[], 
     validationObject.version = Yup.string()
       .label('version')
       .when(['app', 'command'], {
-        is: (app: NonNullable<AotaAppOption>, command: NonNullable<AotaCommandOption>) =>
+        is: (app: NonNullable<DeviceAotaAppOption>, command: NonNullable<DeviceAotaCommandOption>) =>
           app?.value === 'docker' && command?.value === 'remove',
         then: Yup.string().required(),
         otherwise: Yup.string(),
@@ -67,4 +67,4 @@ const aotaValidationSchema = (commandOptions: NonNullable<AotaCommandOption>[], 
   return Yup.object(validationObject);
 };
 
-export default aotaValidationSchema;
+export default deviceAotaValidationSchema;

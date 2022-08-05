@@ -1,13 +1,17 @@
 import * as Yup from 'yup';
 
 import { COTA_COMMAND_OPTIONS, COTA_CONFIGURATION_PATH_OPTIONS } from '../../data/cota/options';
-import { CotaFormField, CotaFormFieldsHiddenState, NullableCotaConfigurationPathOption } from '../../types/cota';
+import {
+  DeviceCotaFormField,
+  DeviceCotaFormFieldsHiddenState,
+  NullableDeviceCotaConfigurationPathOption
+} from '../../types/deviceCota';
 import { ValidationObject } from '../../types/validationSchema';
-import Configuration from '../../models/Configuration';
+import DeviceCotaConfiguration from '../../models/DeviceCotaConfiguration';
 import { AnyObject, MessageParams } from 'yup/lib/types';
 
-const cotaValidationSchema = (fieldsHidden: CotaFormFieldsHiddenState) => {
-  const validationObject: ValidationObject<CotaFormField> = {
+const deviceCotaValidationSchema = (fieldsHidden: DeviceCotaFormFieldsHiddenState) => {
+  const validationObject: ValidationObject<DeviceCotaFormField> = {
     cmd: Yup.object().shape({
       value: Yup.string().required(),
       label: Yup.string()
@@ -37,12 +41,12 @@ const cotaValidationSchema = (fieldsHidden: CotaFormFieldsHiddenState) => {
           .test('uniqueConfigurationPath', ({ path }: MessageParams) => ({
             key: 'validation.unique',
             values: { attribute: path }
-          }), (value: NullableCotaConfigurationPathOption, context: Yup.TestContext<AnyObject>) => {
+          }), (value: NullableDeviceCotaConfigurationPathOption, context: Yup.TestContext<AnyObject>) => {
             if (value) {
               // filter(Boolean) to remove falsy values such as 'null' and 'undefined'
               // @ts-ignore
               const configurationsArr = context.from[2].value.configurations
-                .map((configuration: Configuration) => (configuration.path ? configuration.path.value : null))
+                .map((configuration: DeviceCotaConfiguration) => (configuration.path ? configuration.path.value : null))
                 .filter(Boolean);
 
               // Check if the select configuration paths are unique or not by testing < 2 occurrences
@@ -79,4 +83,4 @@ const cotaValidationSchema = (fieldsHidden: CotaFormFieldsHiddenState) => {
   return Yup.object(validationObject);
 };
 
-export default cotaValidationSchema;
+export default deviceCotaValidationSchema;

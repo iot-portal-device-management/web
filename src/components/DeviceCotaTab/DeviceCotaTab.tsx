@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import { CotaFormFormikValues, CotaPayload } from '../../types/cota';
-import { useCota } from '../../hooks/cota/useCota';
+import { DeviceCotaFormFormikValues, DeviceCotaPayload } from '../../types/deviceCota';
+import { useDeviceCota } from '../../hooks/deviceCota/useDeviceCota';
 import DeviceCotaFormCard from '../DeviceCotaFormCard';
 import { FormFormikActions } from '../../types/formik';
 
@@ -9,10 +9,10 @@ interface DeviceCotaTabProps {
 }
 
 const DeviceCotaTab = ({ deviceId }: DeviceCotaTabProps) => {
-  const { submitCota } = useCota();
+  const { submitDeviceCota } = useDeviceCota();
 
-  const onSubmit = (data: CotaPayload, formFormikActions: FormFormikActions<CotaFormFormikValues>) => {
-    submitCota(deviceId, data, formFormikActions);
+  const onSubmit = (data: DeviceCotaPayload, formFormikActions: FormFormikActions<DeviceCotaFormFormikValues>) => {
+    submitDeviceCota(deviceId, data, formFormikActions);
   };
 
   return (

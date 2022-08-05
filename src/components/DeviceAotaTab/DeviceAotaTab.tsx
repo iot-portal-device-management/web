@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
-import { useAota } from '../../hooks/aota/useAota';
-import { AotaFormFormikValues, AotaPayload } from '../../types/aota';
+import { useDeviceAota } from '../../hooks/deviceAota/useDeviceAota';
+import { DeviceAotaFormFormikValues, DeviceAotaPayload } from '../../types/deviceAota';
 import DeviceAotaFormCard from '../DeviceAotaFormCard/DeviceAotaFormCard';
 import { FormFormikActions } from '../../types/formik';
 
@@ -9,10 +9,10 @@ interface DeviceAotaTabProps {
 }
 
 const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
-  const { submitAota } = useAota();
+  const { submitDeviceAota } = useDeviceAota();
 
-  const onSubmit = (data: AotaPayload, formFormikActions: FormFormikActions<AotaFormFormikValues>) => {
-    submitAota(deviceId, data, formFormikActions);
+  const onSubmit = (data: DeviceAotaPayload, formFormikActions: FormFormikActions<DeviceAotaFormFormikValues>) => {
+    submitDeviceAota(deviceId, data, formFormikActions);
   };
 
   return (

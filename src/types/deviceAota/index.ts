@@ -1,12 +1,12 @@
 import { BaseOption } from '../option';
 import { Nullable } from '../../libs/utilityTypes';
 
-export type AotaAppOptionValue =
+export type DeviceAotaAppOptionValue =
   | 'docker'
   | 'compose'
   | 'application';
 
-export type AotaCommandOptionValue =
+export type DeviceAotaCommandOptionValue =
   | 'import'
   | 'load'
   | 'pull'
@@ -25,18 +25,18 @@ export type DeviceRebootOptionValue =
   | 'yes'
   | 'no';
 
-export interface AotaAppOption extends BaseOption<AotaAppOptionValue, AotaAppOptionValue> {
+export interface DeviceAotaAppOption extends BaseOption<DeviceAotaAppOptionValue, DeviceAotaAppOptionValue> {
 }
 
-export interface AotaCommandOption extends BaseOption<AotaCommandOptionValue, AotaCommandOptionValue> {
+export interface DeviceAotaCommandOption extends BaseOption<DeviceAotaCommandOptionValue, DeviceAotaCommandOptionValue> {
 }
 
 export interface DeviceRebootOption extends BaseOption<DeviceRebootOptionLabel, DeviceRebootOptionValue> {
 }
 
-export interface AotaFormFormikValues {
-  app: Nullable<AotaAppOption>;
-  cmd: Nullable<AotaCommandOption>;
+export interface DeviceAotaFormFormikValues {
+  app: Nullable<DeviceAotaAppOption>;
+  cmd: Nullable<DeviceAotaCommandOption>;
   containerTag: string;
   deviceReboot: Nullable<DeviceRebootOption>;
   fetch: string;
@@ -50,10 +50,10 @@ export interface AotaFormFormikValues {
   file: string;
 }
 
-export type AotaFormField = keyof AotaFormFormikValues;
+export type DeviceAotaFormField = keyof DeviceAotaFormFormikValues;
 
-export interface AotaFormFieldsHiddenState extends Record<AotaFormField, boolean> {
+export interface DeviceAotaFormFieldsHiddenState extends Record<DeviceAotaFormField, boolean> {
 }
 
-export interface AotaPayload extends Record<AotaFormField, string> {
+export interface DeviceAotaPayload extends Record<DeviceAotaFormField, string> {
 }

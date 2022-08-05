@@ -1,4 +1,4 @@
-import { AotaAppOptionValue, AotaCommandOption } from '../../types/aota';
+import { DeviceAotaAppOptionValue, DeviceAotaCommandOption } from '../../types/deviceAota';
 
 export const AOTA_APP_OPTIONS = [
   { label: 'docker', value: 'docker' },
@@ -6,7 +6,7 @@ export const AOTA_APP_OPTIONS = [
   { label: 'application', value: 'application' },
 ];
 
-export const AOTA_COMMAND_OPTIONS: Record<AotaAppOptionValue, AotaCommandOption[]> = {
+export const AOTA_COMMAND_OPTIONS: Record<DeviceAotaAppOptionValue, DeviceAotaCommandOption[]> = {
   docker: [
     { label: 'import', value: 'import' },
     { label: 'load', value: 'load' },

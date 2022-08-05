@@ -1,11 +1,11 @@
-import { SotaCommandOption } from '../../types/sota';
+import { DeviceSotaCommandOption } from '../../types/deviceSota';
 
 export const SOTA_OPTIONS = [
   { label: 'Ubuntu update', value: 'ubuntu_update' },
   { label: 'Mender update', value: 'mender_update' },
 ];
 
-export const SOTA_COMMAND_OPTIONS: SotaCommandOption[] = [
+export const SOTA_COMMAND_OPTIONS: DeviceSotaCommandOption[] = [
   { label: 'update', value: 'update' },
 ];
 

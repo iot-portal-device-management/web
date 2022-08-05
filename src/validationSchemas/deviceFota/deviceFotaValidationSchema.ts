@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const fotaValidationSchema = () => {
+const deviceFotaValidationSchema = () => {
   return Yup.object({
     biosversion: Yup.string().label('BIOS version').required(),
     fetch: Yup.string().label('fetch link').required(),
@@ -16,4 +16,4 @@ const fotaValidationSchema = () => {
   });
 };
 
-export default fotaValidationSchema;
+export default deviceFotaValidationSchema;

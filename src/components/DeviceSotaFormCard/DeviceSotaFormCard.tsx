@@ -13,20 +13,20 @@ import {
 import FullWidthTextField from '../FullWidthTextField';
 import { BaseOption } from '../../types/option';
 import { sanitizeFormValues } from '../../utils/utils';
-import { SotaFormFormikValues, SotaOptionValue, SotaPayload } from '../../types/sota';
-import sotaValidationSchema from '../../validationSchemas/sota/sotaValidationSchema';
+import { DeviceSotaFormFormikValues, DeviceSotaOptionValue, DeviceSotaPayload } from '../../types/deviceSota';
+import deviceSotaValidationSchema from '../../validationSchemas/deviceSota/deviceSotaValidationSchema';
 import CardActionsLoadingButton from '../CardActionsLoadingButton';
-import { AotaFormFormikValues } from '../../types/aota';
+import { DeviceAotaFormFormikValues } from '../../types/deviceAota';
 import { FormFormikActions } from '../../types/formik';
 import isFunction from 'lodash/isFunction';
 
 interface DeviceSotaFormCardProps {
   submitButtonChildren?: ReactNode;
-  onSubmit: (data: SotaPayload, formFormikActions: FormFormikActions<AotaFormFormikValues>) => void;
+  onSubmit: (data: DeviceSotaPayload, formFormikActions: FormFormikActions<DeviceAotaFormFormikValues>) => void;
 }
 
 const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: DeviceSotaFormCardProps, ref) => {
-  const formRef = useRef<FormikProps<SotaFormFormikValues>>(null);
+  const formRef = useRef<FormikProps<DeviceSotaFormFormikValues>>(null);
 
   useImperativeHandle(ref, () => formRef.current);
 
@@ -46,13 +46,13 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
       // selected option after the reset so that the value is not lost.
       resetForm();
       formRef?.current?.setFieldValue('sota_option', selectedOption);
-      setFieldsHidden(SOTA_FIELDS_HIDDEN_STATES[selectedOption.value as SotaOptionValue]);
+      setFieldsHidden(SOTA_FIELDS_HIDDEN_STATES[selectedOption.value as DeviceSotaOptionValue]);
     } else if (name === 'sota_option' && !selectedOption) {
       resetForm();
     }
   };
 
-  const validationSchema = sotaValidationSchema(fieldsHidden);
+  const validationSchema = deviceSotaValidationSchema(fieldsHidden);
 
   return (
     <Card>
@@ -79,7 +79,7 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
           }
         }}
       >
-        {({ handleSubmit, isSubmitting }: FormikProps<SotaFormFormikValues>) => (
+        {({ handleSubmit, isSubmitting }: FormikProps<DeviceSotaFormFormikValues>) => (
           <>
             <CardContent>
               <Box

@@ -76,8 +76,7 @@ const CreateDeviceCategoryPage: NextPageWithLayout = () => {
                 initialValues={{
                   name: '',
                   deviceIds: undefined,
-                } as CreateDeviceCategoryFormFormikValues
-                }
+                }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
                   createDeviceCategory(sanitizeFormValues(values) as DeviceCategoryData, {

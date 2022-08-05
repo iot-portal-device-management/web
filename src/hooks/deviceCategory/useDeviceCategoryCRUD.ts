@@ -7,7 +7,7 @@ import { CreateDeviceCategoryFormFormikValues, EditDeviceCategoryFormFormikValue
 
 export interface DeviceCategoryData {
   name: string;
-  deviceIds?: string[]
+  deviceIds?: string[];
 }
 
 export const useDeviceCategoryCRUD = () => {

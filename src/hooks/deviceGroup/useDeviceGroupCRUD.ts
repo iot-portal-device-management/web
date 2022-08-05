@@ -7,7 +7,7 @@ import { CreateDeviceGroupFormFormikValues, EditDeviceGroupFormFormikValues } fr
 
 export interface DeviceGroupData {
   name: string;
-  deviceIds: string[];
+  deviceIds?: string[];
 }
 
 export const useDeviceGroupCRUD = () => {

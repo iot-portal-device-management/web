@@ -1,15 +1,15 @@
 import { FormFormikActions } from '../../types/formik';
 import axios from '../../libs/axios';
 import toastHelper from '../../libs/toastHelper';
-import { FotaFormFormikValues, FotaPayload } from '../../types/fota';
+import { DeviceFotaFormFormikValues, DeviceFotaPayload } from '../../types/deviceFota';
 
-export const useFota = () => {
-  const submitFota = (id: string, payload: FotaPayload, { setSubmitting }: FormFormikActions<FotaFormFormikValues>) => {
+export const useDeviceFota = () => {
+  const submitDeviceFota = (id: string, payload: DeviceFotaPayload, { setSubmitting }: FormFormikActions<DeviceFotaFormFormikValues>) => {
     const toastId = toastHelper.loading('Submitting FOTA command. Waiting for device acknowledgement...');
 
-    const data = { command: 'FOTA', payload: payload };
+    const data = { device_command_type_name: 'FOTA', payload: payload };
 
-    return axios.post(`/api/devices/${id}/commands`, data)
+    return axios.post(`/api/devices/${id}/triggerDeviceCommand`, data)
       .then(result => {
         toastHelper.success('Submitted FOTA command successfully!', toastId);
       })
@@ -20,6 +20,6 @@ export const useFota = () => {
   };
 
   return {
-    submitFota
+    submitDeviceFota,
   };
 };

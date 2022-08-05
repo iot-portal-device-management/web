@@ -19,9 +19,9 @@ import { GridRowModel, GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../../../types/dataGrid';
 import { useDevices } from '../../../../hooks/device/useDevices';
 import { useDeviceGroupDevices } from '../../../../hooks/deviceGroup/useDeviceGroupDevices';
-import NoDeviceSelectedDeviceGroupEditAlert from '../../../../components/NoDeviceSelectedDeviceGroupEditAlert';
 import editDeviceGroupValidationSchema from '../../../../validationSchemas/deviceGroup/editDeviceGroupValidationSchema';
 import CardActionsLoadingButton from '../../../../components/CardActionsLoadingButton';
+import AddDeviceToDeviceGroupAlert from '../../../../components/AddDeviceToDeviceGroupAlert';
 
 const EditDeviceGroupPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -58,7 +58,11 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
   }, [deviceGroupDevices]);
 
   useEffect(() => {
-    formRef.current?.setFieldValue('deviceIds', selectionModel);
+    if (selectionModel && selectionModel?.length) {
+      formRef.current?.setFieldValue('deviceIds', selectionModel);
+    } else {
+      formRef.current?.setFieldValue('deviceIds', undefined);
+    }
   }, [selectionModel]);
 
   const { updateDeviceGroup } = useDeviceGroupCRUD();
@@ -90,7 +94,7 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
                 enableReinitialize={true}
                 initialValues={{
                   name: deviceGroup?.name ?? '',
-                  deviceIds: [],
+                  deviceIds: undefined,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setErrors, setSubmitting }) => {
@@ -113,9 +117,7 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
                           label="Device group name"
                           placeholder="Enter device group name"
                         />
-                        {(formRef.current?.touched.deviceIds && formRef.current?.errors.deviceIds) && (
-                          <NoDeviceSelectedDeviceGroupEditAlert/>
-                        )}
+                        <AddDeviceToDeviceGroupAlert/>
                         <DevicesDataGrid
                           selectionModel={selectionModel}
                           setSelectionModel={setSelectionModel}
