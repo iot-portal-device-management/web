@@ -7,7 +7,7 @@ export const useDeviceAota = () => {
   const submitDeviceAota = (id: string, payload: DeviceAotaPayload, { setSubmitting }: FormFormikActions<DeviceAotaFormFormikValues>) => {
     const toastId = toastHelper.loading('Submitting AOTA command. Waiting for device acknowledgement...');
 
-    const data = { device_command_type_name: 'AOTA', payload: payload };
+    const data = { deviceCommandTypeName: 'AOTA', payload: payload };
 
     return axios.post(`/api/devices/${id}/triggerDeviceCommand`, data)
       .then(result => {

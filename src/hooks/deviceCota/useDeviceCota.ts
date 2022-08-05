@@ -7,7 +7,7 @@ export const useDeviceCota = () => {
   const submitDeviceCota = (id: string, payload: DeviceCotaPayload, { setSubmitting }: FormFormikActions<DeviceCotaFormFormikValues>) => {
     const toastId = toastHelper.loading('Submitting COTA command. Waiting for device acknowledgement...');
 
-    const data = { device_command_type_name: 'COTA', payload: payload };
+    const data = { deviceCommandTypeName: 'COTA', payload: payload };
 
     return axios.post(`/api/devices/${id}/triggerDeviceCommand`, data)
       .then(result => {
