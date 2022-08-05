@@ -26,7 +26,7 @@ import { DeviceCotaPayload } from '../../../../types/deviceCota';
 import DeviceSotaFormCard from '../../../../components/DeviceSotaFormCard';
 import DeviceCotaFormCard from '../../../../components/DeviceCotaFormCard';
 
-export type OTAPayload =
+export type DeviceOTAPayload =
   | DeviceAotaPayload
   | DeviceFotaPayload
   | DeviceSotaPayload
@@ -35,36 +35,36 @@ export type OTAPayload =
 const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
   const formRef = useRef<FormikProps<CreateSavedDeviceCommandFormFormikValues>>(null);
 
-  const [currentTab, setCurrentTab] = useState('deviceAota');
-  const [savedCommandPayload, setSavedCommandPayload] = useState<any>(null);
+  const [currentTab, setCurrentTab] = useState('aota');
+  const [savedDeviceCommandPayload, setSavedDeviceCommandPayload] = useState<any>(null);
   const { createSavedDeviceCommand } = useSavedDeviceCommandCRUD();
 
   const validationSchema = createSavedDeviceCommandValidationSchema();
 
   const tabs = [
-    { label: 'Application OTA update', value: 'deviceAota' },
-    { label: 'Firmware OTA update', value: 'deviceFota' },
-    { label: 'Software OTA update', value: 'deviceSota' },
-    { label: 'DeviceCotaConfiguration OTA update', value: 'deviceCota' },
+    { label: 'Application OTA update', value: 'aota' },
+    { label: 'Firmware OTA update', value: 'fota' },
+    { label: 'Software OTA update', value: 'sota' },
+    { label: 'Configuration OTA update', value: 'cota' },
   ];
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
     setCurrentTab(value);
   };
 
-  const handleCommandPayloadSubmit = (commandType: string, data: OTAPayload, { setSubmitting }: FormFormikActions<DeviceAotaFormFormikValues>) => {
-    setSavedCommandPayload({ command: commandType, payload: data });
+  const handleSavedDeviceCommandPayloadSubmit = (deviceCommandTypeName: string, payload: DeviceOTAPayload, { setSubmitting }: FormFormikActions<DeviceAotaFormFormikValues>) => {
+    setSavedDeviceCommandPayload({ deviceCommandTypeName: deviceCommandTypeName, payload: payload });
     setSubmitting(false);
   };
 
   const handleFormSubmit = (values: CreateSavedDeviceCommandFormFormikValues, formFormikActions: FormFormikActions<CreateSavedDeviceCommandFormFormikValues>) => {
-    if (savedCommandPayload) {
-      const data = { ...values, ...savedCommandPayload };
+    if (savedDeviceCommandPayload) {
+      const data = { ...values, ...savedDeviceCommandPayload };
       createSavedDeviceCommand(data, formFormikActions);
     } else {
       const { setSubmitting } = formFormikActions;
 
-      alert('The command payload is required. Please click on the Validate button to validate first.')
+      alert('The saved device command payload is required. Please click on the Validate button to validate first.')
       setSubmitting(false);
     }
   };
@@ -139,35 +139,35 @@ const CreateSavedDeviceCommandPage: NextPageWithLayout = () => {
                             </TabsWrapper>
                           </Grid>
                           <Grid item xs={12}>
-                            {currentTab === 'deviceAota' && (
+                            {currentTab === 'aota' && (
                               <DeviceAotaFormCard
                                 submitButtonChildren="Validate"
-                                onSubmit={(data, formFormikActions) => {
-                                  handleCommandPayloadSubmit('AOTA', data, formFormikActions);
+                                onSubmit={(payload, formFormikActions) => {
+                                  handleSavedDeviceCommandPayloadSubmit('AOTA', payload, formFormikActions);
                                 }}
                               />
                             )}
-                            {currentTab === 'deviceFota' && (
+                            {currentTab === 'fota' && (
                               <DeviceFotaFormCard
                                 submitButtonChildren="Validate"
-                                onSubmit={(data, formFormikActions) => {
-                                  handleCommandPayloadSubmit('FOTA', data, formFormikActions);
+                                onSubmit={(payload, formFormikActions) => {
+                                  handleSavedDeviceCommandPayloadSubmit('FOTA', payload, formFormikActions);
                                 }}
                               />
                             )}
-                            {currentTab === 'deviceSota' && (
+                            {currentTab === 'sota' && (
                               <DeviceSotaFormCard
                                 submitButtonChildren="Validate"
-                                onSubmit={(data, formFormikActions) => {
-                                  handleCommandPayloadSubmit('SOTA', data, formFormikActions);
+                                onSubmit={(payload, formFormikActions) => {
+                                  handleSavedDeviceCommandPayloadSubmit('SOTA', payload, formFormikActions);
                                 }}
                               />
                             )}
-                            {currentTab === 'deviceCota' && (
+                            {currentTab === 'cota' && (
                               <DeviceCotaFormCard
                                 submitButtonChildren="Validate"
-                                onSubmit={(data, formFormikActions) => {
-                                  handleCommandPayloadSubmit('COTA', data, formFormikActions);
+                                onSubmit={(payload, formFormikActions) => {
+                                  handleSavedDeviceCommandPayloadSubmit('COTA', payload, formFormikActions);
                                 }}
                               />
                             )}
