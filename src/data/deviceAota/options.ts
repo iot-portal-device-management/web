@@ -1,12 +1,12 @@
 import { DeviceAotaAppOptionValue, DeviceAotaCommandOption } from '../../types/deviceAota';
 
-export const AOTA_APP_OPTIONS = [
+export const DEVICE_AOTA_APP_OPTIONS = [
   { label: 'docker', value: 'docker' },
   { label: 'compose', value: 'compose' },
   { label: 'application', value: 'application' },
 ];
 
-export const AOTA_COMMAND_OPTIONS: Record<DeviceAotaAppOptionValue, DeviceAotaCommandOption[]> = {
+export const DEVICE_AOTA_COMMAND_OPTIONS: Record<DeviceAotaAppOptionValue, DeviceAotaCommandOption[]> = {
   docker: [
     { label: 'import', value: 'import' },
     { label: 'load', value: 'load' },
@@ -26,12 +26,12 @@ export const AOTA_COMMAND_OPTIONS: Record<DeviceAotaAppOptionValue, DeviceAotaCo
   ],
 };
 
-export const AOTA_REBOOT_OPTIONS = [
+export const DEVICE_AOTA_REBOOT_OPTIONS = [
   { label: 'Yes', value: 'yes' },
   { label: 'No', value: 'no' },
 ];
 
-export const AOTA_INITIAL_FIELDS_HIDDEN_STATE = {
+export const DEVICE_AOTA_INITIAL_FIELDS_HIDDEN_STATE = {
   app: false,
   cmd: true,
   containerTag: true,
@@ -47,7 +47,7 @@ export const AOTA_INITIAL_FIELDS_HIDDEN_STATE = {
   file: true,
 };
 
-export const AOTA_FIELDS_HIDDEN_STATES = {
+export const DEVICE_AOTA_FIELDS_HIDDEN_STATES = {
   docker: {
     import: {
       app: false,

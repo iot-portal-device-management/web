@@ -1,4 +1,4 @@
-export const COTA_COMMAND_OPTIONS = [
+export const DEVICE_COTA_COMMAND_OPTIONS = [
   { label: 'get', value: 'get' },
   { label: 'load', value: 'load' },
   { label: 'set', value: 'set' },
@@ -6,7 +6,7 @@ export const COTA_COMMAND_OPTIONS = [
   { label: 'remove', value: 'remove' },
 ];
 
-export const COTA_CONFIGURATION_PATH_OPTIONS = [
+export const DEVICE_COTA_CONFIGURATION_PATH_OPTIONS = [
   { label: 'dbs', value: 'dbs' },
   { label: 'collectionIntervalSeconds', value: 'collectionIntervalSeconds' },
   { label: 'publishIntervalSeconds', value: 'publishIntervalSeconds' },
@@ -28,7 +28,7 @@ export const COTA_CONFIGURATION_PATH_OPTIONS = [
   { label: 'proceedWithoutRollback', value: 'proceedWithoutRollback' },
 ];
 
-export const COTA_INITIAL_FIELDS_HIDDEN_STATE = {
+export const DEVICE_COTA_INITIAL_FIELDS_HIDDEN_STATE = {
   cmd: false,
   fetch: true,
   configurations: true,
@@ -36,7 +36,7 @@ export const COTA_INITIAL_FIELDS_HIDDEN_STATE = {
   signature: true,
 };
 
-export const COTA_FIELDS_HIDDEN_STATES = {
+export const DEVICE_COTA_FIELDS_HIDDEN_STATES = {
   get: {
     cmd: false,
     fetch: true,

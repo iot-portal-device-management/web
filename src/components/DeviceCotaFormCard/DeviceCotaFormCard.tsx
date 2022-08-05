@@ -9,11 +9,11 @@ import { sanitizeFormValues } from '../../utils/utils';
 import DeviceCotaConfiguration from '../../models/DeviceCotaConfiguration';
 import { DeviceCotaCommandOptionValue, DeviceCotaFormFormikValues, DeviceCotaPayload } from '../../types/deviceCota';
 import {
-  COTA_COMMAND_OPTIONS,
-  COTA_CONFIGURATION_PATH_OPTIONS,
-  COTA_FIELDS_HIDDEN_STATES,
-  COTA_INITIAL_FIELDS_HIDDEN_STATE
-} from '../../data/cota/options';
+  DEVICE_COTA_COMMAND_OPTIONS,
+  DEVICE_COTA_CONFIGURATION_PATH_OPTIONS,
+  DEVICE_COTA_FIELDS_HIDDEN_STATES,
+  DEVICE_COTA_INITIAL_FIELDS_HIDDEN_STATE
+} from '../../data/deviceCota/options';
 import deviceCotaValidationSchema from '../../validationSchemas/deviceCota/deviceCotaValidationSchema';
 import RemoveCircleTwoToneIcon from '@mui/icons-material/RemoveCircleTwoTone';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
@@ -32,10 +32,10 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
 
   useImperativeHandle(ref, () => formRef.current);
 
-  const [fieldsHidden, setFieldsHidden] = useState(COTA_INITIAL_FIELDS_HIDDEN_STATE);
+  const [fieldsHidden, setFieldsHidden] = useState(DEVICE_COTA_INITIAL_FIELDS_HIDDEN_STATE);
 
   const resetForm = () => {
-    setFieldsHidden(COTA_INITIAL_FIELDS_HIDDEN_STATE);
+    setFieldsHidden(DEVICE_COTA_INITIAL_FIELDS_HIDDEN_STATE);
 
     if (formRef.current) {
       formRef.current.resetForm();
@@ -48,7 +48,7 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
       // selected option after the reset so that the value is not lost.
       resetForm();
       formRef?.current?.setFieldValue('cmd', selectedOption);
-      setFieldsHidden(COTA_FIELDS_HIDDEN_STATES[selectedOption.value as DeviceCotaCommandOptionValue]);
+      setFieldsHidden(DEVICE_COTA_FIELDS_HIDDEN_STATES[selectedOption.value as DeviceCotaCommandOptionValue]);
     } else if (name === 'cmd' && !selectedOption) {
       resetForm();
     }
@@ -94,7 +94,7 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="cmd"
                   label="Command (get, load, set, append, remove)"
                   placeholder="Enter your command"
-                  options={COTA_COMMAND_OPTIONS}
+                  options={DEVICE_COTA_COMMAND_OPTIONS}
                   optionChangeCallback={updateFormFields}
                   hidden={fieldsHidden.cmd}
                 />
@@ -119,7 +119,7 @@ const DeviceCotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                                 id={`configurations.${index}.path`}
                                 name={`configurations.${index}.path`}
                                 placeholder={`Enter configuration path ${index + 1}`}
-                                options={COTA_CONFIGURATION_PATH_OPTIONS}
+                                options={DEVICE_COTA_CONFIGURATION_PATH_OPTIONS}
                               />
                             </Grid>
                             {!fieldsHidden.configuration_values && (

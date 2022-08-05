@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { SOTA_COMMAND_OPTIONS, SOTA_LOG_TO_FILE_OPTIONS, SOTA_OPTIONS } from '../../data/sota/options';
+import { DEVICE_SOTA_COMMAND_OPTIONS, DEVICE_SOTA_LOG_TO_FILE_OPTIONS, DEVICE_SOTA_OPTIONS } from '../../data/deviceSota/options';
 import { DeviceSotaFormField, DeviceSotaFormFieldsHiddenState } from '../../types/deviceSota';
 import { ValidationObject } from '../../types/validationSchema';
 
@@ -11,7 +11,7 @@ const deviceSotaValidationSchema = (fieldsHidden: DeviceSotaFormFieldsHiddenStat
       label: Yup.string()
         .label('SOTA option')
         .required()
-        .oneOf(SOTA_OPTIONS.map(({ label }) => label))
+        .oneOf(DEVICE_SOTA_OPTIONS.map(({ label }) => label))
     })
       .label('SOTA option')
       .nullable()
@@ -21,7 +21,7 @@ const deviceSotaValidationSchema = (fieldsHidden: DeviceSotaFormFieldsHiddenStat
       label: Yup.string()
         .label('command')
         .required()
-        .oneOf(SOTA_COMMAND_OPTIONS.map(({ label }) => label))
+        .oneOf(DEVICE_SOTA_COMMAND_OPTIONS.map(({ label }) => label))
     })
       .label('command')
       .nullable()
@@ -36,7 +36,7 @@ const deviceSotaValidationSchema = (fieldsHidden: DeviceSotaFormFieldsHiddenStat
       label: Yup.string()
         .label('log to file')
         .required()
-        .oneOf(SOTA_LOG_TO_FILE_OPTIONS.map(({ label }) => label))
+        .oneOf(DEVICE_SOTA_LOG_TO_FILE_OPTIONS.map(({ label }) => label))
     })
       .label('log to file')
       .nullable()

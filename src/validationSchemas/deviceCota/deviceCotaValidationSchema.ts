@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { COTA_COMMAND_OPTIONS, COTA_CONFIGURATION_PATH_OPTIONS } from '../../data/cota/options';
+import { DEVICE_COTA_COMMAND_OPTIONS, DEVICE_COTA_CONFIGURATION_PATH_OPTIONS } from '../../data/deviceCota/options';
 import {
   DeviceCotaFormField,
   DeviceCotaFormFieldsHiddenState,
@@ -17,7 +17,7 @@ const deviceCotaValidationSchema = (fieldsHidden: DeviceCotaFormFieldsHiddenStat
       label: Yup.string()
         .label('command')
         .required()
-        .oneOf(COTA_COMMAND_OPTIONS.map(({ label }) => label))
+        .oneOf(DEVICE_COTA_COMMAND_OPTIONS.map(({ label }) => label))
     })
       .label('command')
       .nullable()
@@ -33,7 +33,7 @@ const deviceCotaValidationSchema = (fieldsHidden: DeviceCotaFormFieldsHiddenStat
           value: Yup.string().required(),
           label: Yup.string()
             .required()
-            .oneOf(COTA_CONFIGURATION_PATH_OPTIONS.map(({ label }) => label))
+            .oneOf(DEVICE_COTA_CONFIGURATION_PATH_OPTIONS.map(({ label }) => label))
         })
           .label('configuration path')
           .nullable()

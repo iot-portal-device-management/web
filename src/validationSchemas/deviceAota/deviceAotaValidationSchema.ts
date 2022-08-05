@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { AOTA_APP_OPTIONS, AOTA_REBOOT_OPTIONS } from '../../data/aota/options';
+import { DEVICE_AOTA_APP_OPTIONS, DEVICE_AOTA_REBOOT_OPTIONS } from '../../data/deviceAota/options';
 import { DeviceAotaAppOption, DeviceAotaCommandOption, DeviceAotaFormField, DeviceAotaFormFieldsHiddenState } from '../../types/deviceAota';
 import { ValidationObject } from '../../types/validationSchema';
 
@@ -11,7 +11,7 @@ const deviceAotaValidationSchema = (commandOptions: NonNullable<DeviceAotaComman
       label: Yup.string()
         .label('application')
         .required()
-        .oneOf(AOTA_APP_OPTIONS.map(({ label }) => label))
+        .oneOf(DEVICE_AOTA_APP_OPTIONS.map(({ label }) => label))
     })
       .label('application')
       .nullable()
@@ -36,7 +36,7 @@ const deviceAotaValidationSchema = (commandOptions: NonNullable<DeviceAotaComman
       label: Yup.string()
         .label('device reboot')
         .required()
-        .oneOf(AOTA_REBOOT_OPTIONS.map(({ label }) => label))
+        .oneOf(DEVICE_AOTA_REBOOT_OPTIONS.map(({ label }) => label))
     })
       .label('device reboot')
       .nullable()

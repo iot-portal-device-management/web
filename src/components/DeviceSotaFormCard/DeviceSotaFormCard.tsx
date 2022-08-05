@@ -4,12 +4,12 @@ import LargeCardHeader from '../LargeCardHeader';
 import { Formik, FormikProps } from 'formik';
 import FullWidthAutoComplete from '../FullWidthAutoComplete';
 import {
-  SOTA_COMMAND_OPTIONS,
-  SOTA_FIELDS_HIDDEN_STATES,
-  SOTA_INITIAL_FIELDS_HIDDEN_STATE,
-  SOTA_LOG_TO_FILE_OPTIONS,
-  SOTA_OPTIONS
-} from '../../data/sota/options';
+  DEVICE_SOTA_COMMAND_OPTIONS,
+  DEVICE_SOTA_FIELDS_HIDDEN_STATES,
+  DEVICE_SOTA_INITIAL_FIELDS_HIDDEN_STATE,
+  DEVICE_SOTA_LOG_TO_FILE_OPTIONS,
+  DEVICE_SOTA_OPTIONS
+} from '../../data/deviceSota/options';
 import FullWidthTextField from '../FullWidthTextField';
 import { BaseOption } from '../../types/option';
 import { sanitizeFormValues } from '../../utils/utils';
@@ -30,10 +30,10 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
 
   useImperativeHandle(ref, () => formRef.current);
 
-  const [fieldsHidden, setFieldsHidden] = useState(SOTA_INITIAL_FIELDS_HIDDEN_STATE);
+  const [fieldsHidden, setFieldsHidden] = useState(DEVICE_SOTA_INITIAL_FIELDS_HIDDEN_STATE);
 
   const resetForm = () => {
-    setFieldsHidden(SOTA_INITIAL_FIELDS_HIDDEN_STATE);
+    setFieldsHidden(DEVICE_SOTA_INITIAL_FIELDS_HIDDEN_STATE);
 
     if (formRef.current) {
       formRef.current.resetForm();
@@ -46,7 +46,7 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
       // selected option after the reset so that the value is not lost.
       resetForm();
       formRef?.current?.setFieldValue('sota_option', selectedOption);
-      setFieldsHidden(SOTA_FIELDS_HIDDEN_STATES[selectedOption.value as DeviceSotaOptionValue]);
+      setFieldsHidden(DEVICE_SOTA_FIELDS_HIDDEN_STATES[selectedOption.value as DeviceSotaOptionValue]);
     } else if (name === 'sota_option' && !selectedOption) {
       resetForm();
     }
@@ -66,7 +66,7 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
         enableReinitialize={true}
         initialValues={{
           sota_option: null,
-          cmd: SOTA_COMMAND_OPTIONS[0],
+          cmd: DEVICE_SOTA_COMMAND_OPTIONS[0],
           fetch: '',
           log_to_file: null,
           username: '',
@@ -94,7 +94,7 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="sota_option"
                   label="SOTA option"
                   placeholder="Enter your SOTA option"
-                  options={SOTA_OPTIONS}
+                  options={DEVICE_SOTA_OPTIONS}
                   optionChangeCallback={updateFormFields}
                   hidden={fieldsHidden.sota_option}
                 />
@@ -105,7 +105,7 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="cmd"
                   label="Command"
                   placeholder="Enter your command"
-                  options={SOTA_COMMAND_OPTIONS}
+                  options={DEVICE_SOTA_COMMAND_OPTIONS}
                   optionChangeCallback={updateFormFields}
                   hidden={fieldsHidden.cmd}
                 />
@@ -123,7 +123,7 @@ const DeviceSotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="log_to_file"
                   label="Log to file (No, Yes)"
                   placeholder="Log to file (No, Yes)"
-                  options={SOTA_LOG_TO_FILE_OPTIONS}
+                  options={DEVICE_SOTA_LOG_TO_FILE_OPTIONS}
                   hidden={fieldsHidden.log_to_file}
                 />
                 <FullWidthTextField

@@ -4,12 +4,12 @@ import LargeCardHeader from '../LargeCardHeader';
 import { Formik, FormikProps } from 'formik';
 import FullWidthAutoComplete from '../FullWidthAutoComplete';
 import {
-  AOTA_APP_OPTIONS,
-  AOTA_COMMAND_OPTIONS,
-  AOTA_FIELDS_HIDDEN_STATES,
-  AOTA_INITIAL_FIELDS_HIDDEN_STATE,
-  AOTA_REBOOT_OPTIONS
-} from '../../data/aota/options';
+  DEVICE_AOTA_APP_OPTIONS,
+  DEVICE_AOTA_COMMAND_OPTIONS,
+  DEVICE_AOTA_FIELDS_HIDDEN_STATES,
+  DEVICE_AOTA_INITIAL_FIELDS_HIDDEN_STATE,
+  DEVICE_AOTA_REBOOT_OPTIONS
+} from '../../data/deviceAota/options';
 import FullWidthTextField from '../FullWidthTextField';
 import { DeviceAotaAppOptionValue, DeviceAotaCommandOptionValue, DeviceAotaFormFormikValues, DeviceAotaPayload } from '../../types/deviceAota';
 import { BaseOption } from '../../types/option';
@@ -29,10 +29,10 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
 
   useImperativeHandle(ref, () => formRef.current);
 
-  const [fieldsHidden, setFieldsHidden] = useState(AOTA_INITIAL_FIELDS_HIDDEN_STATE);
+  const [fieldsHidden, setFieldsHidden] = useState(DEVICE_AOTA_INITIAL_FIELDS_HIDDEN_STATE);
 
   const resetForm = () => {
-    setFieldsHidden(AOTA_INITIAL_FIELDS_HIDDEN_STATE);
+    setFieldsHidden(DEVICE_AOTA_INITIAL_FIELDS_HIDDEN_STATE);
 
     if (formRef.current) {
       formRef.current.resetForm();
@@ -45,16 +45,16 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
       // after the reset so that the value is not lost.
       resetForm();
       formRef?.current?.setFieldValue('app', selectedOption);
-      setFieldsHidden({ ...AOTA_INITIAL_FIELDS_HIDDEN_STATE, cmd: false });
+      setFieldsHidden({ ...DEVICE_AOTA_INITIAL_FIELDS_HIDDEN_STATE, cmd: false });
     } else if (name === 'app' && !selectedOption) {
       resetForm();
     } else if (name === 'cmd' && selectedOption) {
       // @ts-ignore
-      setFieldsHidden(AOTA_FIELDS_HIDDEN_STATES[formRef.current.values.app.value as DeviceAotaAppOptionValue][selectedOption.value as DeviceAotaCommandOptionValue]);
+      setFieldsHidden(DEVICE_AOTA_FIELDS_HIDDEN_STATES[formRef.current.values.app.value as DeviceAotaAppOptionValue][selectedOption.value as DeviceAotaCommandOptionValue]);
     }
   };
 
-  const validationSchema = deviceAotaValidationSchema(AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as DeviceAotaAppOptionValue ?? 'docker'], fieldsHidden);
+  const validationSchema = deviceAotaValidationSchema(DEVICE_AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as DeviceAotaAppOptionValue ?? 'docker'], fieldsHidden);
 
   return (
     <Card>
@@ -103,7 +103,7 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="app"
                   label="Application"
                   placeholder="Choose your application"
-                  options={AOTA_APP_OPTIONS}
+                  options={DEVICE_AOTA_APP_OPTIONS}
                   optionChangeCallback={updateFormFields}
                   hidden={fieldsHidden.app}
                 />
@@ -113,7 +113,7 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="cmd"
                   label="Command"
                   placeholder="Enter your command"
-                  options={AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as DeviceAotaAppOptionValue ?? 'docker']}
+                  options={DEVICE_AOTA_COMMAND_OPTIONS[formRef.current?.values.app?.value as DeviceAotaAppOptionValue ?? 'docker']}
                   optionChangeCallback={updateFormFields}
                   hidden={fieldsHidden.cmd}
                 />
@@ -131,7 +131,7 @@ const DeviceAotaFormCard = forwardRef(({ submitButtonChildren, onSubmit }: Devic
                   name="deviceReboot"
                   label="Device reboot"
                   placeholder="Choose device reboot"
-                  options={AOTA_REBOOT_OPTIONS}
+                  options={DEVICE_AOTA_REBOOT_OPTIONS}
                   hidden={fieldsHidden.deviceReboot}
                 />
                 <FullWidthTextField

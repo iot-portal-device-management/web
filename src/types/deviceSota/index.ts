@@ -10,7 +10,7 @@ export type DeviceSotaOptionValue =
   | 'mender_update';
 
 export type DeviceSotaCommandOptionLabel =
-  | 'Update';
+  | 'update';
 
 export type DeviceSotaCommandOptionValue =
   | 'update';

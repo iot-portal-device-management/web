@@ -1,20 +1,20 @@
 import { DeviceSotaCommandOption } from '../../types/deviceSota';
 
-export const SOTA_OPTIONS = [
+export const DEVICE_SOTA_OPTIONS = [
   { label: 'Ubuntu update', value: 'ubuntu_update' },
   { label: 'Mender update', value: 'mender_update' },
 ];
 
-export const SOTA_COMMAND_OPTIONS: DeviceSotaCommandOption[] = [
+export const DEVICE_SOTA_COMMAND_OPTIONS: DeviceSotaCommandOption[] = [
   { label: 'update', value: 'update' },
 ];
 
-export const SOTA_LOG_TO_FILE_OPTIONS = [
+export const DEVICE_SOTA_LOG_TO_FILE_OPTIONS = [
   { label: 'Yes', value: 'Y' },
   { label: 'No', value: 'N' },
 ];
 
-export const SOTA_INITIAL_FIELDS_HIDDEN_STATE = {
+export const DEVICE_SOTA_INITIAL_FIELDS_HIDDEN_STATE = {
   sota_option: false,
   cmd: false,
   fetch: true,
@@ -23,7 +23,7 @@ export const SOTA_INITIAL_FIELDS_HIDDEN_STATE = {
   password: true,
 };
 
-export const SOTA_FIELDS_HIDDEN_STATES = {
+export const DEVICE_SOTA_FIELDS_HIDDEN_STATES = {
   ubuntu_update: {
     sota_option: false,
     cmd: false,
