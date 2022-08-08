@@ -1,35 +1,12 @@
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
-import { Box, Paper, Popper, Typography } from '@mui/material';
-import { JSONTree } from 'react-json-tree';
-import isString from 'lodash/isString';
-import { isValidJsonString } from '../../utils/utils';
+import { memo, useEffect, useRef, useState } from 'react';
+import { Box, Paper, Popper } from '@mui/material';
+import JSONView from '../JSONView';
 
 interface JsonDataGridCellExpandProps {
   header: string;
   width: number;
   value: string;
 }
-
-const theme = {
-  scheme: 'monokai',
-  author: 'wimer hazenberg (http://www.monokai.nl)',
-  base00: '#272822',
-  base01: '#383830',
-  base02: '#49483e',
-  base03: '#75715e',
-  base04: '#a59f85',
-  base05: '#f8f8f2',
-  base06: '#f5f4f1',
-  base07: '#f9f8f5',
-  base08: '#f92672',
-  base09: '#fd971f',
-  base0A: '#f4bf75',
-  base0B: '#a6e22e',
-  base0C: '#a1efe4',
-  base0D: '#66d9ef',
-  base0E: '#ae81ff',
-  base0F: '#cc6633',
-};
 
 const JsonDataGridCellExpand = (props: JsonDataGridCellExpandProps) => {
   const { header = 'Data', width, value } = props;
@@ -68,29 +45,6 @@ const JsonDataGridCellExpand = (props: JsonDataGridCellExpandProps) => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [showFullCell, setShowFullCell]);
-
-  const renderJSONView = () => {
-    if (isValidJsonString(value)) {
-      return (
-        <>
-          <Typography variant="body2" style={{ padding: 8 }}>
-            {header}
-          </Typography>
-          <Box sx={{ pb: 1 }}>
-            <JSONTree data={JSON.parse(value)} theme={theme} invertTheme={false}/>
-          </Box>
-        </>
-      );
-    } else if (isString(value)) {
-      return (
-        <Typography variant="body2" style={{ padding: 8 }}>
-          {value}
-        </Typography>
-      );
-    }
-  };
-
-  const JSONView = useMemo(renderJSONView, [value]);
 
   return (
     <Box
@@ -132,7 +86,7 @@ const JsonDataGridCellExpand = (props: JsonDataGridCellExpandProps) => {
             elevation={1}
             style={{ minHeight: wrapper.current!.offsetHeight - 3 }}
           >
-            {JSONView}
+            <JSONView data={value}/>
           </Paper>
         </Popper>
       )}

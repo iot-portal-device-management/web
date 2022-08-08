@@ -35,7 +35,9 @@ const DeleteDeviceGroupAlertDialog = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>
+        <Button
+          onClick={handleClose}
+        >
           Cancel
         </Button>
         <Button

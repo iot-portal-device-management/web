@@ -79,13 +79,13 @@ const DeviceEventsDataGrid = ({
   }, [queryOptions]);
 
   const columns = useMemo<GridColumns>(() => [
-    { field: 'id', type: 'string', headerName: 'Event history ID', hide: true, },
+    { field: 'id', type: 'string', headerName: 'Device event ID', hide: true, },
     {
       field: 'rawData', type: 'string', headerName: 'Raw data', flex: 0.7, sortable: false,
       renderCell: renderCellExpand,
     },
     {
-      field: 'deviceEventType', type: 'string', headerName: 'Event type', flex: 0.1, align: 'right',
+      field: 'deviceEventType', type: 'string', headerName: 'Device event type', flex: 0.1, align: 'right',
       renderCell: (params: GridRenderCellParams) => (
         <>
           {getDeviceEventTypeLabel(params.value.name)}

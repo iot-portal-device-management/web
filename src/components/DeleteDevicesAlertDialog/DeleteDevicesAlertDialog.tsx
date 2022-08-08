@@ -21,7 +21,9 @@ const DeleteDevicesAlertDialog = ({ open = false, handleClose, handleConfirm }: 
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>
+        <Button
+          onClick={handleClose}
+        >
           Cancel
         </Button>
         <Button

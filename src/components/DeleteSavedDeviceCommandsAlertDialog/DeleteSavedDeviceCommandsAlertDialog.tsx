@@ -1,27 +1,27 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
-interface DeleteDeviceGroupsAlertDialogProps {
+interface DeleteSavedDeviceCommandsAlertDialogProps {
   open: boolean;
   handleClose: () => void;
   handleConfirm: () => void;
 }
 
-const DeleteDeviceGroupsAlertDialog = ({
-                                         open = false,
-                                         handleClose,
-                                         handleConfirm
-                                       }: DeleteDeviceGroupsAlertDialogProps) => {
+const DeleteSavedDeviceCommandsAlertDialog = ({
+                                                open = false,
+                                                handleClose,
+                                                handleConfirm
+                                              }: DeleteSavedDeviceCommandsAlertDialogProps) => {
   return (
     <Dialog
       open={open}
       onClose={handleClose}
     >
       <DialogTitle>
-        Delete device groups permanently?
+        Delete saved device commands permanently?
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to permanently delete the selected device groups?
+          Are you sure you want to permanently delete the selected saved device commands?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -42,4 +42,4 @@ const DeleteDeviceGroupsAlertDialog = ({
   );
 };
 
-export default DeleteDeviceGroupsAlertDialog;
+export default DeleteSavedDeviceCommandsAlertDialog;

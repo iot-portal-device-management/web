@@ -78,13 +78,13 @@ const DeviceCommandsDataGrid = ({
   }, [queryOptions]);
 
   const columns = useMemo<GridColumns>(() => [
-    { field: 'id', type: 'string', headerName: 'Command history ID', hide: true, },
+    { field: 'id', type: 'string', headerName: 'Device command ID', hide: true, },
     {
       field: 'payload', type: 'string', headerName: 'Payload', flex: 0.4, sortable: false,
       renderCell: renderCellExpand,
     },
     {
-      field: 'deviceCommandType', type: 'string', headerName: 'Command type', flex: 0.2,
+      field: 'deviceCommandType', type: 'string', headerName: 'Device command type', flex: 0.2,
       renderCell: (params: GridRenderCellParams) => (
         <>
           {params.value.name}
