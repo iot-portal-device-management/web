@@ -1,7 +1,5 @@
-import { Typography } from '@mui/material';
-import { isValidJsonString } from '../../utils/utils';
+import { isValidJSONString } from '../../utils/utils';
 import { JSONTree } from 'react-json-tree';
-import isString from 'lodash/isString';
 import { Theme } from 'react-base16-styling';
 import { memo } from 'react';
 
@@ -33,7 +31,7 @@ interface JSONViewProps {
 }
 
 const JSONView = ({ data, ...rest }: JSONViewProps) => {
-  if (isValidJsonString(data)) {
+  if (isValidJSONString(data)) {
     return (
       <JSONTree
         data={JSON.parse(data)}
@@ -42,15 +40,16 @@ const JSONView = ({ data, ...rest }: JSONViewProps) => {
         {...rest}
       />
     );
-  } else if (isString(data)) {
-    return (
-      <Typography variant="body2" style={{ padding: 8 }}>
-        {data}
-      </Typography>
-    );
   }
 
-  return null;
+  return (
+    <JSONTree
+      data={data}
+      theme={theme}
+      invertTheme={false}
+      {...rest}
+    />
+  );
 };
 
 export default memo(JSONView);

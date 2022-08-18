@@ -1,36 +1,86 @@
 import PageTitle from '../../../components/PageTitle';
-import { ReactElement, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
-import { Box, Card, CardActions, CardContent, CardHeader, Container, Divider, Grid } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Container,
+  Divider,
+  Grid,
+  Step,
+  StepLabel,
+  Stepper
+} from '@mui/material';
 import Footer from '../../../components/Footer';
 import { NextPageWithLayout } from '../../_app';
 import { getSidebarLayout } from '../../../layouts';
-import { Formik, FormikProps } from 'formik';
-import FullWidthTextField from '../../../components/FullWidthTextField';
+import { Form, Formik, FormikProps } from 'formik';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
 import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
-import FullWidthAutoComplete from '../../../components/FullWidthAutoComplete';
-import { useDeviceGroupOptions } from '../../../hooks/deviceGroup/useDeviceGroupOptions';
-import { useSavedDeviceCommandOptions } from '../../../hooks/savedDeviceCommand/useSavedDeviceCommandOptions';
 import { CreateDeviceJobFormFormikValues } from '../../../types/deviceJob';
+import createDeviceJobValidationSchema from '../../../validationSchemas/deviceJob/createDeviceJobValidationSchema';
+import { FormikHelpers } from 'formik/dist/types';
+import CreateDeviceJobDetailsForm from '../../../components/CreateDeviceJobDetailsForm';
+import ReviewCreateDeviceJob from '../../../components/ReviewCreateDeviceJob';
+import CardActionsButton from '../../../components/CardActionsButton';
+import { sanitizeFormValues } from '../../../utils/utils';
+import { DeviceJobData, useDeviceJobCRUD } from '../../../hooks/deviceJob/useDeviceJobCRUD';
+
+const steps = [
+  'Enter device job details',
+  'Confirmation',
+];
 
 const CreateDeviceJobPage: NextPageWithLayout = () => {
-  const [deviceGroupInputValue, setDeviceGroupInputValue] = useState('');
-  const [savedDeviceCommandInputValue, setSavedDeviceCommandInputValue] = useState('');
+  const formRef = useRef<FormikProps<CreateDeviceJobFormFormikValues>>(null);
 
-  const {
-    deviceGroupOptions,
-    isDeviceGroupOptionsLoading,
-    isDeviceGroupOptionsError
-  } = useDeviceGroupOptions(deviceGroupInputValue);
+  const [activeStep, setActiveStep] = useState(0);
+  const isLastStep = activeStep === steps.length - 1;
 
-  const {
-    savedDeviceCommandOptions,
-    isSavedDeviceCommandOptionsLoading,
-    isSavedDeviceCommandOptionsError
-  } = useSavedDeviceCommandOptions(savedDeviceCommandInputValue);
+  const { createDeviceJob } = useDeviceJobCRUD();
+
+  const renderStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return <CreateDeviceJobDetailsForm/>;
+      case 1:
+        return (
+          <ReviewCreateDeviceJob
+            deviceJobName={formRef.current?.values.name as string}
+            deviceGroupId={formRef.current?.values.deviceGroupId?.value as string}
+            savedDeviceCommandId={formRef.current?.values.savedDeviceCommandId?.value as string}
+          />
+        );
+      default:
+        return <div>Not Found</div>;
+    }
+  };
+
+  const submitForm = (values: CreateDeviceJobFormFormikValues, formikHelpers: FormikHelpers<CreateDeviceJobFormFormikValues>) => {
+    const { setErrors, setSubmitting } = formikHelpers;
+    createDeviceJob(sanitizeFormValues(values) as DeviceJobData, { setErrors, setSubmitting })
+  };
+
+  const handleSubmit = (values: CreateDeviceJobFormFormikValues, formikHelpers: FormikHelpers<CreateDeviceJobFormFormikValues>) => {
+    if (isLastStep) {
+      submitForm(values, formikHelpers);
+    } else {
+      setActiveStep(activeStep + 1);
+      formikHelpers.setTouched({});
+      formikHelpers.setSubmitting(false);
+    }
+  };
+
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+  };
+
+  const validationSchema = createDeviceJobValidationSchema();
 
   return (
     <>
@@ -53,6 +103,7 @@ const CreateDeviceJobPage: NextPageWithLayout = () => {
               <CardHeader title="Create new device job"/>
               <Divider/>
               <Formik
+                innerRef={formRef}
                 enableReinitialize={true}
                 initialValues={{
                   name: '',
@@ -60,65 +111,39 @@ const CreateDeviceJobPage: NextPageWithLayout = () => {
                   savedDeviceCommandId: null,
                 } as CreateDeviceJobFormFormikValues
                 }
-                // validationSchema={validationSchema}
-                onSubmit={(values, { setErrors, setSubmitting }) => {
-                  // handleFormSubmit(values, { setErrors, setSubmitting });
-                }}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
               >
-                {({ handleSubmit, isSubmitting }: FormikProps<CreateDeviceJobFormFormikValues>) => (
+                {({ isSubmitting }: FormikProps<CreateDeviceJobFormFormikValues>) => (
                   <>
-                    <CardContent>
-                      <Box sx={{ p: 1 }}>
-                        <Box
-                          component="form"
-                          noValidate
-                          autoComplete="off"
-                        >
-                          <FullWidthTextField
-                            required
-                            id="name"
-                            name="name"
-                            label="Device job name"
-                            placeholder="Enter device job name"
-                          />
-                          <FullWidthAutoComplete
-                            required
-                            autoHighlight
-                            id="deviceGroupId"
-                            name="deviceGroupId"
-                            label="Device group"
-                            placeholder="Select a device group"
-                            options={deviceGroupOptions ?? []}
-                            isLoading={isDeviceGroupOptionsLoading}
-                            inputValue={deviceGroupInputValue}
-                            onInputChange={(event, value) => setDeviceGroupInputValue(value)}
-                            filterOptions={(x) => x}
-                          />
-                          <FullWidthAutoComplete
-                            required
-                            autoHighlight
-                            id="savedDeviceCommandId"
-                            name="savedDeviceCommandId"
-                            label="Saved device command"
-                            placeholder="Select a saved device command"
-                            options={savedDeviceCommandOptions ?? []}
-                            isLoading={isSavedDeviceCommandOptionsLoading}
-                            inputValue={savedDeviceCommandInputValue}
-                            onInputChange={(event, value) => setSavedDeviceCommandInputValue(value)}
-                            filterOptions={(x) => x}
-                          />
+                    <Form>
+                      <CardContent>
+                        <Stepper activeStep={activeStep}>
+                          {steps.map((label) => (
+                            <Step key={label}>
+                              <StepLabel>{label}</StepLabel>
+                            </Step>
+                          ))}
+                        </Stepper>
+                        <Box sx={{ p: 1 }}>
+                          {renderStepContent(activeStep)}
                         </Box>
-                      </Box>
-                    </CardContent>
-                    <Divider/>
-                    <CardActions>
-                      <CardActionsLoadingButton
-                        loading={isSubmitting}
-                        onClick={() => handleSubmit()}
-                      >
-                        Create
-                      </CardActionsLoadingButton>
-                    </CardActions>
+                      </CardContent>
+                      <Divider/>
+                      <CardActions>
+                        {activeStep !== 0 && (
+                          <CardActionsButton onClick={handleBack}>
+                            Back
+                          </CardActionsButton>
+                        )}
+                        <CardActionsLoadingButton
+                          loading={isSubmitting}
+                          type="submit"
+                        >
+                          {isLastStep ? 'Run' : 'Next'}
+                        </CardActionsLoadingButton>
+                      </CardActions>
+                    </Form>
                   </>
                 )}
               </Formik>

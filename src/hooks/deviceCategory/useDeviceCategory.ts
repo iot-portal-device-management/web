@@ -8,7 +8,7 @@ export const useDeviceCategory = (id: string) => {
     isValidating,
     mutate
   } = useSWR(id ? `/api/device/categories/${id}` : null,
-    (url) => axios.get(url).then(res => res.data.result.savedDeviceCommand));
+    (url) => axios.get(url).then(res => res.data.result.deviceCategory));
 
   return {
     deviceCategory: data,

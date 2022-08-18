@@ -102,34 +102,32 @@ const DeviceCommandsDataGrid = ({
   ], []);
 
   return (
-    <>
-      <DataGrid
-        autoHeight
-        keepNonExistentRowsSelected
-        loading={isDeviceCommandsLoading}
-        columns={columns}
-        rows={(deviceCommands ?? []) as GridRowsProp}
-        rowCount={totalRowCount}
-        sortingMode="server"
-        onSortModelChange={handleSortModelChange}
-        filterMode="server"
-        onFilterModelChange={handleFilterModelChange}
-        rowsPerPageOptions={[25, 50, 100]}
-        pagination
-        paginationMode="server"
-        page={queryOptions.page}
-        pageSize={queryOptions.pageSize}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
-        components={{ Toolbar: GridToolbar }}
-        componentsProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 }
-          }
-        }}
-      />
-    </>
+    <DataGrid
+      autoHeight
+      keepNonExistentRowsSelected
+      loading={isDeviceCommandsLoading}
+      columns={columns}
+      rows={(deviceCommands ?? []) as GridRowsProp}
+      rowCount={totalRowCount}
+      sortingMode="server"
+      onSortModelChange={handleSortModelChange}
+      filterMode="server"
+      onFilterModelChange={handleFilterModelChange}
+      rowsPerPageOptions={[25, 50, 100]}
+      pagination
+      paginationMode="server"
+      page={queryOptions.page}
+      pageSize={queryOptions.pageSize}
+      onPageChange={handlePageChange}
+      onPageSizeChange={handlePageSizeChange}
+      components={{ Toolbar: GridToolbar }}
+      componentsProps={{
+        toolbar: {
+          showQuickFilter: true,
+          quickFilterProps: { debounceMs: 500 }
+        }
+      }}
+    />
   );
 };
 

@@ -12,15 +12,15 @@ import { Box, Card, CardContent, Container, Grid } from '@mui/material';
 import PageTitle from '../../../components/PageTitle';
 import Footer from '../../../components/Footer';
 import DataGridCreateDeleteToolbar from '../../../components/DataGridCreateDeleteToolbar';
-import SavedDeviceCommandsDataGrid from '../../../components/SavedDeviceCommandsDataGrid';
-import DeleteSavedDeviceCommandsAlertDialog from '../../../components/DeleteSavedDeviceCommandsAlertDialog';
-import { useSavedDeviceCommandCRUD } from '../../../hooks/savedDeviceCommand/useSavedDeviceCommandCRUD';
-import { useSavedDeviceCommands } from '../../../hooks/savedDeviceCommand/useSavedDeviceCommands';
+import DeviceJobsDataGrid from '../../../components/DeviceJobsDataGrid';
+import DeleteDeviceJobsAlertDialog from '../../../components/DeleteDeviceJobsAlertDialog';
+import { useDeviceJobCRUD } from '../../../hooks/deviceJob/useDeviceJobCRUD';
+import { useDeviceJobs } from '../../../hooks/deviceJob/useDeviceJobs';
 
-const SavedDeviceCommandIndexPage: NextPageWithLayout = () => {
+const DeviceJobIndexPage: NextPageWithLayout = () => {
   const router = useRouter();
 
-  const [openDeleteSavedDeviceCommandsAlertDialog, setOpenDeleteSavedDeviceCommandsAlertDialog] = useState(false);
+  const [openDeleteDeviceJobsAlertDialog, setOpenDeleteDeviceJobsAlertDialog] = useState(false);
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [queryOptions, setQueryOptions] = useState<QueryOptions>({
     sortModel: undefined,
@@ -29,33 +29,29 @@ const SavedDeviceCommandIndexPage: NextPageWithLayout = () => {
     pageSize: 25,
   });
 
-  const {
-    savedDeviceCommands,
-    savedDeviceCommandsMeta,
-    isSavedDeviceCommandsLoading,
-    mutateSavedDeviceCommands
-  } = useSavedDeviceCommands({
+  const { deviceJobs, deviceJobsMeta, isDeviceJobsLoading, mutateDeviceJobs } = useDeviceJobs({
     ...queryOptions,
     page: queryOptions.page + 1
   });
-  const { deleteSavedDeviceCommands } = useSavedDeviceCommandCRUD();
 
-  const confirmDeleteSelectedSavedDeviceCommands = useCallback(() => {
-    setOpenDeleteSavedDeviceCommandsAlertDialog(true);
+  const { deleteDeviceJobs } = useDeviceJobCRUD();
+
+  const confirmDeleteSelectedDeviceJobs = useCallback(() => {
+    setOpenDeleteDeviceJobsAlertDialog(true);
   }, []);
 
-  const deleteSelectedSavedDeviceCommands = useCallback(() => {
-    deleteSavedDeviceCommands(selectionModel as string[], false, mutateSavedDeviceCommands);
-    setOpenDeleteSavedDeviceCommandsAlertDialog(false);
+  const deleteSelectedDeviceJobs = useCallback(() => {
+    deleteDeviceJobs(selectionModel as string[], false, mutateDeviceJobs);
+    setOpenDeleteDeviceJobsAlertDialog(false);
     setSelectionModel([]);
-  }, [selectionModel, mutateSavedDeviceCommands]);
+  }, [selectionModel, mutateDeviceJobs]);
 
   return (
     <>
       <PageTitleWrapper>
         <PageTitle
-          heading="Saved device commands"
-          subHeading="These are your saved device commands"
+          heading="Device jobs"
+          subHeading="These are your device jobs"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -71,19 +67,19 @@ const SavedDeviceCommandIndexPage: NextPageWithLayout = () => {
               <CardContent>
                 <DataGridCreateDeleteToolbar
                   disableDelete={!selectionModel || !selectionModel.length}
-                  onCreateClick={() => router.push('/device/commands/saved/create')}
-                  onDeleteClick={confirmDeleteSelectedSavedDeviceCommands}
+                  onCreateClick={() => router.push('/device/jobs/create')}
+                  onDeleteClick={confirmDeleteSelectedDeviceJobs}
                 />
                 <Box sx={{ width: '100%' }}>
-                  <SavedDeviceCommandsDataGrid
+                  <DeviceJobsDataGrid
                     selectionModel={selectionModel}
                     setSelectionModel={setSelectionModel}
                     queryOptions={queryOptions}
                     setQueryOptions={setQueryOptions}
-                    savedDeviceCommands={savedDeviceCommands}
-                    savedDeviceCommandsMeta={savedDeviceCommandsMeta}
-                    isSavedDeviceCommandsLoading={isSavedDeviceCommandsLoading}
-                    mutateSavedDeviceCommands={mutateSavedDeviceCommands}
+                    deviceJobs={deviceJobs}
+                    deviceJobsMeta={deviceJobsMeta}
+                    isDeviceJobsLoading={isDeviceJobsLoading}
+                    mutateDeviceJobs={mutateDeviceJobs}
                   />
                 </Box>
               </CardContent>
@@ -92,18 +88,18 @@ const SavedDeviceCommandIndexPage: NextPageWithLayout = () => {
         </Grid>
       </Container>
       <Footer/>
-      <DeleteSavedDeviceCommandsAlertDialog
-        open={openDeleteSavedDeviceCommandsAlertDialog}
-        handleClose={() => setOpenDeleteSavedDeviceCommandsAlertDialog(false)}
-        handleConfirm={deleteSelectedSavedDeviceCommands}
+      <DeleteDeviceJobsAlertDialog
+        open={openDeleteDeviceJobsAlertDialog}
+        handleClose={() => setOpenDeleteDeviceJobsAlertDialog(false)}
+        handleConfirm={deleteSelectedDeviceJobs}
       />
       <Toaster/>
     </>
   );
 };
 
-SavedDeviceCommandIndexPage.getLayout = function getLayout(page: ReactElement) {
-  return getSidebarLayout('Saved device commands', page);
+DeviceJobIndexPage.getLayout = function getLayout(page: ReactElement) {
+  return getSidebarLayout('Device jobs', page);
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
@@ -112,4 +108,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   }
 });
 
-export default SavedDeviceCommandIndexPage;
+export default DeviceJobIndexPage;

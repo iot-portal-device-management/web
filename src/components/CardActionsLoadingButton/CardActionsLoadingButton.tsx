@@ -6,7 +6,6 @@ interface CardActionsLoadingButtonProps extends LoadingButtonProps {
 const CardActionsLoadingButton = ({ children, ...rest }: CardActionsLoadingButtonProps) => {
   return (
     <LoadingButton
-      sx={{ m: 1 }}
       variant="contained"
       {...rest}
     >

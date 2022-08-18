@@ -58,7 +58,7 @@ const ViewSavedDeviceCommandPage = () => {
                       </Grid>
                     </Grid>
                   </Typography>
-                  <Box mb={2}>
+                  <Box>
                     <Typography variant="subtitle2">
                       Payload:
                     </Typography>

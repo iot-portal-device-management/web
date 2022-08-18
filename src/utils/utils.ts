@@ -30,7 +30,7 @@ export const isValidObject = (object: any) => {
   return typeof object === 'object' && !Array.isArray(object) && object !== null && object !== undefined;
 };
 
-export const isValidJsonString = (str: string) => {
+export const isValidJSONString = (str: string) => {
   if (str === null) return false;
 
   try {
