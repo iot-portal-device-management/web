@@ -1,26 +1,22 @@
 import {
-  DataGrid,
   GridActionsCellItem,
   GridColumns,
-  GridFilterModel,
   GridRenderCellParams,
   GridRowModel,
   GridRowParams,
-  GridRowsProp,
   GridSelectionModel,
-  GridSortModel,
-  GridToolbar
+  GridValueGetterParams
 } from '@mui/x-data-grid';
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { KeyedMutator } from 'swr/dist/types';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { QueryOptions } from '../../types/dataGrid';
-import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 import { useDeviceJobCRUD } from '../../hooks/deviceJob/useDeviceJobCRUD';
 import DeleteDeviceJobAlertDialog from '../DeleteDeviceJobAlertDialog';
 import { getDeviceJobStatusLabel } from '../../utils/deviceJobStatus';
+import ServerSideDataGrid from '../ServerSideDataGrid';
 
 interface DeviceJobsDataGridProps {
   selectionModel: GridSelectionModel;
@@ -47,54 +43,10 @@ const DeviceJobsDataGrid = ({
                             }: DeviceJobsDataGridProps) => {
   const router = useRouter();
 
-  const [totalRowCount, setTotalRowCount] = useState(0);
   const [deviceJob, setDeviceJob] = useState<GridRowModel>(null);
   const [openDeleteDeviceJobAlertDialog, setOpenDeleteDeviceJobAlertDialog] = useState(false);
 
   const { deleteDeviceJobs } = useDeviceJobCRUD();
-
-  useEffect(() => {
-    setTotalRowCount((prevTotalRowCount) =>
-      deviceJobsMeta?.total !== undefined ? deviceJobsMeta?.total : prevTotalRowCount,
-    );
-  }, [deviceJobsMeta?.total]);
-
-  const relations = ['deviceGroup', 'savedDeviceCommand', 'deviceJobStatus'];
-
-  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
-    const sortModelFieldMapper = (sortModel: GridSortModel) => sortModel.map(sortField => {
-      return relations.includes(sortField.field)
-        ? ({ ...sortField, field: `${sortField.field}.name` })
-        : sortField;
-    });
-
-    setQueryOptions({ ...queryOptions, sortModel: sortModelFieldMapper(sortModel) });
-  }, [relations, queryOptions]);
-
-  const handleFilterModelChange = useCallback((filterModel: GridFilterModel) => {
-    const filterModelItemMapper = (items: GridFilterItem[]) => items.map(item => {
-      return relations.includes(item.columnField)
-        ? ({ ...item, columnField: `${item.columnField}.name` })
-        : item;
-    });
-
-    setQueryOptions({
-      ...queryOptions,
-      filterModel: { ...filterModel, items: filterModelItemMapper(filterModel.items) }
-    });
-  }, [relations, queryOptions]);
-
-  const handleSelectionModelChange = useCallback((selectionModel: GridSelectionModel) => {
-    setSelectionModel(selectionModel);
-  }, []);
-
-  const handlePageChange = useCallback((page: number) => {
-    setQueryOptions({ ...queryOptions, page: page });
-  }, [queryOptions]);
-
-  const handlePageSizeChange = useCallback((pageSize: number) => {
-    setQueryOptions({ ...queryOptions, pageSize: pageSize });
-  }, [queryOptions]);
 
   const confirmDeleteDeviceJob = useCallback((row: GridRowModel) =>
     () => {
@@ -112,26 +64,19 @@ const DeviceJobsDataGrid = ({
     { field: 'id', type: 'string', headerName: 'Device job ID', hide: true, },
     { field: 'name', type: 'string', headerName: 'Device job name', flex: 0.2, },
     {
-      field: 'deviceGroup', type: 'string', headerName: 'Device group', flex: 0.2,
-      renderCell: (params: GridRenderCellParams) => (
-        <>
-          {params.value.name}
-        </>
-      ),
+      field: 'deviceGroup.name', type: 'string', headerName: 'Device group', flex: 0.2,
+      valueGetter: (params: GridValueGetterParams) => params.row.deviceGroup.name || '',
     },
     {
-      field: 'savedDeviceCommand', type: 'string', headerName: 'Saved device command', flex: 0.2,
-      renderCell: (params: GridRenderCellParams) => (
-        <>
-          {params.value.name}
-        </>
-      ),
+      field: 'savedDeviceCommand.name', type: 'string', headerName: 'Saved device command', flex: 0.2,
+      valueGetter: (params: GridValueGetterParams) => params.row.savedDeviceCommand.name || '',
     },
     {
-      field: 'deviceJobStatus', type: 'string', headerName: 'Status', flex: 0.2,
+      field: 'deviceJobStatus.name', type: 'string', headerName: 'Status', flex: 0.2,
+      valueGetter: (params: GridValueGetterParams) => params.row.deviceJobStatus.name || '',
       renderCell: (params: GridRenderCellParams) => (
         <>
-          {getDeviceJobStatusLabel(params.value.name)}
+          {getDeviceJobStatusLabel(params.value)}
         </>
       ),
     },
@@ -166,34 +111,15 @@ const DeviceJobsDataGrid = ({
 
   return (
     <>
-      <DataGrid
-        autoHeight
-        checkboxSelection
-        keepNonExistentRowsSelected
-        loading={isDeviceJobsLoading}
-        columns={columns}
-        rows={(deviceJobs ?? []) as GridRowsProp}
-        rowCount={totalRowCount}
-        sortingMode="server"
-        onSortModelChange={handleSortModelChange}
-        filterMode="server"
-        onFilterModelChange={handleFilterModelChange}
-        rowsPerPageOptions={[25, 50, 100]}
-        pagination
-        paginationMode="server"
-        page={queryOptions.page}
-        pageSize={queryOptions.pageSize}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+      <ServerSideDataGrid
         selectionModel={selectionModel}
-        onSelectionModelChange={handleSelectionModelChange}
-        components={{ Toolbar: GridToolbar }}
-        componentsProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 }
-          }
-        }}
+        setSelectionModel={setSelectionModel}
+        queryOptions={queryOptions}
+        setQueryOptions={setQueryOptions}
+        columns={columns}
+        rows={deviceJobs}
+        meta={deviceJobsMeta}
+        loading={isDeviceJobsLoading}
       />
       <DeleteDeviceJobAlertDialog
         deviceJob={deviceJob}

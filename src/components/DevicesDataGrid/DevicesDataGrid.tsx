@@ -1,18 +1,13 @@
 import {
-  DataGrid,
   GridActionsCellItem,
   GridColumns,
-  GridFilterModel,
   GridRenderCellParams,
   GridRowModel,
   GridRowParams,
-  GridRowsProp,
   GridSelectionModel,
-  GridSortModel,
-  GridToolbar,
-  GridValueFormatterParams
+  GridValueGetterParams
 } from '@mui/x-data-grid';
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { KeyedMutator } from 'swr/dist/types';
 import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
@@ -24,7 +19,7 @@ import DeleteDeviceAlertDialog from '../DeleteDeviceAlertDialog';
 import { useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { QueryOptions } from '../../types/dataGrid';
 import { getDeviceStatusLabel } from '../../utils/deviceStatus';
-import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
+import ServerSideDataGrid from '../ServerSideDataGrid';
 
 interface DevicesDataGridProps {
   selectionModel: GridSelectionModel;
@@ -51,55 +46,11 @@ const DevicesDataGrid = ({
                          }: DevicesDataGridProps) => {
   const router = useRouter();
 
-  const [totalRowCount, setTotalRowCount] = useState(0);
   const [device, setDevice] = useState<GridRowModel>(null);
   const [openConnectDeviceAlertDialog, setOpenConnectDeviceAlertDialog] = useState(false);
   const [openDeleteDeviceAlertDialog, setOpenDeleteDeviceAlertDialog] = useState(false);
 
   const { deleteDevices } = useDeviceCRUD();
-
-  useEffect(() => {
-    setTotalRowCount((prevTotalRowCount) =>
-      devicesMeta?.total !== undefined ? devicesMeta?.total : prevTotalRowCount,
-    );
-  }, [devicesMeta?.total]);
-
-  const relations = ['deviceCategory', 'deviceStatus'];
-
-  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
-    const sortModelFieldMapper = (sortModel: GridSortModel) => sortModel.map(sortField => {
-      return relations.includes(sortField.field)
-        ? ({ ...sortField, field: `${sortField.field}.name` })
-        : sortField;
-    });
-
-    setQueryOptions({ ...queryOptions, sortModel: sortModelFieldMapper(sortModel) });
-  }, [relations, queryOptions]);
-
-  const handleFilterModelChange = useCallback((filterModel: GridFilterModel) => {
-    const filterModelItemMapper = (items: GridFilterItem[]) => items.map(item => {
-      return relations.includes(item.columnField)
-        ? ({ ...item, columnField: `${item.columnField}.name` })
-        : item;
-    });
-
-    setQueryOptions({
-      ...queryOptions,
-      filterModel: { ...filterModel, items: filterModelItemMapper(filterModel.items) }
-    });
-  }, [relations, queryOptions]);
-
-  const handleSelectionModelChange = useCallback((selectionModel: GridSelectionModel) => {
-    setSelectionModel(selectionModel);
-  }, []);
-
-  const handlePageChange = useCallback((page: number) => {
-    setQueryOptions({ ...queryOptions, page: page });
-  }, [queryOptions]);
-
-  const handlePageSizeChange = useCallback((pageSize: number) => {
-    setQueryOptions({ ...queryOptions, pageSize: pageSize });
-  }, [queryOptions]);
 
   const handleClickConnectDevice = useCallback((row: GridRowModel) =>
     () => {
@@ -125,14 +76,15 @@ const DevicesDataGrid = ({
     { field: 'biosVendor', type: 'string', headerName: 'BIOS vendor', flex: 0.2, },
     { field: 'biosVersion', type: 'string', headerName: 'BIOS version', flex: 0.1, },
     {
-      field: 'deviceCategory', headerName: 'Device category', flex: 0.2,
-      valueFormatter: (params: GridValueFormatterParams) => params.value.name
+      field: 'deviceCategory.name', headerName: 'Device category', flex: 0.2,
+      valueGetter: (params: GridValueGetterParams) => params.row.deviceCategory.name || '',
     },
     {
-      field: 'deviceStatus', headerName: 'Device status', flex: 0.1, align: 'right',
+      field: 'deviceStatus.name', headerName: 'Device status', flex: 0.1, align: 'right',
+      valueGetter: (params: GridValueGetterParams) => params.row.deviceStatus.name || '',
       renderCell: (params: GridRenderCellParams) => (
         <>
-          {getDeviceStatusLabel(params.value.name)}
+          {getDeviceStatusLabel(params.value)}
         </>
       )
     },
@@ -167,34 +119,15 @@ const DevicesDataGrid = ({
 
   return (
     <>
-      <DataGrid
-        autoHeight
-        checkboxSelection
-        keepNonExistentRowsSelected
-        loading={isDevicesLoading}
-        columns={columns}
-        rows={(devices ?? []) as GridRowsProp}
-        rowCount={totalRowCount}
-        sortingMode="server"
-        onSortModelChange={handleSortModelChange}
-        filterMode="server"
-        onFilterModelChange={handleFilterModelChange}
-        rowsPerPageOptions={[25, 50, 100]}
-        pagination
-        paginationMode="server"
-        page={queryOptions.page}
-        pageSize={queryOptions.pageSize}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+      <ServerSideDataGrid
         selectionModel={selectionModel}
-        onSelectionModelChange={handleSelectionModelChange}
-        components={{ Toolbar: GridToolbar }}
-        componentsProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 }
-          }
-        }}
+        setSelectionModel={setSelectionModel}
+        queryOptions={queryOptions}
+        setQueryOptions={setQueryOptions}
+        columns={columns}
+        rows={devices}
+        meta={devicesMeta}
+        loading={isDevicesLoading}
       />
       <ConnectDeviceDialog
         device={device}

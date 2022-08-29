@@ -1,25 +1,14 @@
-import {
-  DataGrid,
-  GridActionsCellItem,
-  GridColumns,
-  GridFilterModel,
-  GridRowModel,
-  GridRowParams,
-  GridRowsProp,
-  GridSelectionModel,
-  GridSortModel,
-  GridToolbar
-} from '@mui/x-data-grid';
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { GridActionsCellItem, GridColumns, GridRowModel, GridRowParams, GridSelectionModel } from '@mui/x-data-grid';
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { KeyedMutator } from 'swr/dist/types';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { QueryOptions } from '../../types/dataGrid';
-import { GridFilterItem } from '@mui/x-data-grid/models/gridFilterItem';
 import { useDeviceGroupCRUD } from '../../hooks/deviceGroup/useDeviceGroupCRUD';
 import DeleteDeviceGroupAlertDialog from '../DeleteDeviceGroupAlertDialog';
+import ServerSideDataGrid from '../ServerSideDataGrid';
 
 interface DeviceGroupsDataGridProps {
   selectionModel: GridSelectionModel;
@@ -46,54 +35,10 @@ const DeviceGroupsDataGrid = ({
                               }: DeviceGroupsDataGridProps) => {
   const router = useRouter();
 
-  const [totalRowCount, setTotalRowCount] = useState(0);
   const [deviceGroup, setDeviceGroup] = useState<GridRowModel>(null);
   const [openDeleteDeviceGroupAlertDialog, setOpenDeleteDeviceGroupAlertDialog] = useState(false);
 
   const { deleteDeviceGroups } = useDeviceGroupCRUD();
-
-  useEffect(() => {
-    setTotalRowCount((prevTotalRowCount) =>
-      deviceGroupsMeta?.total !== undefined ? deviceGroupsMeta?.total : prevTotalRowCount,
-    );
-  }, [deviceGroupsMeta?.total]);
-
-  const relations: string[] = [];
-
-  const handleSortModelChange = useCallback((sortModel: GridSortModel) => {
-    const sortModelFieldMapper = (sortModel: GridSortModel) => sortModel.map(sortField => {
-      return relations.includes(sortField.field)
-        ? ({ ...sortField, field: `${sortField.field}.name` })
-        : sortField;
-    });
-
-    setQueryOptions({ ...queryOptions, sortModel: sortModelFieldMapper(sortModel) });
-  }, [relations, queryOptions]);
-
-  const handleFilterModelChange = useCallback((filterModel: GridFilterModel) => {
-    const filterModelItemMapper = (items: GridFilterItem[]) => items.map(item => {
-      return relations.includes(item.columnField)
-        ? ({ ...item, columnField: `${item.columnField}.name` })
-        : item;
-    });
-
-    setQueryOptions({
-      ...queryOptions,
-      filterModel: { ...filterModel, items: filterModelItemMapper(filterModel.items) }
-    });
-  }, [relations, queryOptions]);
-
-  const handleSelectionModelChange = useCallback((selectionModel: GridSelectionModel) => {
-    setSelectionModel(selectionModel);
-  }, []);
-
-  const handlePageChange = useCallback((page: number) => {
-    setQueryOptions({ ...queryOptions, page: page });
-  }, [queryOptions]);
-
-  const handlePageSizeChange = useCallback((pageSize: number) => {
-    setQueryOptions({ ...queryOptions, pageSize: pageSize });
-  }, [queryOptions]);
 
   const confirmDeleteDeviceGroup = useCallback((row: GridRowModel) =>
     () => {
@@ -134,34 +79,15 @@ const DeviceGroupsDataGrid = ({
 
   return (
     <>
-      <DataGrid
-        autoHeight
-        checkboxSelection
-        keepNonExistentRowsSelected
-        loading={isDeviceGroupsLoading}
-        columns={columns}
-        rows={(deviceGroups ?? []) as GridRowsProp}
-        rowCount={totalRowCount}
-        sortingMode="server"
-        onSortModelChange={handleSortModelChange}
-        filterMode="server"
-        onFilterModelChange={handleFilterModelChange}
-        rowsPerPageOptions={[25, 50, 100]}
-        pagination
-        paginationMode="server"
-        page={queryOptions.page}
-        pageSize={queryOptions.pageSize}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+      <ServerSideDataGrid
         selectionModel={selectionModel}
-        onSelectionModelChange={handleSelectionModelChange}
-        components={{ Toolbar: GridToolbar }}
-        componentsProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 }
-          }
-        }}
+        setSelectionModel={setSelectionModel}
+        queryOptions={queryOptions}
+        setQueryOptions={setQueryOptions}
+        columns={columns}
+        rows={deviceGroups}
+        meta={deviceGroupsMeta}
+        loading={isDeviceGroupsLoading}
       />
       <DeleteDeviceGroupAlertDialog
         deviceGroup={deviceGroup}
