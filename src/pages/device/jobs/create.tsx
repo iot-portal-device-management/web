@@ -109,8 +109,7 @@ const CreateDeviceJobPage: NextPageWithLayout = () => {
                   name: '',
                   deviceGroupId: null,
                   savedDeviceCommandId: null,
-                } as CreateDeviceJobFormFormikValues
-                }
+                } as CreateDeviceJobFormFormikValues}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
               >

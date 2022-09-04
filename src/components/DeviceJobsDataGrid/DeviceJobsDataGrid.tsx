@@ -121,12 +121,14 @@ const DeviceJobsDataGrid = ({
         meta={deviceJobsMeta}
         loading={isDeviceJobsLoading}
       />
-      <DeleteDeviceJobAlertDialog
-        deviceJob={deviceJob}
-        open={openDeleteDeviceJobAlertDialog}
-        handleClose={() => setOpenDeleteDeviceJobAlertDialog(false)}
-        handleConfirm={deleteDeviceJob}
-      />
+      {!hideActionsColumn && (
+        <DeleteDeviceJobAlertDialog
+          deviceJob={deviceJob}
+          open={openDeleteDeviceJobAlertDialog}
+          handleClose={() => setOpenDeleteDeviceJobAlertDialog(false)}
+          handleConfirm={deleteDeviceJob}
+        />
+      )}
     </>
   );
 };

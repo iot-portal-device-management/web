@@ -6,7 +6,8 @@ export const useDeviceJobDeviceCommands = (deviceJobId: string, params: any) => 
       url: `/api/device/jobs/${deviceJobId}/deviceCommands`,
       params
     },
-    ({ url, params }) => axios
+    (
+      { url, params }) => axios
       .get(url, { params })
       .then(res => res.data.result.deviceJobDeviceCommands)
   );

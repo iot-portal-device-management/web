@@ -89,12 +89,14 @@ const DeviceGroupsDataGrid = ({
         meta={deviceGroupsMeta}
         loading={isDeviceGroupsLoading}
       />
-      <DeleteDeviceGroupAlertDialog
-        deviceGroup={deviceGroup}
-        open={openDeleteDeviceGroupAlertDialog}
-        handleClose={() => setOpenDeleteDeviceGroupAlertDialog(false)}
-        handleConfirm={deleteDeviceGroup}
-      />
+      {!hideActionsColumn && (
+        <DeleteDeviceGroupAlertDialog
+          deviceGroup={deviceGroup}
+          open={openDeleteDeviceGroupAlertDialog}
+          handleClose={() => setOpenDeleteDeviceGroupAlertDialog(false)}
+          handleConfirm={deleteDeviceGroup}
+        />
+      )}
     </>
   );
 };

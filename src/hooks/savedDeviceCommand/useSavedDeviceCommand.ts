@@ -7,10 +7,9 @@ export const useSavedDeviceCommand = (id: string) => {
     error,
     isValidating,
     mutate
-  } = useSWR(id ? `/api/device/commands/saved/${id}` : null,
-    (url) => axios
-      .get(url)
-      .then(res => res.data.result.savedDeviceCommand)
+  } = useSWR(
+    id ? `/api/device/commands/saved/${id}` : null,
+    (url) => axios.get(url).then(res => res.data.result.savedDeviceCommand),
   );
 
   return {

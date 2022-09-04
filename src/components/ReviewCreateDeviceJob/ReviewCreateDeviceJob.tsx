@@ -8,6 +8,7 @@ import { QueryOptions } from '../../types/dataGrid';
 import { useDeviceGroupDevices } from '../../hooks/deviceGroup/useDeviceGroupDevices';
 import { useDeviceGroup } from '../../hooks/deviceGroup/useDeviceGroup';
 import { useSavedDeviceCommand } from '../../hooks/savedDeviceCommand/useSavedDeviceCommand';
+import ServerSideDataGrid from '../ServerSideDataGrid';
 
 interface ReviewCreateDeviceJobProps {
   deviceJobName: string;
@@ -112,15 +113,13 @@ const ReviewCreateDeviceJob = ({
       </Typography>
       <Box sx={{ width: '100%' }}>
         <DevicesDataGrid
-          selectionModel={selectionModel}
-          setSelectionModel={setSelectionModel}
           queryOptions={queryOptions}
           setQueryOptions={setQueryOptions}
           devices={deviceGroupDevices}
           devicesMeta={deviceGroupDevicesMeta}
           isDevicesLoading={isDeviceGroupDevicesLoading}
           mutateDevices={mutateDeviceGroupDevices}
-        />
+         />
       </Box>
     </>
   );

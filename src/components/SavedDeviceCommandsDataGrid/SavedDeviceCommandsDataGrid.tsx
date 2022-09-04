@@ -102,12 +102,14 @@ const SavedDeviceCommandsDataGrid = ({
         meta={savedDeviceCommandsMeta}
         loading={isSavedDeviceCommandsLoading}
       />
-      <DeleteSavedDeviceCommandAlertDialog
-        savedDeviceCommand={savedDeviceCommand}
-        open={openDeleteSavedDeviceCommandAlertDialog}
-        handleClose={() => setOpenDeleteSavedDeviceCommandAlertDialog(false)}
-        handleConfirm={deleteDevice}
-      />
+      {!hideActionsColumn && (
+        <DeleteSavedDeviceCommandAlertDialog
+          savedDeviceCommand={savedDeviceCommand}
+          open={openDeleteSavedDeviceCommandAlertDialog}
+          handleClose={() => setOpenDeleteSavedDeviceCommandAlertDialog(false)}
+          handleConfirm={deleteDevice}
+        />
+      )}
     </>
   );
 };

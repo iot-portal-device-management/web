@@ -1,4 +1,5 @@
 import {
+  DataGridProps,
   GridActionsCellItem,
   GridColumns,
   GridRenderCellParams,
@@ -15,15 +16,15 @@ import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import ConnectDeviceDialog from '../ConnectDeviceDialog';
-import DeleteDeviceAlertDialog from '../DeleteDeviceAlertDialog';
 import { useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { QueryOptions } from '../../types/dataGrid';
 import { getDeviceStatusLabel } from '../../utils/deviceStatus';
 import ServerSideDataGrid from '../ServerSideDataGrid';
+import DeleteDeviceAlertDialog from '../DeleteDeviceAlertDialog';
 
 interface DevicesDataGridProps {
-  selectionModel: GridSelectionModel;
-  setSelectionModel: Dispatch<SetStateAction<GridSelectionModel>>;
+  selectionModel?: GridSelectionModel;
+  setSelectionModel?: Dispatch<SetStateAction<GridSelectionModel>>;
   queryOptions: QueryOptions
   setQueryOptions: Dispatch<SetStateAction<QueryOptions>>;
   devices: any;
@@ -42,7 +43,8 @@ const DevicesDataGrid = ({
                            devicesMeta,
                            isDevicesLoading,
                            mutateDevices,
-                           hideActionsColumn = undefined
+                           hideActionsColumn = undefined,
+                           ...rest
                          }: DevicesDataGridProps) => {
   const router = useRouter();
 
@@ -128,18 +130,23 @@ const DevicesDataGrid = ({
         rows={devices}
         meta={devicesMeta}
         loading={isDevicesLoading}
+        {...rest}
       />
-      <ConnectDeviceDialog
-        device={device}
-        open={openConnectDeviceAlertDialog}
-        handleClose={() => setOpenConnectDeviceAlertDialog(false)}
-      />
-      <DeleteDeviceAlertDialog
-        device={device}
-        open={openDeleteDeviceAlertDialog}
-        handleClose={() => setOpenDeleteDeviceAlertDialog(false)}
-        handleConfirm={deleteDevice}
-      />
+      {!hideActionsColumn && (
+        <>
+          <ConnectDeviceDialog
+            device={device}
+            open={openConnectDeviceAlertDialog}
+            handleClose={() => setOpenConnectDeviceAlertDialog(false)}
+          />
+          <DeleteDeviceAlertDialog
+            device={device}
+            open={openDeleteDeviceAlertDialog}
+            handleClose={() => setOpenDeleteDeviceAlertDialog(false)}
+            handleConfirm={deleteDevice}
+          />
+        </>
+      )}
     </>
   );
 };

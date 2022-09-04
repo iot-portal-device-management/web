@@ -55,8 +55,7 @@ const ServerSideDataGrid = ({
   return (
     <DataGrid
       autoHeight
-      checkboxSelection
-      keepNonExistentRowsSelected
+      {...(selectionModel && setSelectionModel ? { checkboxSelection: true, keepNonExistentRowsSelected: true } : {})}
       loading={loading}
       columns={columns}
       rows={(rows ?? []) as GridRowsProp}

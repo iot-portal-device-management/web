@@ -20,9 +20,9 @@ export const useDeviceJobCRUD = () => {
   }: FormFormikActions<CreateDeviceJobFormFormikValues>) => {
     return axios
       .post('/api/device/jobs', data)
-      .then(() => {
+      .then(result => {
         toastHelper.success('Device job created successfully');
-        router.push('/device/jobs');
+        router.push(`/device/jobs/${result.data.result.deviceJob.id}`);
       })
       .catch(error => {
         toastHelper.error(`Failed to create device job: ${error.message}`);

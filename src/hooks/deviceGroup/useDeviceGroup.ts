@@ -7,7 +7,10 @@ export const useDeviceGroup = (id: string) => {
     error,
     isValidating,
     mutate
-  } = useSWR(id ? `/api/device/groups/${id}` : null, (url) => axios.get(url).then(res => res.data.result.deviceGroup));
+  } = useSWR(
+    id ? `/api/device/groups/${id}` : null,
+    (url) => axios.get(url).then(res => res.data.result.deviceGroup),
+  );
 
   return {
     deviceGroup: data,

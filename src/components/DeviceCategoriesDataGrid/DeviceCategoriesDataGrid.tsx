@@ -89,12 +89,14 @@ const DeviceCategoriesDataGrid = ({
         meta={deviceCategoriesMeta}
         loading={isDeviceCategoriesLoading}
       />
-      <DeleteDeviceCategoryAlertDialog
-        deviceCategory={deviceCategory}
-        open={openDeleteDeviceCategoryAlertDialog}
-        handleClose={() => setOpenDeleteDeviceCategoryAlertDialog(false)}
-        handleConfirm={deleteDeviceCategory}
-      />
+      {!hideActionsColumn && (
+        <DeleteDeviceCategoryAlertDialog
+          deviceCategory={deviceCategory}
+          open={openDeleteDeviceCategoryAlertDialog}
+          handleClose={() => setOpenDeleteDeviceCategoryAlertDialog(false)}
+          handleConfirm={deleteDeviceCategory}
+        />
+      )}
     </>
   );
 };

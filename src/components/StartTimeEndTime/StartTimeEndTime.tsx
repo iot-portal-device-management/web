@@ -1,14 +1,15 @@
 import { Grid, Typography } from '@mui/material';
 import Text from '../Text';
+import moment from 'moment';
 
 interface StartTimeEndTimeProps {
   startTime?: string;
   endTime?: string;
 }
 
-const StartTimeEndTime = ({ startTime, endTime }: StartTimeEndTimeProps) => {
-  const timeFormat = 'DD/MM/YYYY, h:mm:ss A'
+const timeFormat = 'DD/MM/YYYY, h:mm:ss A'
 
+const StartTimeEndTime = ({ startTime, endTime }: StartTimeEndTimeProps) => {
   return (
     <Typography variant="subtitle2">
       <Grid container rowSpacing={1}>
@@ -17,7 +18,7 @@ const StartTimeEndTime = ({ startTime, endTime }: StartTimeEndTimeProps) => {
         </Grid>
         <Grid item xs={12}>
           <Text color="black">
-            <b>{timeFormat}</b>
+            <b>{startTime ? moment(startTime).format(timeFormat) : '-'}</b>
           </Text>
         </Grid>
         <Grid item xs={12}>
@@ -25,7 +26,7 @@ const StartTimeEndTime = ({ startTime, endTime }: StartTimeEndTimeProps) => {
         </Grid>
         <Grid item xs={12}>
           <Text color="black">
-            <b>{timeFormat}</b>
+            <b>{endTime ? moment(endTime).format(timeFormat) : '-'}</b>
           </Text>
         </Grid>
       </Grid>
