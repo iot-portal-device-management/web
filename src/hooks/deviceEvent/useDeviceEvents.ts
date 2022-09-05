@@ -2,13 +2,9 @@ import useSWR from 'swr';
 import axios from '../../libs/axios';
 
 export const useDeviceEvents = (deviceId: string, params: any) => {
-  const { data, error, isValidating, mutate } = useSWR({
-      url: `/api/devices/${deviceId}/events`,
-      params
-    }, ({ url, params }) =>
-      axios
-        .get(url, { params })
-        .then(res => res.data.result.deviceEvents)
+  const { data, error, isValidating, mutate } = useSWR(
+    { url: `/api/devices/${deviceId}/events`, params },
+    ({ url, params }) => axios.get(url, { params }).then(res => res.data.result.deviceEvents),
   );
 
   return {

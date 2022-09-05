@@ -13,7 +13,7 @@ export const useDeviceJob = (id: string) => {
   } = useSWR(
     id ? `/api/device/jobs/${id}` : null,
     (url) => axios.get(url).then(res => res.data.result.deviceJob),
-    pollRef.current ? { refreshInterval: 3000 } : undefined,
+    pollRef.current ? { refreshInterval: 5000 } : undefined,
   );
 
   if (data?.completedAt) {

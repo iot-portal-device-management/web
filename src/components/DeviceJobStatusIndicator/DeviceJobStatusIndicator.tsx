@@ -11,7 +11,6 @@ interface DeviceJobStatusIndicatorProps {
 }
 
 const DeviceJobStatusIndicator = ({ status }: DeviceJobStatusIndicatorProps) => {
-  return <Chip label="Pending" color="info"/>
   if (status?.toLowerCase() === 'pending') return <Chip label="Pending" color="info"/>;
   if (status?.toLowerCase() === 'processing') return <Chip label="Processing" color="primary"/>;
   if (status?.toLowerCase() === 'success') return <Chip label="Success" color="success"/>;

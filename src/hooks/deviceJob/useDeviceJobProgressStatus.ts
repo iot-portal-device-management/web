@@ -13,7 +13,7 @@ export const useDeviceJobProgressStatus = (id: string) => {
   } = useSWR(
     id ? `/api/device/jobs/${id}/progressStatus` : null,
     (url) => axios.get(url).then(res => res.data.result.progressStatus),
-    pollRef.current ? { refreshInterval: 3000 } : undefined,
+    pollRef.current ? { refreshInterval: 5000 } : undefined,
   );
 
   if (data?.progress >= 100) {

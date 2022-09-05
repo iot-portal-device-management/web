@@ -7,8 +7,10 @@ export const useDeviceCategory = (id: string) => {
     error,
     isValidating,
     mutate
-  } = useSWR(id ? `/api/device/categories/${id}` : null,
-    (url) => axios.get(url).then(res => res.data.result.deviceCategory));
+  } = useSWR(
+    id ? `/api/device/categories/${id}` : null,
+    (url) => axios.get(url).then(res => res.data.result.deviceCategory),
+  );
 
   return {
     deviceCategory: data,

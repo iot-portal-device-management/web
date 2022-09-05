@@ -6,13 +6,9 @@ interface UseDeviceMetricCpuUsagesParams {
 }
 
 export const useDeviceMetricCpuUsages = (deviceId: string, params: UseDeviceMetricCpuUsagesParams) => {
-  const { data, error, isValidating, mutate } = useSWR({
-      url: `/api/devices/${deviceId}/metrics/cpu/usages`,
-      params
-    }, ({ url, params }) =>
-      axios
-        .get(url, { params })
-        .then(res => res.data.result.cpuUsages)
+  const { data, error, isValidating, mutate } = useSWR(
+    { url: `/api/devices/${deviceId}/metrics/cpu/usages`, params },
+    ({ url, params }) => axios.get(url, { params }).then(res => res.data.result.cpuUsages),
   );
 
   return {

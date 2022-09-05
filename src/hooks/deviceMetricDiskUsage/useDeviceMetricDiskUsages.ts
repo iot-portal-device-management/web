@@ -6,13 +6,9 @@ interface UseDeviceMetricDiskUsagesParams {
 }
 
 export const useDeviceMetricDiskUsages = (deviceId: string, params: UseDeviceMetricDiskUsagesParams) => {
-  const { data, error, isValidating, mutate } = useSWR({
-      url: `/api/devices/${deviceId}/metrics/disk/usages`,
-      params
-    }, ({ url, params }) =>
-      axios
-        .get(url, { params })
-        .then(res => res.data.result.diskUsages)
+  const { data, error, isValidating, mutate } = useSWR(
+    { url: `/api/devices/${deviceId}/metrics/disk/usages`, params },
+    ({ url, params }) => axios.get(url, { params }).then(res => res.data.result.diskUsages),
   );
 
   return {

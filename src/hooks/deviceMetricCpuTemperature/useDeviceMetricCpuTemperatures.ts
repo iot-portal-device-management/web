@@ -6,13 +6,9 @@ interface UseDeviceMetricCpuTemperaturesParams {
 }
 
 export const useDeviceMetricCpuTemperatures = (deviceId: string, params: UseDeviceMetricCpuTemperaturesParams) => {
-  const { data, error, isValidating, mutate } = useSWR({
-      url: `/api/devices/${deviceId}/metrics/cpu/temperatures`,
-      params
-    }, ({ url, params }) =>
-      axios
-        .get(url, { params })
-        .then(res => res.data.result.cpuTemperatures)
+  const { data, error, isValidating, mutate } = useSWR(
+    { url: `/api/devices/${deviceId}/metrics/cpu/temperatures`, params },
+    ({ url, params }) => axios.get(url, { params }).then(res => res.data.result.cpuTemperatures),
   );
 
   return {

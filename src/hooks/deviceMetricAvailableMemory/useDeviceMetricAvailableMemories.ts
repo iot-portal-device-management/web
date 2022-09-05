@@ -6,13 +6,9 @@ interface UseDeviceMetricAvailableMemoriesParams {
 }
 
 export const useDeviceMetricAvailableMemories = (deviceId: string, params: UseDeviceMetricAvailableMemoriesParams) => {
-  const { data, error, isValidating, mutate } = useSWR({
-      url: `/api/devices/${deviceId}/metrics/memory/availables`,
-      params
-    }, ({ url, params }) =>
-      axios
-        .get(url, { params })
-        .then(res => res.data.result.availableMemories)
+  const { data, error, isValidating, mutate } = useSWR(
+    { url: `/api/devices/${deviceId}/metrics/memory/availables`, params },
+    ({ url, params }) => axios.get(url, { params }).then(res => res.data.result.availableMemories),
   );
 
   return {

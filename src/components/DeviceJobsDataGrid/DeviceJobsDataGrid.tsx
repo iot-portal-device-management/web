@@ -2,25 +2,18 @@ import {
   GridActionsCellItem,
   GridColumns,
   GridRenderCellParams,
-  GridRowModel,
   GridRowParams,
-  GridSelectionModel,
   GridValueGetterParams
 } from '@mui/x-data-grid';
-import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { KeyedMutator } from 'swr/dist/types';
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { QueryOptions } from '../../types/dataGrid';
-import { useDeviceJobCRUD } from '../../hooks/deviceJob/useDeviceJobCRUD';
-import DeleteDeviceJobAlertDialog from '../DeleteDeviceJobAlertDialog';
 import { getDeviceJobStatusLabel } from '../../utils/deviceJobStatus';
 import ServerSideDataGrid from '../ServerSideDataGrid';
 
 interface DeviceJobsDataGridProps {
-  selectionModel: GridSelectionModel;
-  setSelectionModel: Dispatch<SetStateAction<GridSelectionModel>>;
   queryOptions: QueryOptions
   setQueryOptions: Dispatch<SetStateAction<QueryOptions>>;
   deviceJobs: any;
@@ -31,8 +24,6 @@ interface DeviceJobsDataGridProps {
 }
 
 const DeviceJobsDataGrid = ({
-                              selectionModel,
-                              setSelectionModel,
                               queryOptions,
                               setQueryOptions,
                               deviceJobs,
@@ -42,23 +33,6 @@ const DeviceJobsDataGrid = ({
                               hideActionsColumn = undefined
                             }: DeviceJobsDataGridProps) => {
   const router = useRouter();
-
-  const [deviceJob, setDeviceJob] = useState<GridRowModel>(null);
-  const [openDeleteDeviceJobAlertDialog, setOpenDeleteDeviceJobAlertDialog] = useState(false);
-
-  const { deleteDeviceJobs } = useDeviceJobCRUD();
-
-  const confirmDeleteDeviceJob = useCallback((row: GridRowModel) =>
-    () => {
-      setDeviceJob(row);
-      setOpenDeleteDeviceJobAlertDialog(true);
-    }, []);
-
-  const deleteDeviceJob = useCallback(() => {
-    deleteDeviceJobs([deviceJob?.id], false, mutateDeviceJobs);
-    setOpenDeleteDeviceJobAlertDialog(false);
-    setDeviceJob(null);
-  }, [deviceJob?.id, mutateDeviceJobs]);
 
   const columns = useMemo<GridColumns>(() => [
     { field: 'id', type: 'string', headerName: 'Device job ID', hide: true, },
@@ -100,36 +74,19 @@ const DeviceJobsDataGrid = ({
           label="View"
           onClick={() => router.push(`/device/jobs/${params.row.id}`)}
         />,
-        <GridActionsCellItem
-          icon={<DeleteTwoToneIcon/>}
-          label="Delete"
-          onClick={confirmDeleteDeviceJob(params.row)}
-        />
       ]
     }
   ], [hideActionsColumn]);
 
   return (
-    <>
-      <ServerSideDataGrid
-        selectionModel={selectionModel}
-        setSelectionModel={setSelectionModel}
-        queryOptions={queryOptions}
-        setQueryOptions={setQueryOptions}
-        columns={columns}
-        rows={deviceJobs}
-        meta={deviceJobsMeta}
-        loading={isDeviceJobsLoading}
-      />
-      {!hideActionsColumn && (
-        <DeleteDeviceJobAlertDialog
-          deviceJob={deviceJob}
-          open={openDeleteDeviceJobAlertDialog}
-          handleClose={() => setOpenDeleteDeviceJobAlertDialog(false)}
-          handleConfirm={deleteDeviceJob}
-        />
-      )}
-    </>
+    <ServerSideDataGrid
+      queryOptions={queryOptions}
+      setQueryOptions={setQueryOptions}
+      columns={columns}
+      rows={deviceJobs}
+      meta={deviceJobsMeta}
+      loading={isDeviceJobsLoading}
+    />
   );
 };
 
