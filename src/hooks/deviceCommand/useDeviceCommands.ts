@@ -3,7 +3,7 @@ import axios from '../../libs/axios';
 
 export const useDeviceCommands = (deviceId: string, params: any) => {
   const { data, error, isValidating, mutate } = useSWR(
-    { url: `/api/devices/${deviceId}/commands`, params },
+    { url: `/api/devices/${deviceId}/deviceCommands`, params },
     ({ url, params }) => axios.get(url, { params }).then(res => res.data.result.deviceCommands),
   );
 
