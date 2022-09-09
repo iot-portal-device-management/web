@@ -57,7 +57,7 @@ const UserBoxDescription = styled(Typography)(
 );
 
 const HeaderUserBox = () => {
-  const { user } = useAuth({
+  const { user, logout } = useAuth({
     middleware: 'auth',
   });
 
@@ -121,7 +121,11 @@ const HeaderUserBox = () => {
         </List>
         <Divider/>
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Button
+            color="primary"
+            fullWidth
+            onClick={logout}
+          >
             <LockOpenTwoToneIcon sx={{ mr: 1 }}/>
             Sign out
           </Button>

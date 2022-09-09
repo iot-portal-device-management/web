@@ -2,7 +2,6 @@ import useSWR from 'swr';
 import axios from '../libs/axios';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { isValidObject } from '../utils/utils';
 
 type SetErrors = Dispatch<SetStateAction<string[]>>;
 type SetStatus = Dispatch<SetStateAction<string | null>>;
@@ -148,7 +147,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
   };
 
   useEffect(() => {
-    if (middleware === 'guest' && redirectIfAuthenticated && isValidObject(user)) router.push(redirectIfAuthenticated);
+    if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated);
     if (middleware === 'auth' && error) logout();
   }, [user, error]);
 
