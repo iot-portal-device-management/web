@@ -67,7 +67,7 @@ const LoginPage: NextPageWithLayout = () => {
               initialValues={{
                 email: '',
                 password: '',
-                remember: false
+                remember: false,
               }}
               validationSchema={validationSchema}
               onSubmit={(values, { setSubmitting }) => {

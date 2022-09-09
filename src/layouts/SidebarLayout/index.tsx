@@ -29,14 +29,14 @@ const MainContent = styled(Box)(
 `
 );
 
-const SidebarLayout = (props: SidebarLayoutProps) => {
+const SidebarLayout = ({ children }: SidebarLayoutProps) => {
   return (
     <>
       <Sidebar/>
       <MainWrapper>
         <Header/>
         <MainContent>
-          {props.children}
+          {children}
         </MainContent>
       </MainWrapper>
     </>

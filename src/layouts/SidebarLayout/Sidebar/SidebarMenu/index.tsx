@@ -183,7 +183,7 @@ const reduceChildRoutes = ({ ev, item, path }: ReduceChildRoutesProps): Array<JS
   return ev;
 };
 
-function SidebarMenu() {
+const SidebarMenu = () => {
   const router = useRouter();
 
   return (

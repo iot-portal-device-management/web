@@ -33,7 +33,7 @@ const TopSection = styled(Box)(
 `
 );
 
-function Sidebar() {
+const Sidebar = () => {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
   const closeSidebar = () => toggleSidebar();
 
@@ -62,6 +62,6 @@ function Sidebar() {
       </Drawer>
     </>
   );
-}
+};
 
 export default Sidebar;

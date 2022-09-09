@@ -8,7 +8,7 @@ import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
 import HeaderMenu from './Menu';
 import HeaderButtons from './Buttons';
-import HeaderUserbox from './Userbox';
+import HeaderUserBox from './UserBox';
 import Logo from '../../../components/Logo';
 
 const HeaderWrapper = styled(Box)(
@@ -30,13 +30,14 @@ const HeaderWrapper = styled(Box)(
 `
 );
 
-function Header() {
+const Header = () => {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
 
   return (
     <HeaderWrapper display="flex" alignItems="center">
       <Box display="flex" alignItems="center">
         <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
+          lll
           <Logo/>
         </Box>
         <Box sx={{ display: { xs: 'none', md: 'block' } }}>
@@ -45,7 +46,7 @@ function Header() {
       </Box>
       <Box display="flex" alignItems="center">
         <HeaderButtons/>
-        <HeaderUserbox/>
+        <HeaderUserBox/>
         <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
           <Tooltip arrow title="Toggle Menu">
             <IconButton color="primary" onClick={toggleSidebar}>
@@ -56,6 +57,6 @@ function Header() {
       </Box>
     </HeaderWrapper>
   );
-}
+};
 
 export default Header;

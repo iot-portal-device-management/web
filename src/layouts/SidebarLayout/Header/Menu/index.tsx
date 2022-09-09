@@ -52,7 +52,7 @@ const ListWrapper = styled(Box)(
 `
 );
 
-function HeaderMenu() {
+const HeaderMenu = () => {
   return (
     <ListWrapper>
       <List disablePadding component={Box} display="flex">
@@ -75,6 +75,6 @@ function HeaderMenu() {
       </List>
     </ListWrapper>
   );
-}
+};
 
 export default HeaderMenu;

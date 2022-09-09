@@ -17,10 +17,9 @@ import {
 
 import { styled } from '@mui/material/styles';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
-import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
+import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
-import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
-import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
+import { useAuth } from '../../../../hooks/useAuth';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -57,12 +56,10 @@ const UserBoxDescription = styled(Typography)(
 `
 );
 
-function HeaderUserbox() {
-
-  const user = {
-    name: 'Catherine Pike',
-    jobtitle: 'Project Manager'
-  };
+const HeaderUserBox = () => {
+  const { user } = useAuth({
+    middleware: 'auth',
+  });
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -78,12 +75,12 @@ function HeaderUserbox() {
   return (
     <>
       <UserBoxButton color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name}/>
+        <Avatar variant="rounded" alt={user?.name}/>
         <Hidden mdDown>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{user?.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {user?.email}
             </UserBoxDescription>
           </UserBoxText>
         </Hidden>
@@ -105,32 +102,20 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name}/>
+          <Avatar variant="rounded" alt={user?.name}/>
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{user?.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {user?.email}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
         <Divider sx={{ mb: 0 }}/>
         <List sx={{ p: 1 }} component="nav">
-          <Link href="/management/profile/details">
+          <Link href="/settings">
             <ListItemButton>
-              <AccountBoxTwoToneIcon fontSize="small"/>
-              <ListItemText primary="My Profile"/>
-            </ListItemButton>
-          </Link>
-          <Link href="/dashboards/messenger">
-            <ListItemButton>
-              <InboxTwoToneIcon fontSize="small"/>
-              <ListItemText primary="Messenger"/>
-            </ListItemButton>
-          </Link>
-          <Link href="/management/profile/settings">
-            <ListItemButton>
-              <AccountTreeTwoToneIcon fontSize="small"/>
-              <ListItemText primary="Account Settings"/>
+              <SettingsTwoToneIcon fontSize="small"/>
+              <ListItemText primary="Settings"/>
             </ListItemButton>
           </Link>
         </List>
@@ -144,6 +129,6 @@ function HeaderUserbox() {
       </Popover>
     </>
   );
-}
+};
 
-export default HeaderUserbox;
+export default HeaderUserBox;

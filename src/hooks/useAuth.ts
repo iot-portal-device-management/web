@@ -2,6 +2,7 @@ import useSWR from 'swr';
 import axios from '../libs/axios';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { isValidObject } from '../utils/utils';
 
 type SetErrors = Dispatch<SetStateAction<string[]>>;
 type SetStatus = Dispatch<SetStateAction<string | null>>;
@@ -46,7 +47,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
   const { data: user, error, mutate } = useSWR('/api/user', (url) =>
     axios
       .get(url)
-      .then(res => res.data)
+      .then(response => response.data.result.user)
       .catch(error => {
         if (error.response.status !== 409)
           throw error;
@@ -147,7 +148,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
   };
 
   useEffect(() => {
-    if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated);
+    if (middleware === 'guest' && redirectIfAuthenticated && isValidObject(user)) router.push(redirectIfAuthenticated);
     if (middleware === 'auth' && error) logout();
   }, [user, error]);
 
@@ -158,6 +159,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
     forgotPassword,
     resetPassword,
     resendEmailVerification,
-    logout
+    logout,
   };
 };
