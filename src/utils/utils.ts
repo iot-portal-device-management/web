@@ -17,6 +17,10 @@ export const camelizeObjectPropertyRecursively = (object: Record<string, unknown
     result[camelKey] = isObject(value) ? camelizeObjectPropertyRecursively(value as Record<string, unknown>) : value;
   });
 
+export const roundToTwoDecimalPlaces = (num: number) => {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+};
+
 export const removeLastCharacterIfMatch = (str: string, needle: string) => {
   if (needle && needle !== '') {
     if (str.slice(-1) === needle) {

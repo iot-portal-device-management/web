@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { SelectChangeEvent } from '@mui/material';
-import { ApexOptions } from 'apexcharts';
+import type { SelectChangeEvent } from '@mui/material';
+import type { ApexOptions } from 'apexcharts';
 import { useDeviceMetricCpuUsages } from '../../hooks/deviceMetricCpuUsage/useDeviceMetricCpuUsages';
 import TimeRangeFilterableChartCard from '../TimeRangeFilterableChartCard';
 

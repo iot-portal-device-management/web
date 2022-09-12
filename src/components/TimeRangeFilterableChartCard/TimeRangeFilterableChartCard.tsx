@@ -9,13 +9,13 @@ import {
   Select,
   SelectChangeEvent
 } from '@mui/material';
-import { Props } from 'react-apexcharts';
+import { Props as ChartProps} from 'react-apexcharts';
 import LargeCardHeader from '../LargeCardHeader';
 import { CHART_TIME_RANGE_FILTER_OPTIONS } from '../../data/chart/options';
 import { ChartTimeRangeFilterOption } from '../../types/chart';
 import Chart from '../Chart';
 
-interface TimeRangeFilterableChartCardProps extends Props {
+interface TimeRangeFilterableChartCardProps extends ChartProps {
   title: string;
   timeRangeFilterOptions?: ChartTimeRangeFilterOption[];
   selectedTimeRange: number;

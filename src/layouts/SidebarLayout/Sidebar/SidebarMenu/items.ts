@@ -1,9 +1,9 @@
 import DashboardTwoToneIcon from '@mui/icons-material/DashboardTwoTone';
-import VerifiedUserTwoToneIcon from '@mui/icons-material/VerifiedUserTwoTone';
 import DevicesTwoToneIcon from '@mui/icons-material/DevicesTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import CategoryTwoToneIcon from '@mui/icons-material/CategoryTwoTone';
 import WorkTwoToneIcon from '@mui/icons-material/WorkTwoTone';
+import VerifiedUserTwoToneIcon from '@mui/icons-material/VerifiedUserTwoTone';
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { SvgIconTypeMap } from "@mui/material/SvgIcon/SvgIcon";
 
