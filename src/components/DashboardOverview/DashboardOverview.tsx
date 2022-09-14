@@ -1,28 +1,20 @@
 import { MouseEvent, useState } from 'react';
-import { Box, Button, Card, Grid, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-
-import { styled } from '@mui/material/styles';
+import { Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import ViewWeekTwoToneIcon from '@mui/icons-material/ViewWeekTwoTone';
 import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone';
-import OverviewListColumns from '../OverviewListColumns';
+import OverviewListColumn from '../OverviewListColumn';
 import OverviewListRow from '../OverviewListRow';
 
-const EmptyResultsWrapper = styled('img')(
-  ({ theme }) => `
-      max-width: 100%;
-      width: ${theme.spacing(66)};
-      height: ${theme.spacing(34)};
-`
-);
-
 const DashboardOverview = () => {
-  const [tabs, setTab] = useState<string | null>('overview_list_columns');
+  const [tabs, setTab] = useState<string | null>('overview_list_row');
 
   const handleViewOrientation = (
     event: MouseEvent<HTMLElement>,
-    newValue: string | null
+    newOrientation: string | null
   ) => {
-    setTab(newValue);
+    if (newOrientation !== null) {
+      setTab(newOrientation);
+    }
   };
 
   return (
@@ -39,39 +31,16 @@ const DashboardOverview = () => {
           exclusive
           onChange={handleViewOrientation}
         >
-          <ToggleButton disableRipple value="overview_list_columns">
+          <ToggleButton disableRipple value="overview_list_column">
             <ViewWeekTwoToneIcon/>
           </ToggleButton>
-          <ToggleButton disableRipple value="overview_list_rows">
+          <ToggleButton disableRipple value="overview_list_row">
             <TableRowsTwoToneIcon/>
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
-        {tabs === 'overview_list_columns' && <OverviewListColumns/>}
-
-        {tabs === 'overview_list_rows' && <OverviewListRow/>}
-
-        {!tabs && (
-          <Grid item xs={12}>
-            <Card sx={{ textAlign: 'center', p: 3 }}>
-              <EmptyResultsWrapper src="/static/images/placeholders/illustrations/1.svg"/>
-
-              <Typography
-                align="center"
-                variant="h2"
-                fontWeight="normal"
-                color="text.secondary"
-                sx={{ mt: 3 }}
-                gutterBottom
-              >
-                Click something, anything!
-              </Typography>
-              <Button variant="contained" size="large" sx={{ mt: 4 }}>
-                Maybe, a button?
-              </Button>
-            </Card>
-          </Grid>
-        )}
+      {tabs === 'overview_list_column' && <OverviewListColumn/>}
+      {tabs === 'overview_list_row' && <OverviewListRow/>}
     </>
   );
 };

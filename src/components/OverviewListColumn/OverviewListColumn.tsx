@@ -4,17 +4,17 @@ import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import CategoryTwoToneIcon from '@mui/icons-material/CategoryTwoTone';
 import WorkTwoToneIcon from '@mui/icons-material/WorkTwoTone';
 import { ApexOptions } from 'apexcharts';
-import OverviewListColumnCard from '../OverviewListColumnCard';
+import OverviewListColumnContent from '../OverviewListColumnContent';
 import { useStatistics } from '../../hooks/statistic/useStatistics';
-import { chartSeriesDataFormatter } from '../../utils/apexCharts';
+import { chartSeriesDateCountDataFormatter } from '../../utils/apexCharts';
 
-const OverviewListColumns = () => {
+const OverviewListColumn = () => {
   const { statistics, isStatisticsLoading, isStatisticsError } = useStatistics();
 
-  const lastSevenDayNewDeviceCountData = statistics?.lastSevenDayNewDeviceCount.map(chartSeriesDataFormatter) || [];
-  const lastSevenDayNewDeviceGroupCountData = statistics?.lastSevenDayNewDeviceGroupCount.map(chartSeriesDataFormatter) || [];
-  const lastSevenDayNewDeviceCategoryCountData = statistics?.lastSevenDayNewDeviceCategoryCount.map(chartSeriesDataFormatter) || [];
-  const lastSevenDayNewDeviceJobCountData = statistics?.lastSevenDayNewDeviceJobCount.map(chartSeriesDataFormatter) || [];
+  const lastSevenDayNewDeviceCountData = statistics?.lastSevenDayNewDeviceCount.map(chartSeriesDateCountDataFormatter) || [];
+  const lastSevenDayNewDeviceGroupCountData = statistics?.lastSevenDayNewDeviceGroupCount.map(chartSeriesDateCountDataFormatter) || [];
+  const lastSevenDayNewDeviceCategoryCountData = statistics?.lastSevenDayNewDeviceCategoryCount.map(chartSeriesDateCountDataFormatter) || [];
+  const lastSevenDayNewDeviceJobCountData = statistics?.lastSevenDayNewDeviceJobCount.map(chartSeriesDateCountDataFormatter) || [];
 
   return (
     <Grid
@@ -25,7 +25,7 @@ const OverviewListColumns = () => {
       spacing={3}
     >
       <Grid item md={3} xs={12}>
-        <OverviewListColumnCard
+        <OverviewListColumnContent
           icon={DevicesTwoToneIcon}
           header="Devices"
           total={statistics?.deviceTotal}
@@ -38,7 +38,7 @@ const OverviewListColumns = () => {
         />
       </Grid>
       <Grid item md={3} xs={12}>
-        <OverviewListColumnCard
+        <OverviewListColumnContent
           icon={AccountTreeTwoToneIcon}
           header="Device groups"
           total={statistics?.deviceGroupTotal}
@@ -51,7 +51,7 @@ const OverviewListColumns = () => {
         />
       </Grid>
       <Grid item md={3} xs={12}>
-        <OverviewListColumnCard
+        <OverviewListColumnContent
           icon={CategoryTwoToneIcon}
           header="Device categories"
           total={statistics?.deviceCategoryTotal}
@@ -64,7 +64,7 @@ const OverviewListColumns = () => {
         />
       </Grid>
       <Grid item md={3} xs={12}>
-        <OverviewListColumnCard
+        <OverviewListColumnContent
           icon={WorkTwoToneIcon}
           header="Device jobs"
           total={statistics?.deviceJobTotal}
@@ -80,4 +80,4 @@ const OverviewListColumns = () => {
   );
 };
 
-export default OverviewListColumns;
+export default OverviewListColumn;
