@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material';
-import DeviceMetricCpuTemperaturesChartCard from '../DeviceMetricCpuTemperaturesChartCard';
-import DeviceMetricCpuUsagesChartCard from '../DeviceMetricCpuUsagesChartCard';
-import DeviceMetricDiskUsagesChartCard from '../DeviceMetricDiskUsagesChartCard';
-import DeviceMetricAvailableMemoriesChartCard from '../DeviceMetricAvailableMemoriesChartCard';
+import DeviceMetricCpuTemperatureChartCard from '../DeviceMetricCpuTemperatureChartCard';
+import DeviceMetricCpuUsageChartCard from '../DeviceMetricCpuUsageChartCard';
+import DeviceMetricDiskUsageChartCard from '../DeviceMetricDiskUsageChartCard';
+import DeviceMetricAvailableMemoryChartCard from '../DeviceMetricAvailableMemoryChartCard';
 
 interface DeviceMetricsTabProps {
   deviceId: string;
@@ -10,20 +10,20 @@ interface DeviceMetricsTabProps {
 
 const DeviceMetricsTab = ({ deviceId }: DeviceMetricsTabProps) => {
   return (
-    <>
+    <Grid container spacing={3}>
       <Grid item xs={12}>
-        <DeviceMetricCpuTemperaturesChartCard deviceId={deviceId}/>
+        <DeviceMetricCpuTemperatureChartCard deviceId={deviceId}/>
       </Grid>
       <Grid item xs={12}>
-        <DeviceMetricCpuUsagesChartCard deviceId={deviceId}/>
+        <DeviceMetricCpuUsageChartCard deviceId={deviceId}/>
       </Grid>
       <Grid item xs={12}>
-        <DeviceMetricDiskUsagesChartCard deviceId={deviceId}/>
+        <DeviceMetricDiskUsageChartCard deviceId={deviceId}/>
       </Grid>
       <Grid item xs={12}>
-        <DeviceMetricAvailableMemoriesChartCard deviceId={deviceId}/>
+        <DeviceMetricAvailableMemoryChartCard deviceId={deviceId}/>
       </Grid>
-    </>
+    </Grid>
   );
 };
 

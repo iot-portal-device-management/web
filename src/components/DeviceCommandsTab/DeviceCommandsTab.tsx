@@ -1,4 +1,4 @@
-import { Box, Card, Grid } from '@mui/material';
+import { Box, Card } from '@mui/material';
 import LargeCardHeader from '../LargeCardHeader';
 import { useState } from 'react';
 import { QueryOptions } from '../../types/dataGrid';
@@ -28,24 +28,22 @@ const DeviceCommandsTab = ({ deviceId }: DeviceCommandsTabProps) => {
   });
 
   return (
-    <Grid item xs={12}>
-      <Card>
-        <LargeCardHeader
-          title="Device commands"
-          subheader="Commands that you have triggered in the past"
+    <Card>
+      <LargeCardHeader
+        title="Device commands"
+        subheader="Commands that you have triggered in the past"
+      />
+      <Box sx={{ width: '100%' }}>
+        <DeviceCommandsDataGrid
+          queryOptions={queryOptions}
+          setQueryOptions={setQueryOptions}
+          deviceCommands={deviceCommands}
+          deviceCommandsMeta={deviceCommandsMeta}
+          isDeviceCommandsLoading={isDeviceCommandsLoading}
+          mutateDeviceCommands={mutateDeviceCommands}
         />
-        <Box sx={{ width: '100%' }}>
-          <DeviceCommandsDataGrid
-            queryOptions={queryOptions}
-            setQueryOptions={setQueryOptions}
-            deviceCommands={deviceCommands}
-            deviceCommandsMeta={deviceCommandsMeta}
-            isDeviceCommandsLoading={isDeviceCommandsLoading}
-            mutateDeviceCommands={mutateDeviceCommands}
-          />
-        </Box>
-      </Card>
-    </Grid>
+      </Box>
+    </Card>
   );
 };
 

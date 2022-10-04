@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import { DeviceFotaFormFormikValues, DeviceFotaPayload } from '../../types/deviceFota';
 import { useDeviceFota } from '../../hooks/deviceFota/useDeviceFota';
 import DeviceFotaFormCard from '../DeviceFotaFormCard';
@@ -16,11 +15,9 @@ const DeviceFotaTab = ({ deviceId }: DeviceFotaTabProps) => {
   };
 
   return (
-    <Grid item xs={12}>
-      <DeviceFotaFormCard
-        onSubmit={onSubmit}
-      />
-    </Grid>
+    <DeviceFotaFormCard
+      onSubmit={onSubmit}
+    />
   );
 };
 

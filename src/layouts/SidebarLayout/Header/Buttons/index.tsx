@@ -2,15 +2,15 @@ import { Box } from '@mui/material';
 import HeaderSearch from './Search';
 import HeaderNotifications from './Notifications';
 
-function HeaderButtons() {
+const HeaderButtons = () => {
   return (
     <Box sx={{ mr: 1 }}>
-      <HeaderSearch />
+      <HeaderSearch/>
       <Box sx={{ mx: .5 }} component="span">
-        <HeaderNotifications />
+        <HeaderNotifications/>
       </Box>
     </Box>
   );
-}
+};
 
 export default HeaderButtons;

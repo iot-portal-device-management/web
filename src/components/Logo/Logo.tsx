@@ -38,7 +38,7 @@ const LogoText = styled(Box)(
 const Logo = () => {
   return (
     <Link href="/">
-      <LogoWrapper sx={{ display: { xs: 'none', sm: 'block' } }}>
+      <LogoWrapper>
         <Tooltip title="Version 2.0.0" arrow placement="right">
           <VersionBadge>2.0.0</VersionBadge>
         </Tooltip>

@@ -5,9 +5,6 @@ import { styled } from '@mui/material/styles';
 import { SidebarContext } from '../../../contexts/SidebarContext';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
-
-import HeaderMenu from './Menu';
-import HeaderButtons from './Buttons';
 import HeaderUserBox from './UserBox';
 import Logo from '../../../components/Logo';
 
@@ -37,15 +34,14 @@ const Header = () => {
     <HeaderWrapper display="flex" alignItems="center">
       <Box display="flex" alignItems="center">
         <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
-          lll
           <Logo/>
         </Box>
-        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-          <HeaderMenu/>
-        </Box>
+        {/*<Box sx={{ display: { xs: 'none', md: 'block' } }}>*/}
+        {/*  <HeaderMenu/>*/}
+        {/*</Box>*/}
       </Box>
       <Box display="flex" alignItems="center">
-        <HeaderButtons/>
+        {/*<HeaderButtons/>*/}
         <HeaderUserBox/>
         <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
           <Tooltip arrow title="Toggle Menu">

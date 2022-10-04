@@ -3,11 +3,7 @@ import { Box, Card, SvgIconProps, Typography } from '@mui/material';
 import Label from '../Label';
 import Text from '../Text';
 import type { ApexOptions } from 'apexcharts';
-import {
-  calculateTwentyFourHourChange,
-  determineValueChangeColor,
-  determineValueChangeSign
-} from '../../utils/apexCharts';
+import { calculateTwentyFourHourChange, determineValueChangeColor, formatNumberValue } from '../../utils/apexCharts';
 import AvatarWrapper from '../AvatarWrapper';
 import OverviewListChart from '../OverviewListChart';
 
@@ -56,7 +52,7 @@ const OverviewListColumnContent = ({ icon: Icon, header, total, series }: Overvi
           </Typography>
           <Text color={determineValueChangeColor(twentyFourHourPercentChange)}>
             <b>
-              {`${determineValueChangeSign(twentyFourHourPercentChange)}${twentyFourHourPercentChange}%`}
+              {`${formatNumberValue(twentyFourHourPercentChange)}%`}
             </b>
           </Text>
         </Box>
@@ -68,7 +64,7 @@ const OverviewListColumnContent = ({ icon: Icon, header, total, series }: Overvi
           }}
         >
           <Label color={determineValueChangeColor(twentyFourHourCountChange)}>
-            {`${determineValueChangeSign(twentyFourHourCountChange)}${twentyFourHourCountChange}`}
+            {formatNumberValue(twentyFourHourCountChange)}
           </Label>
           <Typography
             variant="body2"

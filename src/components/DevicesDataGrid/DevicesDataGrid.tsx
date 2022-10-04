@@ -1,5 +1,4 @@
 import {
-  DataGridProps,
   GridActionsCellItem,
   GridColumns,
   GridRenderCellParams,
@@ -135,7 +134,7 @@ const DevicesDataGrid = ({
       {!hideActionsColumn && (
         <>
           <ConnectDeviceDialog
-            device={device}
+            deviceId={device?.id}
             open={openConnectDeviceAlertDialog}
             handleClose={() => setOpenConnectDeviceAlertDialog(false)}
           />

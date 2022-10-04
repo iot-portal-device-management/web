@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material';
 import type { ApexOptions } from 'apexcharts';
-import { useDeviceMetricCpuUsages } from '../../hooks/deviceMetricCpuUsage/useDeviceMetricCpuUsages';
+import { useDeviceMetricDiskUsages } from '../../hooks/deviceMetricDiskUsage/useDeviceMetricDiskUsages';
 import TimeRangeFilterableChartCard from '../TimeRangeFilterableChartCard';
 
-interface DeviceMetricCpuUsagesChartCardProps {
+interface DeviceMetricDiskUsageChartCardProps {
   deviceId: string;
 }
 
-const DeviceMetricCpuUsagesChartCard = ({ deviceId }: DeviceMetricCpuUsagesChartCardProps) => {
+const DeviceMetricDiskUsageChartCard = ({ deviceId }: DeviceMetricDiskUsageChartCardProps) => {
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
   const {
-    cpuUsages,
-    isCpuUsagesLoading,
-    isCpuUsagesError
-  } = useDeviceMetricCpuUsages(deviceId, { timeRange: selectedTimeRange });
+    diskUsages,
+    isDiskUsagesLoading,
+    isDiskUsagesError
+  } = useDeviceMetricDiskUsages(deviceId, { timeRange: selectedTimeRange });
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -30,7 +30,7 @@ const DeviceMetricCpuUsagesChartCard = ({ deviceId }: DeviceMetricCpuUsagesChart
     },
     yaxis: {
       title: {
-        text: 'CPU Usage %'
+        text: 'Disk Usage %'
       },
       labels: {
         formatter: function (value) {
@@ -66,8 +66,8 @@ const DeviceMetricCpuUsagesChartCard = ({ deviceId }: DeviceMetricCpuUsagesChart
   };
 
   const chartSeries = [{
-    name: "CPU Usage %",
-    data: cpuUsages,
+    name: 'Disk Usage',
+    data: diskUsages,
   }];
 
   const handleTimeRangeFilterChange = (event: SelectChangeEvent<number>): void => {
@@ -80,11 +80,11 @@ const DeviceMetricCpuUsagesChartCard = ({ deviceId }: DeviceMetricCpuUsagesChart
       series={chartSeries}
       type="area"
       height={500}
-      title="CPU usage"
+      title="Disk usage"
       selectedTimeRange={selectedTimeRange}
       onTimeRangeFilterChange={handleTimeRangeFilterChange}
     />
   );
 };
 
-export default DeviceMetricCpuUsagesChartCard;
+export default DeviceMetricDiskUsageChartCard;

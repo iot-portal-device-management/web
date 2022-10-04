@@ -7,7 +7,7 @@ import VisibilityOffTwoToneIcon from '@mui/icons-material/VisibilityOffTwoTone';
 
 interface HiddenCredentialFieldProps {
   label: string;
-  credential: string;
+  credential?: string;
 }
 
 const HiddenCredentialField = ({ label, credential, ...rest }: HiddenCredentialFieldProps) => {
@@ -19,8 +19,10 @@ const HiddenCredentialField = ({ label, credential, ...rest }: HiddenCredentialF
   };
 
   const handleClickCopy = () => {
-    copy(credential);
-    setCopied(true);
+    if (credential) {
+      copy(credential);
+      setCopied(true);
+    }
   };
 
   return (

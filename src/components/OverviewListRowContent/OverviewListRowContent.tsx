@@ -6,11 +6,7 @@ import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';
 import TrendingDownTwoToneIcon from '@mui/icons-material/TrendingDownTwoTone';
 import TrendingFlatTwoToneIcon from '@mui/icons-material/TrendingFlatTwoTone';
 import { FunctionComponent } from 'react';
-import {
-  calculateTwentyFourHourChange,
-  determineValueChangeColor,
-  determineValueChangeSign
-} from '../../utils/apexCharts';
+import { calculateTwentyFourHourChange, determineValueChangeColor, formatNumberValue } from '../../utils/apexCharts';
 import AvatarWrapper from '../AvatarWrapper';
 import OverviewListChart from '../OverviewListChart';
 
@@ -81,7 +77,7 @@ const OverviewListRowContent = ({ icon: Icon, header, total, series }: OverviewL
           </Typography>
           <Text color={determineValueChangeColor(twentyFourHourPercentChange)}>
             <b>
-              {`${determineValueChangeSign(twentyFourHourPercentChange)}${twentyFourHourPercentChange}%`}
+              {`${formatNumberValue(twentyFourHourPercentChange)}%`}
             </b>
           </Text>
         </Box>

@@ -4,11 +4,11 @@ import type { ApexOptions } from 'apexcharts';
 import { useDeviceMetricCpuTemperatures } from '../../hooks/deviceMetricCpuTemperature/useDeviceMetricCpuTemperatures';
 import TimeRangeFilterableChartCard from '../TimeRangeFilterableChartCard';
 
-interface DeviceMetricCpuTemperaturesChartCardProps {
+interface DeviceMetricCpuTemperatureChartCardProps {
   deviceId: string;
 }
 
-const DeviceMetricCpuTemperaturesChartCard = ({ deviceId }: DeviceMetricCpuTemperaturesChartCardProps) => {
+const DeviceMetricCpuTemperatureChartCard = ({ deviceId }: DeviceMetricCpuTemperatureChartCardProps) => {
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
   const {
     cpuTemperatures,
@@ -66,7 +66,7 @@ const DeviceMetricCpuTemperaturesChartCard = ({ deviceId }: DeviceMetricCpuTempe
   };
 
   const chartSeries = [{
-    name: "CPU Temperature",
+    name: 'CPU Temperature',
     data: cpuTemperatures,
   }];
 
@@ -87,4 +87,4 @@ const DeviceMetricCpuTemperaturesChartCard = ({ deviceId }: DeviceMetricCpuTempe
   );
 };
 
-export default DeviceMetricCpuTemperaturesChartCard;
+export default DeviceMetricCpuTemperatureChartCard;

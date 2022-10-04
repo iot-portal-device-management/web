@@ -6,11 +6,48 @@ interface ChartSeriesDateCountData {
   count: number;
 }
 
-export const chartSeriesDateCountDataFormatter = (item: ChartSeriesDateCountData) => {
+interface ChartSeriesTimestampTemperatureData {
+  timestamp: number;
+  temperature: number;
+}
+
+interface ChartSeriesTimestampCpuUsagePercentageData {
+  timestamp: number;
+  cpuUsagePercentage: number;
+}
+
+interface ChartSeriesTimestampDiskUsagePercentageData {
+  timestamp: number;
+  diskUsagePercentage: number;
+}
+
+interface ChartSeriesTimestampAvailableMemoryInBytesData {
+  timestamp: number;
+  availableMemoryInBytes: number;
+}
+
+
+export const chartSeriesDateCountDataFormatter = (data: ChartSeriesDateCountData) => {
   return {
-    x: item.date,
-    y: item.count,
+    x: data.date,
+    y: data.count,
   };
+};
+
+export const chartSeriesTimestampTemperatureDataFormatter = (data: ChartSeriesTimestampTemperatureData) => {
+  return [data.timestamp, data.temperature];
+};
+
+export const chartSeriesTimestampCpuUsagePercentageDataFormatter = (data: ChartSeriesTimestampCpuUsagePercentageData) => {
+  return [data.timestamp, data.cpuUsagePercentage];
+};
+
+export const chartSeriesTimestampDiskUsagePercentageDataFormatter = (data: ChartSeriesTimestampDiskUsagePercentageData) => {
+  return [data.timestamp, data.diskUsagePercentage];
+};
+
+export const chartSeriesTimestampAvailableMemoryInBytesDataFormatter = (data: ChartSeriesTimestampAvailableMemoryInBytesData) => {
+  return [data.timestamp, data.availableMemoryInBytes];
 };
 
 export const calculateTwentyFourHourChange = (series: ApexOptions['series']) => {
@@ -35,11 +72,8 @@ export const calculateTwentyFourHourChange = (series: ApexOptions['series']) => 
   return [0, 0];
 };
 
-export const determineValueChangeSign = (value: number) => {
-  if (value > 0) return '+';
-  else if (value < 0) return '-'
-
-  return '';
+export const formatNumberValue = (value: number) => {
+  return (value > 0 ? '+' : '') + value;
 };
 
 export const determineValueChangeColor = (value: number) => {

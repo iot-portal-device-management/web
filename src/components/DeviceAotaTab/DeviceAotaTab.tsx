@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import { useDeviceAota } from '../../hooks/deviceAota/useDeviceAota';
 import { DeviceAotaFormFormikValues, DeviceAotaPayload } from '../../types/deviceAota';
 import DeviceAotaFormCard from '../DeviceAotaFormCard/DeviceAotaFormCard';
@@ -16,11 +15,9 @@ const DeviceAotaTab = ({ deviceId }: DeviceAotaTabProps) => {
   };
 
   return (
-    <Grid item xs={12}>
-      <DeviceAotaFormCard
-        onSubmit={onSubmit}
-      />
-    </Grid>
+    <DeviceAotaFormCard
+      onSubmit={onSubmit}
+    />
   );
 };
 

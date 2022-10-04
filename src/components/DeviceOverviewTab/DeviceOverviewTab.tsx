@@ -21,35 +21,33 @@ const DeviceOverviewTab = ({ device }: DeviceOverviewTabProps) => {
   ];
 
   return (
-    <Grid item xs={12}>
-      <Card>
-        <LargeCardHeader
-          title="Device overview"
-          subheader="Summary of device information"
-        />
-        <Divider/>
-        <CardContent sx={{ p: 4 }}>
-          <Typography variant="subtitle2">
-            <Grid container spacing={0}>
-              {deviceInformationList.map((deviceInformation) => ((
-                <Fragment key={deviceInformation.property}>
-                  <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>
-                    <Box pr={3} pb={2}>
-                      {deviceInformation.label}:
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={8} md={9}>
-                    <Text color="black">
-                      <b>{device?.[deviceInformation.property]}</b>
-                    </Text>
-                  </Grid>
-                </Fragment>
-              )))}
-            </Grid>
-          </Typography>
-        </CardContent>
-      </Card>
-    </Grid>
+    <Card>
+      <LargeCardHeader
+        title="Device overview"
+        subheader="Summary of device information"
+      />
+      <Divider/>
+      <CardContent sx={{ p: 4 }}>
+        <Typography variant="subtitle2">
+          <Grid container spacing={0}>
+            {deviceInformationList.map((deviceInformation) => ((
+              <Fragment key={deviceInformation.property}>
+                <Grid item xs={12} sm={4} md={3} textAlign={{ sm: 'right' }}>
+                  <Box pr={3} pb={2}>
+                    {deviceInformation.label}:
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={8} md={9}>
+                  <Text color="black">
+                    <b>{device?.[deviceInformation.property]}</b>
+                  </Text>
+                </Grid>
+              </Fragment>
+            )))}
+          </Grid>
+        </Typography>
+      </CardContent>
+    </Card>
   );
 };
 

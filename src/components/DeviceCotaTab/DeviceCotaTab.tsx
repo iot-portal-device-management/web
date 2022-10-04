@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import { DeviceCotaFormFormikValues, DeviceCotaPayload } from '../../types/deviceCota';
 import { useDeviceCota } from '../../hooks/deviceCota/useDeviceCota';
 import DeviceCotaFormCard from '../DeviceCotaFormCard';
@@ -16,11 +15,9 @@ const DeviceCotaTab = ({ deviceId }: DeviceCotaTabProps) => {
   };
 
   return (
-    <Grid item xs={12}>
-      <DeviceCotaFormCard
-        onSubmit={onSubmit}
-      />
-    </Grid>
+    <DeviceCotaFormCard
+      onSubmit={onSubmit}
+    />
   );
 };
 

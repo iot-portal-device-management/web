@@ -1,14 +1,13 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import { GridRowModel } from '@mui/x-data-grid';
 import HiddenCredentialField from '../HiddenCredentialField';
 
 interface ConnectDeviceDialogProps {
-  device?: GridRowModel;
+  deviceId?: string;
   open: boolean;
   handleClose: () => void;
 }
 
-const ConnectDeviceDialog = ({ device = undefined, open = false, handleClose }: ConnectDeviceDialogProps) => {
+const ConnectDeviceDialog = ({ deviceId = undefined, open = false, handleClose }: ConnectDeviceDialogProps) => {
   return (
     <Dialog
       open={open}
@@ -24,7 +23,7 @@ const ConnectDeviceDialog = ({ device = undefined, open = false, handleClose }: 
         </DialogContentText>
         <HiddenCredentialField
           label="Device ID"
-          credential={device?.id}
+          credential={deviceId}
         />
       </DialogContent>
       <DialogActions>

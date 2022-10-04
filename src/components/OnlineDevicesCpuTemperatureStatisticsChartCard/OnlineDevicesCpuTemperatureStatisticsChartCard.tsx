@@ -1,24 +1,29 @@
 import { useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material';
 import type { ApexOptions } from 'apexcharts';
-import { useDeviceMetricAvailableMemories } from '../../hooks/deviceMetricAvailableMemory/useDeviceMetricAvailableMemories';
 import TimeRangeFilterableChartCard from '../TimeRangeFilterableChartCard';
+import { useOnlineDevicesCpuTemperatureStatistics } from '../../hooks/onlineDevicesCpuTemperatureStatistic/useOnlineDevicesCpuTemperatureStatistics';
+import { chartSeriesTimestampTemperatureDataFormatter } from '../../utils/apexCharts';
 
-interface DeviceMetricAvailableMemoriesChartCardProps {
-  deviceId: string;
-}
-
-const DeviceMetricAvailableMemoriesChartCard = ({ deviceId }: DeviceMetricAvailableMemoriesChartCardProps) => {
+const OnlineDevicesCpuTemperatureStatisticsChartCard = () => {
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
+
   const {
-    availableMemories,
-    isAvailableMemoriesLoading,
-    isAvailableMemoriesError
-  } = useDeviceMetricAvailableMemories(deviceId, { timeRange: selectedTimeRange });
+    onlineDevicesCpuTemperatureStatistics,
+    isOnlineDevicesCpuTemperatureStatisticsLoading,
+    isOnlineDevicesCpuTemperatureStatisticsError
+  } = useOnlineDevicesCpuTemperatureStatistics({ timeRange: selectedTimeRange });
+
+  const cpuTemperatureTimeSeries = onlineDevicesCpuTemperatureStatistics?.map((cpuTemperatureStatistic: any) => {
+    return {
+      ...cpuTemperatureStatistic,
+      data: cpuTemperatureStatistic.data?.map(chartSeriesTimestampTemperatureDataFormatter),
+    };
+  });
 
   const chartOptions: ApexOptions = {
     chart: {
-      type: 'area',
+      type: 'line',
       stacked: false,
       height: 500,
       zoom: {
@@ -30,11 +35,11 @@ const DeviceMetricAvailableMemoriesChartCard = ({ deviceId }: DeviceMetricAvaila
     },
     yaxis: {
       title: {
-        text: 'Available Memory - Megabytes(MB)'
+        text: 'CPU Temperature - Celsius(°C)'
       },
       labels: {
         formatter: function (value) {
-          return `${(value / 1024 / 1024).toFixed(2)} MB`;
+          return `${Math.round(value)}°C`;
         },
       },
     },
@@ -47,28 +52,14 @@ const DeviceMetricAvailableMemoriesChartCard = ({ deviceId }: DeviceMetricAvaila
     tooltip: {
       y: {
         formatter: function (value) {
-          return `${(value / 1024 / 1024).toFixed(2)} MB`;
+          return `${value}°C`;
         },
       },
       x: {
         format: 'dd MMM yyyy HH:mm:ss',
       },
     },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.7,
-        opacityTo: 0.9,
-        stops: [0, 100]
-      },
-    },
   };
-
-  const chartSeries = [{
-    name: "Available Memory",
-    data: availableMemories,
-  }];
 
   const handleTimeRangeFilterChange = (event: SelectChangeEvent<number>): void => {
     setSelectedTimeRange(Number(event.target.value));
@@ -77,14 +68,14 @@ const DeviceMetricAvailableMemoriesChartCard = ({ deviceId }: DeviceMetricAvaila
   return (
     <TimeRangeFilterableChartCard
       options={chartOptions}
-      series={chartSeries}
-      type="area"
+      series={cpuTemperatureTimeSeries}
+      type="line"
       height={500}
-      title="Available memory"
+      title="CPU temperature"
       selectedTimeRange={selectedTimeRange}
       onTimeRangeFilterChange={handleTimeRangeFilterChange}
     />
   );
 };
 
-export default DeviceMetricAvailableMemoriesChartCard;
+export default OnlineDevicesCpuTemperatureStatisticsChartCard;

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Button, Card, CardActions, Divider, Stack } from '@mui/material';
 import DevicesTwoToneIcon from '@mui/icons-material/DevicesTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
@@ -79,7 +80,9 @@ const OverviewListRow = () => {
           justifyContent: 'center'
         }}
       >
-        <Button variant="outlined">View all devices</Button>
+        <Link href="/devices">
+          <Button variant="outlined">View all devices</Button>
+        </Link>
       </CardActions>
     </Card>
   );

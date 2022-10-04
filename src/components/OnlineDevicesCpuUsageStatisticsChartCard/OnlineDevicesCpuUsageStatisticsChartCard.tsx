@@ -1,24 +1,29 @@
 import { useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material';
 import type { ApexOptions } from 'apexcharts';
-import { useDeviceMetricDiskUsages } from '../../hooks/deviceMetricDiskUsage/useDeviceMetricDiskUsages';
 import TimeRangeFilterableChartCard from '../TimeRangeFilterableChartCard';
+import { chartSeriesTimestampCpuUsagePercentageDataFormatter } from '../../utils/apexCharts';
+import { useOnlineDevicesCpuUsageStatistics } from '../../hooks/onlineDevicesCpuUsageStatistic/useOnlineDevicesCpuUsageStatistics';
 
-interface DeviceMetricDiskUsagesChartCardProps {
-  deviceId: string;
-}
-
-const DeviceMetricDiskUsagesChartCard = ({ deviceId }: DeviceMetricDiskUsagesChartCardProps) => {
+const OnlineDevicesCpuUsageStatisticsChartCard = () => {
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
+
   const {
-    diskUsages,
-    isDiskUsagesLoading,
-    isDiskUsagesError
-  } = useDeviceMetricDiskUsages(deviceId, { timeRange: selectedTimeRange });
+    onlineDevicesCpuUsageStatistics,
+    isOnlineDevicesCpuUsageStatisticsLoading,
+    isOnlineDevicesCpuUsageStatisticsError
+  } = useOnlineDevicesCpuUsageStatistics({ timeRange: selectedTimeRange });
+
+  const cpuUsageTimeSeries = onlineDevicesCpuUsageStatistics?.map((cpuUsageStatistic: any) => {
+    return {
+      ...cpuUsageStatistic,
+      data: cpuUsageStatistic.data?.map(chartSeriesTimestampCpuUsagePercentageDataFormatter),
+    };
+  });
 
   const chartOptions: ApexOptions = {
     chart: {
-      type: 'area',
+      type: 'line',
       stacked: false,
       height: 500,
       zoom: {
@@ -30,7 +35,7 @@ const DeviceMetricDiskUsagesChartCard = ({ deviceId }: DeviceMetricDiskUsagesCha
     },
     yaxis: {
       title: {
-        text: 'Disk Usage %'
+        text: 'CPU Usage %'
       },
       labels: {
         formatter: function (value) {
@@ -54,21 +59,7 @@ const DeviceMetricDiskUsagesChartCard = ({ deviceId }: DeviceMetricDiskUsagesCha
         format: 'dd MMM yyyy HH:mm:ss',
       },
     },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        opacityFrom: 0.7,
-        opacityTo: 0.9,
-        stops: [0, 100]
-      },
-    },
   };
-
-  const chartSeries = [{
-    name: "Disk Usage",
-    data: diskUsages,
-  }];
 
   const handleTimeRangeFilterChange = (event: SelectChangeEvent<number>): void => {
     setSelectedTimeRange(Number(event.target.value));
@@ -77,14 +68,14 @@ const DeviceMetricDiskUsagesChartCard = ({ deviceId }: DeviceMetricDiskUsagesCha
   return (
     <TimeRangeFilterableChartCard
       options={chartOptions}
-      series={chartSeries}
-      type="area"
+      series={cpuUsageTimeSeries}
+      type="line"
       height={500}
-      title="Disk usage"
+      title="CPU usage"
       selectedTimeRange={selectedTimeRange}
       onTimeRangeFilterChange={handleTimeRangeFilterChange}
     />
   );
 };
 
-export default DeviceMetricDiskUsagesChartCard;
+export default OnlineDevicesCpuUsageStatisticsChartCard;

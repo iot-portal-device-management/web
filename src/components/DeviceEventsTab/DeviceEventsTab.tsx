@@ -1,4 +1,4 @@
-import { Box, Card, Grid } from '@mui/material';
+import { Box, Card } from '@mui/material';
 import LargeCardHeader from '../LargeCardHeader';
 import { useState } from 'react';
 import { QueryOptions } from '../../types/dataGrid';
@@ -28,24 +28,22 @@ const DeviceEventsTab = ({ deviceId }: DeviceEventsTabProps) => {
   });
 
   return (
-    <Grid item xs={12}>
-      <Card>
-        <LargeCardHeader
-          title="Device events"
-          subheader="List of past device events"
+    <Card>
+      <LargeCardHeader
+        title="Device events"
+        subheader="List of past device events"
+      />
+      <Box sx={{ width: '100%' }}>
+        <DeviceEventsDataGrid
+          queryOptions={queryOptions}
+          setQueryOptions={setQueryOptions}
+          deviceEvents={deviceEvents}
+          deviceEventsMeta={deviceEventsMeta}
+          isDeviceEventsLoading={isDeviceEventsLoading}
+          mutateDeviceEvents={mutateDeviceEvents}
         />
-        <Box sx={{ width: '100%' }}>
-          <DeviceEventsDataGrid
-            queryOptions={queryOptions}
-            setQueryOptions={setQueryOptions}
-            deviceEvents={deviceEvents}
-            deviceEventsMeta={deviceEventsMeta}
-            isDeviceEventsLoading={isDeviceEventsLoading}
-            mutateDeviceEvents={mutateDeviceEvents}
-          />
-        </Box>
-      </Card>
-    </Grid>
+      </Box>
+    </Card>
   );
 };
 

@@ -42,10 +42,14 @@ const ViewDeviceJobPage = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <DeviceJobProgressStatusCard deviceJobId={deviceJobId}/>
+            <DeviceJobProgressStatusCard
+              deviceJobId={deviceJobId}
+            />
           </Grid>
           <Grid item xs={12}>
-            <DeviceJobDeviceCommandsCard deviceJobId={deviceJobId}/>
+            <DeviceJobDeviceCommandsCard
+              deviceJobId={deviceJobId}
+            />
           </Grid>
         </Grid>
       </Container>

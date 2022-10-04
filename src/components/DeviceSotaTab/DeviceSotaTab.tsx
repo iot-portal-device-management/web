@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import { DeviceSotaFormFormikValues, DeviceSotaPayload } from '../../types/deviceSota';
 import { useDeviceSota } from '../../hooks/deviceSota/useDeviceSota';
 import DeviceSotaFormCard from '../DeviceSotaFormCard';
@@ -16,11 +15,9 @@ const DeviceSotaTab = ({ deviceId }: DeviceSotaTabProps) => {
   };
 
   return (
-    <Grid item xs={12}>
-      <DeviceSotaFormCard
-        onSubmit={onSubmit}
-      />
-    </Grid>
+    <DeviceSotaFormCard
+      onSubmit={onSubmit}
+    />
   );
 };
 

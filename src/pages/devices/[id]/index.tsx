@@ -25,13 +25,33 @@ import DeviceEventsTab from '../../../components/DeviceEventsTab';
 import DeviceMetricsTab from '../../../components/DeviceMetricsTab';
 import LargeCardHeader from '../../../components/LargeCardHeader';
 import TabsWrapper from '../../../components/TabsWrapper';
+import { useDeviceShutdown } from '../../../hooks/deviceShutdown/useDeviceShutdown';
+import ShutDownDeviceAlertDialog from '../../../components/ShutDownDeviceAlertDialog';
+import RebootDeviceAlertDialog from '../../../components/RebootDeviceAlertDialog';
+import DecommissionDeviceAlertDialog from '../../../components/DecommissionDeviceAlertDialog';
+import { useDeviceReboot } from '../../../hooks/deviceReboot/useDeviceReboot';
+import { useDeviceDecommission } from '../../../hooks/deviceDecommission/useDeviceDecommission';
+import ConnectDeviceDialog from '../../../components/ConnectDeviceDialog';
+import { LoadingButton } from '@mui/lab';
 
 const ViewDevicePage = () => {
   const router = useRouter();
   const deviceId = router.query.id as string;
 
   const [currentTab, setCurrentTab] = useState('overview');
+  const [openConnectDeviceAlertDialog, setOpenConnectDeviceAlertDialog] = useState(false);
+  const [openShutDownDeviceAlertDialog, setOpenShutDownDeviceAlertDialog] = useState(false);
+  const [openRebootDeviceAlertDialog, setOpenRebootDeviceAlertDialog] = useState(false);
+  const [openDecommissionDeviceAlertDialog, setOpenDecommissionDeviceAlertDialog] = useState(false);
+  const [isSubmittingShutdown, setIsSubmittingShutdown] = useState(false);
+  const [isSubmittingReboot, setIsSubmittingReboot] = useState(false);
+  const [isSubmittingDecommission, setIsSubmittingDecommission] = useState(false);
+
   const { device, isDeviceLoading, isDeviceError } = useDevice(deviceId);
+
+  const { submitDeviceShutdown } = useDeviceShutdown();
+  const { submitDeviceReboot } = useDeviceReboot();
+  const { submitDeviceDecommission } = useDeviceDecommission();
 
   const tabs = [
     { label: 'Overview', value: 'overview' },
@@ -46,6 +66,24 @@ const ViewDevicePage = () => {
 
   const handleTabsChange = (event: ChangeEvent<{}>, value: string): void => {
     setCurrentTab(value);
+  };
+
+  const shutDownDevice = () => {
+    setIsSubmittingShutdown(true);
+    submitDeviceShutdown(deviceId, setIsSubmittingShutdown);
+    setOpenShutDownDeviceAlertDialog(false);
+  };
+
+  const rebootDevice = () => {
+    setIsSubmittingReboot(true);
+    submitDeviceReboot(deviceId, setIsSubmittingReboot);
+    setOpenRebootDeviceAlertDialog(false);
+  };
+
+  const decommissionDevice = () => {
+    setIsSubmittingDecommission(true);
+    submitDeviceDecommission(deviceId, setIsSubmittingDecommission);
+    setOpenDecommissionDeviceAlertDialog(false);
   };
 
   return (
@@ -86,10 +124,39 @@ const ViewDevicePage = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                      <Button startIcon={<VpnKeyTwoToneIcon/>}>Connect</Button>
-                      <Button startIcon={<PowerSettingsNewTwoToneIcon/>}>Shutdown</Button>
-                      <Button startIcon={<RestartAltTwoToneIcon/>}>Reboot</Button>
-                      <Button startIcon={<DeleteForeverTwoToneIcon/>}>Decommission</Button>
+                      <Button
+                        startIcon={<VpnKeyTwoToneIcon/>}
+                        onClick={() => setOpenConnectDeviceAlertDialog(true)}
+                      >
+                        Connect
+                      </Button>
+                      <LoadingButton
+                        variant="contained"
+                        startIcon={<PowerSettingsNewTwoToneIcon/>}
+                        loading={isSubmittingShutdown}
+                        loadingPosition="start"
+                        onClick={() => setOpenShutDownDeviceAlertDialog(true)}
+                      >
+                        Shut down
+                      </LoadingButton>
+                      <LoadingButton
+                        variant="contained"
+                        startIcon={<RestartAltTwoToneIcon/>}
+                        loading={isSubmittingReboot}
+                        loadingPosition="start"
+                        onClick={() => setOpenRebootDeviceAlertDialog(true)}
+                      >
+                        Reboot
+                      </LoadingButton>
+                      <LoadingButton
+                        variant="contained"
+                        startIcon={<DeleteForeverTwoToneIcon/>}
+                        loading={isSubmittingDecommission}
+                        loadingPosition="start"
+                        onClick={() => setOpenDecommissionDeviceAlertDialog(true)}
+                      >
+                        Decommission
+                      </LoadingButton>
                     </ButtonGroup>
                   </Grid>
                 </Grid>
@@ -126,17 +193,39 @@ const ViewDevicePage = () => {
               ))}
             </TabsWrapper>
           </Grid>
-          {currentTab === 'overview' && <DeviceOverviewTab device={device}/>}
-          {currentTab === 'metrics' && <DeviceMetricsTab deviceId={deviceId}/>}
-          {currentTab === 'aota' && <DeviceAotaTab deviceId={deviceId}/>}
-          {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
-          {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
-          {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
-          {currentTab === 'commands' && <DeviceCommandsTab deviceId={deviceId}/>}
-          {currentTab === 'events' && <DeviceEventsTab deviceId={deviceId}/>}
+          <Grid item xs={12}>
+            {currentTab === 'overview' && <DeviceOverviewTab device={device}/>}
+            {currentTab === 'metrics' && <DeviceMetricsTab deviceId={deviceId}/>}
+            {currentTab === 'aota' && <DeviceAotaTab deviceId={deviceId}/>}
+            {currentTab === 'fota' && <DeviceFotaTab deviceId={deviceId}/>}
+            {currentTab === 'sota' && <DeviceSotaTab deviceId={deviceId}/>}
+            {currentTab === 'cota' && <DeviceCotaTab deviceId={deviceId}/>}
+            {currentTab === 'commands' && <DeviceCommandsTab deviceId={deviceId}/>}
+            {currentTab === 'events' && <DeviceEventsTab deviceId={deviceId}/>}
+          </Grid>
         </Grid>
       </Container>
       <Footer/>
+      <ConnectDeviceDialog
+        deviceId={device?.id}
+        open={openConnectDeviceAlertDialog}
+        handleClose={() => setOpenConnectDeviceAlertDialog(false)}
+      />
+      <ShutDownDeviceAlertDialog
+        open={openShutDownDeviceAlertDialog}
+        handleClose={() => setOpenShutDownDeviceAlertDialog(false)}
+        handleConfirm={shutDownDevice}
+      />
+      <RebootDeviceAlertDialog
+        open={openRebootDeviceAlertDialog}
+        handleClose={() => setOpenRebootDeviceAlertDialog(false)}
+        handleConfirm={rebootDevice}
+      />
+      <DecommissionDeviceAlertDialog
+        open={openDecommissionDeviceAlertDialog}
+        handleClose={() => setOpenDecommissionDeviceAlertDialog(false)}
+        handleConfirm={decommissionDevice}
+      />
       <Toaster/>
     </>
   );
