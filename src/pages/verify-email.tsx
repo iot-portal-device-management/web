@@ -11,6 +11,8 @@ import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../components/BaseLayoutCard';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const VerifyEmailPage: NextPageWithLayout = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -59,5 +61,11 @@ const VerifyEmailPage: NextPageWithLayout = () => {
 VerifyEmailPage.getLayout = function getLayout(page: ReactElement) {
   return getBaseLayout('Verify Email', page);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(locale && await serverSideTranslations(locale, ['validation'])),
+  }
+});
 
 export default VerifyEmailPage;

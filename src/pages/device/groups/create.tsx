@@ -9,7 +9,7 @@ import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../../components/FullWidthTextField';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { CreateDeviceGroupFormFormikValues } from '../../../types/deviceGroup';
 import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../../types/dataGrid';
@@ -138,7 +138,7 @@ CreateDeviceGroupPage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Create device group', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

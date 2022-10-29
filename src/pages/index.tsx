@@ -4,7 +4,7 @@ import PageTitleWrapper from '../components/PageTitleWrapper';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import Footer from '../components/Footer';
 import { Toaster } from 'react-hot-toast';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DashboardPageHeader from '../components/DashboardPageHeader';
 import DashboardOverview from '../components/DashboardOverview';
@@ -74,7 +74,7 @@ IndexPage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Home', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

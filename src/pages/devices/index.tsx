@@ -1,5 +1,5 @@
 import { ReactElement, useCallback, useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { Box, Card, CardContent, Container, Grid } from '@mui/material';
 import { GridSelectionModel } from '@mui/x-data-grid';
@@ -101,7 +101,7 @@ DeviceIndexPage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Devices', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

@@ -5,7 +5,7 @@ import PageTitle from '../components/PageTitle';
 import { Container, Grid, Tab } from '@mui/material';
 import Footer from '../components/Footer';
 import { Toaster } from 'react-hot-toast';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import TabsWrapper from '../components/TabsWrapper';
 import ApiTokensTab from '../components/ApiTokensTab';
@@ -66,7 +66,7 @@ SettingsPage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Settings', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

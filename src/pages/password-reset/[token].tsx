@@ -15,6 +15,8 @@ import BaseLayoutCardDescription from '../../components/BaseLayoutCardDescriptio
 import BaseLayoutCardTitle from '../../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../../components/BaseLayoutCard';
 import BaseLayoutLogoWrapper from '../../components/BaseLayoutLogoWrapper';
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface Values {
   email: string;
@@ -103,5 +105,11 @@ const ResetPasswordPage: NextPageWithLayout = () => {
 ResetPasswordPage.getLayout = function getLayout(page: ReactElement) {
   return getBaseLayout('Reset Password', page);
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(locale && await serverSideTranslations(locale, ['validation'])),
+  }
+});
 
 export default ResetPasswordPage;

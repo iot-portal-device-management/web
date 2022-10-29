@@ -15,6 +15,8 @@ import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCard from '../components/BaseLayoutCard';
 import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface Values {
   email: string;
@@ -93,5 +95,11 @@ const ForgotPasswordPage: NextPageWithLayout = () => {
 ForgotPasswordPage.getLayout = function getLayout(page: ReactElement) {
   return getBaseLayout('Forgot Password', page);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(locale && await serverSideTranslations(locale, ['validation'])),
+  }
+});
 
 export default ForgotPasswordPage;

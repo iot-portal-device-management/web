@@ -1,0 +1,29 @@
+# ide
+/.idea
+/.vscode
+
+# README
+**/README*
+
+# docker
+**/dockerfiles*
+**/Dockerfile*
+**/.dockerignore*
+
+# git
+.git
+**/.gitattributes*
+**/.gitignore*
+
+# env files
+.env*
+
+# dependencies
+/node_modules
+
+# logs
+npm-debug.log
+yarn-error.log
+
+# next build
+.next

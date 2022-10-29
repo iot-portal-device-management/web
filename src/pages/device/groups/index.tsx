@@ -1,5 +1,5 @@
 import { ReactElement, useCallback, useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { NextPageWithLayout } from '../../_app';
 import { getSidebarLayout } from '../../../layouts';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -101,7 +101,7 @@ DeviceGroupIndexPage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Device groups', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

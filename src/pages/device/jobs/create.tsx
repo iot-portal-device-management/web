@@ -20,7 +20,7 @@ import { getSidebarLayout } from '../../../layouts';
 import { Form, Formik, FormikProps } from 'formik';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
 import { CreateDeviceJobFormFormikValues } from '../../../types/deviceJob';
 import createDeviceJobValidationSchema from '../../../validationSchemas/deviceJob/createDeviceJobValidationSchema';
@@ -160,7 +160,7 @@ CreateDeviceJobPage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Create device job', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

@@ -12,7 +12,7 @@ import { DeviceData, useDeviceCRUD } from '../../hooks/device/useDeviceCRUD';
 import { sanitizeOptions } from '../../utils/utils';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import createDeviceValidationSchema from '../../validationSchemas/device/createDeviceValidationSchema';
 import { CreateDeviceFormFormikValues } from '../../types/device';
 import FullWidthAutoComplete from '../../components/FullWidthAutoComplete';
@@ -120,7 +120,7 @@ CreateDevicePage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Create device', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

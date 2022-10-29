@@ -18,6 +18,8 @@ import BaseLayoutCard from '../components/BaseLayoutCard';
 import BaseLayoutLogoWrapper from '../components/BaseLayoutLogoWrapper';
 import ControlWrapper from '../components/ControlWrapper';
 import BaseLayoutMainContentWrapper from '../components/BaseLayoutMainContentWrapper';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface Values {
   email: string;
@@ -130,5 +132,11 @@ const LoginPage: NextPageWithLayout = () => {
 LoginPage.getLayout = function getLayout(page: ReactElement) {
   return getBaseLayout('Login', page);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(locale && await serverSideTranslations(locale, ['validation'])),
+  }
+});
 
 export default LoginPage;

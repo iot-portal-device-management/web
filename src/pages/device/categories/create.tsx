@@ -9,7 +9,7 @@ import { Formik, FormikProps } from 'formik';
 import FullWidthTextField from '../../../components/FullWidthTextField';
 import { Toaster } from 'react-hot-toast';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
 import { CreateDeviceCategoryFormFormikValues } from '../../../types/deviceCategory';
 import { DeviceCategoryData, useDeviceCategoryCRUD } from '../../../hooks/deviceCategory/useDeviceCategoryCRUD';
@@ -141,7 +141,7 @@ CreateDeviceCategoryPage.getLayout = function getLayout(page: ReactElement) {
   return getSidebarLayout('Create device category', page);
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...(locale && await serverSideTranslations(locale, ['validation'])),
   }

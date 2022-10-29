@@ -14,6 +14,8 @@ import BaseLayoutCardTitle from '../components/BaseLayoutCardTitle';
 import BaseLayoutCardDescription from '../components/BaseLayoutCardDescription';
 import BaseLayoutCardButton from '../components/BaseLayoutCardButton';
 import BaseLayoutCard from '../components/BaseLayoutCard';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 interface Values {
   name: string;
@@ -121,5 +123,11 @@ const RegisterPage: NextPageWithLayout = () => {
 RegisterPage.getLayout = function getLayout(page: ReactElement) {
   return getBaseLayout('Register', page);
 };
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(locale && await serverSideTranslations(locale, ['validation'])),
+  }
+});
 
 export default RegisterPage;
