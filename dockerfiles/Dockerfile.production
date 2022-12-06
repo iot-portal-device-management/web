@@ -29,6 +29,8 @@ RUN npm run build
 
 FROM node:${NODE_VERSION} AS runner
 
+LABEL com.iotportaldevicemanagement.product="iotportaldevicemanagement"
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
@@ -36,13 +38,15 @@ WORKDIR /app
 
 RUN set -eux; \
     addgroup -g 1001 -S web; \
-    adduser -S web -u 1001
+    adduser -S web -u 1001; \
+    mkdir -p /home/web/.npm; \
+    chown -R web:web /home/web/.npm
 
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder --chown=web:web /app/node_modules ./node_modules
 
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder --chown=web:web /app/package.json ./package.json
 
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=web:web /app/public ./public
 
 COPY --from=builder --chown=web:web /app/.next ./.next
 
