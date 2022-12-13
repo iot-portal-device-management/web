@@ -6,18 +6,8 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content="#1975ff"/>
-          <meta
-            name="description"
-            content="Sample description."
-          />
-          <meta
-            name="keywords"
-            content="iot device, device management"
-          />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400&display=swap"
-          />
+          <meta name="description" content="Sample description."/>
+          <meta name="keywords" content="iot device, device management"/>
         </Head>
         <body>
         <Main/>

@@ -355,6 +355,12 @@ export const PureLightTheme = createTheme({
     },
     MuiCssBaseline: {
       styleOverrides: {
+        '@font-face': {
+          fontFamily: 'Inter',
+          fontDisplay: 'swap',
+          fontWeight: 400,
+          src: 'url("/static/fonts/Inter/Inter-Regular.ttf")',
+        },
         'html, body, #root': {
           width: '100%',
           height: '100%'
