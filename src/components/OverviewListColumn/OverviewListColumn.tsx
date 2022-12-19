@@ -9,7 +9,7 @@ import { useStatistics } from '../../hooks/statistic/useStatistics';
 import { chartSeriesDateCountDataFormatter } from '../../utils/apexCharts';
 
 const OverviewListColumn = () => {
-  const { statistics, isStatisticsLoading, isStatisticsError } = useStatistics();
+  const { statistics, statisticsError, isStatisticsLoading } = useStatistics();
 
   const lastSevenDayNewDeviceCountData = statistics?.lastSevenDayNewDeviceCount.map(chartSeriesDateCountDataFormatter) || [];
   const lastSevenDayNewDeviceGroupCountData = statistics?.lastSevenDayNewDeviceGroupCount.map(chartSeriesDateCountDataFormatter) || [];

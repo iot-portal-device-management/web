@@ -10,8 +10,8 @@ export const useDeviceGroups = (params: any) => {
   return {
     deviceGroups: data?.data,
     deviceGroupsMeta: data?.meta,
+    deviceGroupsError: error,
     isDeviceGroupsLoading: !error && !data,
-    isDeviceGroupsError: error,
     isDeviceGroupsValidating: isValidating,
     mutateDeviceGroups: mutate,
   };

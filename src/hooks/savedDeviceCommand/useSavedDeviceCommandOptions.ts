@@ -27,9 +27,9 @@ export const useSavedDeviceCommandOptions = (name: string) => {
 
   return {
     savedDeviceCommandOptions: data,
+    savedDeviceCommandOptionsError: error,
     isSavedDeviceCommandOptionsLoading: !error && !data,
-    isSavedDeviceCommandOptionsError: error,
     isSavedDeviceCommandOptionsValidating: isValidating,
-    mutateSavedDeviceCommandOptions: mutate
+    mutateSavedDeviceCommandOptions: mutate,
   };
 };

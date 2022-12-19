@@ -22,8 +22,8 @@ export const useDeviceJobProgressStatus = (id: string) => {
 
   return {
     deviceJobProgressStatus: data,
+    deviceJobProgressStatusError: error,
     isDeviceJobProgressStatusLoading: !error && !data,
-    isDeviceJobProgressStatusError: error,
     isDeviceJobProgressStatusValidating: isValidating,
     mutateDeviceJobProgressStatus: mutate,
   };

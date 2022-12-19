@@ -14,8 +14,8 @@ export const useSavedDeviceCommand = (id: string) => {
 
   return {
     savedDeviceCommand: data,
+    savedDeviceCommandError: error,
     isSavedDeviceCommandLoading: !error && !data,
-    isSavedDeviceCommandError: error,
     isSavedDeviceCommandValidating: isValidating,
     mutateSavedDeviceCommand: mutate,
   };

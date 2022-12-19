@@ -13,6 +13,7 @@ import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../../../types/dataGrid';
 import { useDeviceCategoryDevices } from '../../../../hooks/deviceCategory/useDeviceCategoryDevices';
 import DevicesDataGrid from '../../../../components/DevicesDataGrid';
+import CustomizedError from '../../../../components/CustomizedError';
 
 const ViewDeviceCategoryPage = () => {
   const router = useRouter();
@@ -26,14 +27,17 @@ const ViewDeviceCategoryPage = () => {
     pageSize: 25,
   });
 
-  const { deviceCategory, isDeviceCategoryLoading, isDeviceCategoryError } = useDeviceCategory(deviceCategoryId);
+  const { deviceCategory, deviceCategoryError, isDeviceCategoryLoading } = useDeviceCategory(deviceCategoryId);
 
   const {
     deviceCategoryDevices,
     deviceCategoryDevicesMeta,
+    deviceCategoryDevicesError,
     isDeviceCategoryDevicesLoading,
     mutateDeviceCategoryDevices
   } = useDeviceCategoryDevices(deviceCategoryId, { ...queryOptions, page: queryOptions.page + 1 });
+
+  if (deviceCategoryError) return <CustomizedError statusCode={deviceCategoryError?.response?.status}/>;
 
   return (
     <>

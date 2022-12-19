@@ -13,6 +13,7 @@ import DevicesDataGrid from '../../../../components/DevicesDataGrid';
 import { useDeviceGroupDevices } from '../../../../hooks/deviceGroup/useDeviceGroupDevices';
 import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../../../types/dataGrid';
+import CustomizedError from '../../../../components/CustomizedError';
 
 const ViewDeviceGroupPage = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const ViewDeviceGroupPage = () => {
     pageSize: 25,
   });
 
-  const { deviceGroup, isDeviceGroupLoading, isDeviceGroupError } = useDeviceGroup(deviceGroupId);
+  const { deviceGroup, deviceGroupError, isDeviceGroupLoading } = useDeviceGroup(deviceGroupId);
 
   const {
     deviceGroupDevices,
@@ -34,6 +35,8 @@ const ViewDeviceGroupPage = () => {
     isDeviceGroupDevicesLoading,
     mutateDeviceGroupDevices
   } = useDeviceGroupDevices(deviceGroupId, { ...queryOptions, page: queryOptions.page + 1 });
+
+  if (deviceGroupError) return <CustomizedError statusCode={deviceGroupError?.response?.status}/>;
 
   return (
     <>

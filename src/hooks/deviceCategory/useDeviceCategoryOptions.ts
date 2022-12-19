@@ -27,9 +27,9 @@ export const useDeviceCategoryOptions = (name: string) => {
 
   return {
     deviceCategoryOptions: data,
+    deviceCategoryOptionsError: error,
     isDeviceCategoryOptionsLoading: !error && !data,
-    isDeviceCategoryOptionsError: error,
     isDeviceCategoryOptionsValidating: isValidating,
-    mutateDeviceCategoryOptions: mutate
+    mutateDeviceCategoryOptions: mutate,
   };
 };

@@ -22,6 +22,7 @@ import { useDeviceGroupDevices } from '../../../../hooks/deviceGroup/useDeviceGr
 import editDeviceGroupValidationSchema from '../../../../validationSchemas/deviceGroup/editDeviceGroupValidationSchema';
 import CardActionsLoadingButton from '../../../../components/CardActionsLoadingButton';
 import AddDeviceToDeviceGroupAlert from '../../../../components/AddDeviceToDeviceGroupAlert';
+import CustomizedError from '../../../../components/CustomizedError';
 
 const EditDeviceGroupPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -42,13 +43,13 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
     page: queryOptions.page + 1
   });
 
-  const { deviceGroup, isDeviceGroupLoading, isDeviceGroupError } = useDeviceGroup(deviceGroupId);
+  const { deviceGroup, deviceGroupError, isDeviceGroupLoading } = useDeviceGroup(deviceGroupId);
 
   const {
     deviceGroupDevices,
     deviceGroupDevicesMeta,
-    isDeviceGroupDevicesLoading,
-    isDeviceGroupDevicesError
+    deviceGroupDevicesError,
+    isDeviceGroupDevicesLoading
   } = useDeviceGroupDevices(deviceGroupId, { fetchAll: true });
 
   useEffect(() => {
@@ -68,6 +69,8 @@ const EditDeviceGroupPage: NextPageWithLayout = () => {
   const { updateDeviceGroup } = useDeviceGroupCRUD();
 
   const validationSchema = editDeviceGroupValidationSchema();
+
+  if (deviceGroupError) return <CustomizedError statusCode={deviceGroupError?.response?.status}/>;
 
   return (
     <>

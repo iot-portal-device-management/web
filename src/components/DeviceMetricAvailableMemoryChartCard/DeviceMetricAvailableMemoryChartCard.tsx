@@ -12,8 +12,8 @@ const DeviceMetricAvailableMemoryChartCard = ({ deviceId }: DeviceMetricAvailabl
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
   const {
     availableMemories,
-    isAvailableMemoriesLoading,
-    isAvailableMemoriesError
+    availableMemoriesError,
+    isAvailableMemoriesLoading
   } = useDeviceMetricAvailableMemories(deviceId, { timeRange: selectedTimeRange });
 
   const chartOptions: ApexOptions = {

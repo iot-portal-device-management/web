@@ -10,8 +10,8 @@ export const useDeviceCategoryDevices = (deviceCategoryId: string, params: any) 
   return {
     deviceCategoryDevices: data?.data,
     deviceCategoryDevicesMeta: data?.meta,
+    deviceCategoryDevicesError: error,
     isDeviceCategoryDevicesLoading: !error && !data,
-    isDeviceCategoryDevicesError: error,
     isDeviceCategoryDevicesValidating: isValidating,
     mutateDeviceCategoryDevices: mutate,
   };

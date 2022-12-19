@@ -13,9 +13,9 @@ export const useDeviceMetricCpuUsages = (deviceId: string, params: UseDeviceMetr
 
   return {
     cpuUsages: data || [],
+    cpuUsagesError: error,
     isCpuUsagesLoading: !error && !data,
-    isCpuUsagesError: error,
     isCpuUsagesValidating: isValidating,
-    mutateCpuUsages: mutate
+    mutateCpuUsages: mutate,
   };
 };

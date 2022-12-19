@@ -13,6 +13,7 @@ import Footer from '../../../components/Footer';
 import DataGridCreateDeleteToolbar from '../../../components/DataGridCreateDeleteToolbar';
 import DeviceJobsDataGrid from '../../../components/DeviceJobsDataGrid';
 import { useDeviceJobs } from '../../../hooks/deviceJob/useDeviceJobs';
+import CustomizedError from '../../../components/CustomizedError';
 
 const DeviceJobIndexPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -24,10 +25,12 @@ const DeviceJobIndexPage: NextPageWithLayout = () => {
     pageSize: 25,
   });
 
-  const { deviceJobs, deviceJobsMeta, isDeviceJobsLoading, mutateDeviceJobs } = useDeviceJobs({
+  const { deviceJobs, deviceJobsMeta, deviceJobsError, isDeviceJobsLoading, mutateDeviceJobs } = useDeviceJobs({
     ...queryOptions,
     page: queryOptions.page + 1
   });
+
+  if (deviceJobsError) return <CustomizedError statusCode={deviceJobsError?.response?.status}/>;
 
   return (
     <>

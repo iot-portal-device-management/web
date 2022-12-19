@@ -11,6 +11,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useSavedDeviceCommand } from '../../../../../hooks/savedDeviceCommand/useSavedDeviceCommand';
 import JSONView from '../../../../../components/JSONView';
 import Text from '../../../../../components/Text';
+import CustomizedError from '../../../../../components/CustomizedError';
 
 const ViewSavedDeviceCommandPage = () => {
   const router = useRouter();
@@ -18,9 +19,11 @@ const ViewSavedDeviceCommandPage = () => {
 
   const {
     savedDeviceCommand,
-    isSavedDeviceCommandLoading,
-    isSavedDeviceCommandError
+    savedDeviceCommandError,
+    isSavedDeviceCommandLoading
   } = useSavedDeviceCommand(savedDeviceCommandId);
+
+  if (savedDeviceCommandError) return <CustomizedError statusCode={savedDeviceCommandError?.response?.status}/>;
 
   return (
     <>

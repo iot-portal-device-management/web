@@ -12,8 +12,8 @@ const DeviceMetricDiskUsageChartCard = ({ deviceId }: DeviceMetricDiskUsageChart
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
   const {
     diskUsages,
-    isDiskUsagesLoading,
-    isDiskUsagesError
+    diskUsagesError,
+    isDiskUsagesLoading
   } = useDeviceMetricDiskUsages(deviceId, { timeRange: selectedTimeRange });
 
   const chartOptions: ApexOptions = {

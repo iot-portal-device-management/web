@@ -10,8 +10,8 @@ export const useSavedDeviceCommands = (params: any) => {
   return {
     savedDeviceCommands: data?.data,
     savedDeviceCommandsMeta: data?.meta,
+    savedDeviceCommandsError: error,
     isSavedDeviceCommandsLoading: !error && !data,
-    isSavedDeviceCommandsError: error,
     isSavedDeviceCommandsValidating: isValidating,
     mutateSavedDeviceCommands: mutate,
   };

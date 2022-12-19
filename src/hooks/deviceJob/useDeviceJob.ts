@@ -22,8 +22,8 @@ export const useDeviceJob = (id: string) => {
 
   return {
     deviceJob: data,
+    deviceJobError: error,
     isDeviceJobLoading: !error && !data,
-    isDeviceJobError: error,
     isDeviceJobValidating: isValidating,
     mutateDeviceJob: mutate,
   };

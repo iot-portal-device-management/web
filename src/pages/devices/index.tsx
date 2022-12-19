@@ -16,6 +16,7 @@ import DevicesDataGrid from '../../components/DevicesDataGrid';
 import { useDevices } from '../../hooks/device/useDevices';
 import { QueryOptions } from '../../types/dataGrid';
 import DataGridCreateDeleteToolbar from '../../components/DataGridCreateDeleteToolbar';
+import CustomizedError from '../../components/CustomizedError';
 
 const DeviceIndexPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const DeviceIndexPage: NextPageWithLayout = () => {
     pageSize: 25,
   });
 
-  const { devices, devicesMeta, isDevicesLoading, mutateDevices } = useDevices({
+  const { devices, devicesMeta, devicesError, isDevicesLoading, mutateDevices } = useDevices({
     ...queryOptions,
     page: queryOptions.page + 1
   });
@@ -44,6 +45,8 @@ const DeviceIndexPage: NextPageWithLayout = () => {
     setOpenDeleteDevicesAlertDialog(false);
     setSelectionModel([]);
   }, [selectionModel, mutateDevices]);
+
+  if (devicesError) return <CustomizedError statusCode={devicesError?.response?.status}/>;
 
   return (
     <>

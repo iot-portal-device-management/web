@@ -33,6 +33,7 @@ import { useDeviceReboot } from '../../../hooks/deviceReboot/useDeviceReboot';
 import { useDeviceDecommission } from '../../../hooks/deviceDecommission/useDeviceDecommission';
 import ConnectDeviceDialog from '../../../components/ConnectDeviceDialog';
 import { LoadingButton } from '@mui/lab';
+import CustomizedError from '../../../components/CustomizedError';
 
 const ViewDevicePage = () => {
   const router = useRouter();
@@ -47,7 +48,7 @@ const ViewDevicePage = () => {
   const [isSubmittingReboot, setIsSubmittingReboot] = useState(false);
   const [isSubmittingDecommission, setIsSubmittingDecommission] = useState(false);
 
-  const { device, isDeviceLoading, isDeviceError } = useDevice(deviceId);
+  const { device, deviceError, isDeviceLoading } = useDevice(deviceId);
 
   const { submitDeviceShutdown } = useDeviceShutdown();
   const { submitDeviceReboot } = useDeviceReboot();
@@ -85,6 +86,8 @@ const ViewDevicePage = () => {
     submitDeviceDecommission(deviceId, setIsSubmittingDecommission);
     setOpenDecommissionDeviceAlertDialog(false);
   };
+
+  if (deviceError) return <CustomizedError statusCode={deviceError?.response?.status}/>;
 
   return (
     <>

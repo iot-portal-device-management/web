@@ -16,6 +16,7 @@ import DeviceGroupsDataGrid from '../../../components/DeviceGroupsDataGrid';
 import { useDeviceGroupCRUD } from '../../../hooks/deviceGroup/useDeviceGroupCRUD';
 import DataGridCreateDeleteToolbar from '../../../components/DataGridCreateDeleteToolbar';
 import DeleteDeviceGroupsAlertDialog from '../../../components/DeleteDeviceGroupsAlertDialog';
+import CustomizedError from '../../../components/CustomizedError';
 
 const DeviceGroupIndexPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -29,7 +30,13 @@ const DeviceGroupIndexPage: NextPageWithLayout = () => {
     pageSize: 25,
   });
 
-  const { deviceGroups, deviceGroupsMeta, isDeviceGroupsLoading, mutateDeviceGroups } = useDeviceGroups({
+  const {
+    deviceGroups,
+    deviceGroupsMeta,
+    deviceGroupsError,
+    isDeviceGroupsLoading,
+    mutateDeviceGroups
+  } = useDeviceGroups({
     ...queryOptions,
     page: queryOptions.page + 1
   });
@@ -44,6 +51,8 @@ const DeviceGroupIndexPage: NextPageWithLayout = () => {
     setOpenDeleteDeviceGroupsAlertDialog(false);
     setSelectionModel([]);
   }, [selectionModel, mutateDeviceGroups]);
+
+  if (deviceGroupsError) return <CustomizedError statusCode={deviceGroupsError?.response?.status}/>;
 
   return (
     <>

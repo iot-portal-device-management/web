@@ -13,9 +13,9 @@ export const useDeviceMetricCpuTemperatures = (deviceId: string, params: UseDevi
 
   return {
     cpuTemperatures: data || [],
+    cpuTemperaturesError: error,
     isCpuTemperaturesLoading: !error && !data,
-    isCpuTemperaturesError: error,
     isCpuTemperaturesValidating: isValidating,
-    mutateCpuTemperatures: mutate
+    mutateCpuTemperatures: mutate,
   };
 };

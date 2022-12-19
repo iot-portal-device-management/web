@@ -10,8 +10,8 @@ const OnlineDevicesCpuTemperatureStatisticsChartCard = () => {
 
   const {
     onlineDevicesCpuTemperatureStatistics,
-    isOnlineDevicesCpuTemperatureStatisticsLoading,
-    isOnlineDevicesCpuTemperatureStatisticsError
+    onlineDevicesCpuTemperatureStatisticsError,
+    isOnlineDevicesCpuTemperatureStatisticsLoading
   } = useOnlineDevicesCpuTemperatureStatistics({ timeRange: selectedTimeRange });
 
   const cpuTemperatureTimeSeries = onlineDevicesCpuTemperatureStatistics?.map((cpuTemperatureStatistic: any) => {

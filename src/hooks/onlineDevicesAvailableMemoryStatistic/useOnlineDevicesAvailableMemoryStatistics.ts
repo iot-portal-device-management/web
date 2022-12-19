@@ -13,9 +13,9 @@ export const useOnlineDevicesAvailableMemoryStatistics = (params: UseOnlineDevic
 
   return {
     onlineDevicesAvailableMemoryStatistics: data || [],
+    onlineDevicesAvailableMemoryStatisticsError: error,
     isOnlineDevicesAvailableMemoryStatisticsLoading: !error && !data,
-    isOnlineDevicesAvailableMemoryStatisticsError: error,
     isOnlineDevicesAvailableMemoryStatisticsValidating: isValidating,
-    mutateOnlineDevicesAvailableMemoryStatistics: mutate
+    mutateOnlineDevicesAvailableMemoryStatistics: mutate,
   };
 };

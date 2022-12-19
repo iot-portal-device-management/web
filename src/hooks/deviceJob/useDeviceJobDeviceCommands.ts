@@ -5,8 +5,8 @@ import { useDeviceJobProgressStatus } from './useDeviceJobProgressStatus';
 export const useDeviceJobDeviceCommands = (deviceJobId: string, params: any) => {
   const {
     deviceJobProgressStatus,
-    isDeviceJobProgressStatusLoading,
-    isDeviceJobProgressStatusError
+    deviceJobProgressStatusError,
+    isDeviceJobProgressStatusLoading
   } = useDeviceJobProgressStatus(deviceJobId);
 
   const { data, error, isValidating, mutate } = useSWR(
@@ -18,8 +18,8 @@ export const useDeviceJobDeviceCommands = (deviceJobId: string, params: any) => 
   return {
     deviceJobDeviceCommands: data?.data,
     deviceJobDeviceCommandsMeta: data?.meta,
+    deviceJobDeviceCommandsError: error,
     isDeviceJobDeviceCommandsLoading: !error && !data,
-    isDeviceJobDeviceCommandsError: error,
     isDeviceJobDeviceCommandsValidating: isValidating,
     mutateDeviceJobDeviceCommands: mutate,
   };

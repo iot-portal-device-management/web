@@ -14,8 +14,8 @@ export const useDeviceGroup = (id: string) => {
 
   return {
     deviceGroup: data,
+    deviceGroupError: error,
     isDeviceGroupLoading: !error && !data,
-    isDeviceGroupError: error,
     isDeviceGroupValidating: isValidating,
     mutateDeviceGroup: mutate,
   };

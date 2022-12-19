@@ -10,14 +10,14 @@ const CreateDeviceJobDetailsForm = () => {
 
   const {
     deviceGroupOptions,
+    deviceGroupOptionsError,
     isDeviceGroupOptionsLoading,
-    isDeviceGroupOptionsError
   } = useDeviceGroupOptions(deviceGroupInputValue);
 
   const {
     savedDeviceCommandOptions,
+    savedDeviceCommandOptionsError,
     isSavedDeviceCommandOptionsLoading,
-    isSavedDeviceCommandOptionsError
   } = useSavedDeviceCommandOptions(savedDeviceCommandInputValue);
 
   return (

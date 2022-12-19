@@ -23,8 +23,8 @@ const CreateDevicePage: NextPageWithLayout = () => {
 
   const {
     deviceCategoryOptions,
-    isDeviceCategoryOptionsLoading,
-    isDeviceCategoryOptionsError
+    deviceCategoryOptionsError,
+    isDeviceCategoryOptionsLoading
   } = useDeviceCategoryOptions(deviceCategoryInputValue);
 
   const { createDevice } = useDeviceCRUD();

@@ -131,7 +131,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
     setSubmitting(true);
 
     axios
-      .post('/api/email/verificationNotification')
+      .post('/api/emailVerificationNotification')
       .then(response => setStatus(response.data.status))
       .finally(() => setSubmitting(false));
   };
@@ -148,6 +148,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
 
   useEffect(() => {
     if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated);
+    if (middleware === 'auth' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated);
     if (middleware === 'auth' && error) logout();
   }, [user, error]);
 

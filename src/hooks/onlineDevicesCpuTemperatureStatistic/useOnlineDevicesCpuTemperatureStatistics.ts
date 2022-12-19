@@ -13,9 +13,9 @@ export const useOnlineDevicesCpuTemperatureStatistics = (params: UseOnlineDevice
 
   return {
     onlineDevicesCpuTemperatureStatistics: data || [],
+    onlineDevicesCpuTemperatureStatisticsError: error,
     isOnlineDevicesCpuTemperatureStatisticsLoading: !error && !data,
-    isOnlineDevicesCpuTemperatureStatisticsError: error,
     isOnlineDevicesCpuTemperatureStatisticsValidating: isValidating,
-    mutateOnlineDevicesCpuTemperatureStatistics: mutate
+    mutateOnlineDevicesCpuTemperatureStatistics: mutate,
   };
 };

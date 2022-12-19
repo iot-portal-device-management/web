@@ -3,12 +3,10 @@ import Text from '../Text';
 import JSONView from '../JSONView';
 import DevicesDataGrid from '../DevicesDataGrid';
 import { useState } from 'react';
-import { GridSelectionModel } from '@mui/x-data-grid';
 import { QueryOptions } from '../../types/dataGrid';
 import { useDeviceGroupDevices } from '../../hooks/deviceGroup/useDeviceGroupDevices';
 import { useDeviceGroup } from '../../hooks/deviceGroup/useDeviceGroup';
 import { useSavedDeviceCommand } from '../../hooks/savedDeviceCommand/useSavedDeviceCommand';
-import ServerSideDataGrid from '../ServerSideDataGrid';
 
 interface ReviewCreateDeviceJobProps {
   deviceJobName: string;
@@ -21,7 +19,6 @@ const ReviewCreateDeviceJob = ({
                                  deviceGroupId,
                                  savedDeviceCommandId
                                }: ReviewCreateDeviceJobProps) => {
-  const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [queryOptions, setQueryOptions] = useState<QueryOptions>({
     sortModel: undefined,
     filterModel: undefined,
@@ -31,14 +28,14 @@ const ReviewCreateDeviceJob = ({
 
   const {
     deviceGroup,
-    isDeviceGroupLoading,
-    isDeviceGroupError
+    deviceGroupError,
+    isDeviceGroupLoading
   } = useDeviceGroup(deviceGroupId);
 
   const {
     savedDeviceCommand,
-    isSavedDeviceCommandLoading,
-    isSavedDeviceCommandError
+    savedDeviceCommandError,
+    isSavedDeviceCommandLoading
   } = useSavedDeviceCommand(savedDeviceCommandId);
 
   const {
@@ -119,7 +116,7 @@ const ReviewCreateDeviceJob = ({
           devicesMeta={deviceGroupDevicesMeta}
           isDevicesLoading={isDeviceGroupDevicesLoading}
           mutateDevices={mutateDeviceGroupDevices}
-         />
+        />
       </Box>
     </>
   );

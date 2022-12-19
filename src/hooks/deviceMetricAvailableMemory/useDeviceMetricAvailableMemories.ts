@@ -13,9 +13,9 @@ export const useDeviceMetricAvailableMemories = (deviceId: string, params: UseDe
 
   return {
     availableMemories: data || [],
+    availableMemoriesError: error,
     isAvailableMemoriesLoading: !error && !data,
-    isAvailableMemoriesError: error,
     isAvailableMemoriesValidating: isValidating,
-    mutateAvailableMemories: mutate
+    mutateAvailableMemories: mutate,
   };
 };

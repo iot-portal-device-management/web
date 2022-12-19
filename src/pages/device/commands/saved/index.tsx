@@ -16,6 +16,7 @@ import SavedDeviceCommandsDataGrid from '../../../../components/SavedDeviceComma
 import DeleteSavedDeviceCommandsAlertDialog from '../../../../components/DeleteSavedDeviceCommandsAlertDialog';
 import { useSavedDeviceCommandCRUD } from '../../../../hooks/savedDeviceCommand/useSavedDeviceCommandCRUD';
 import { useSavedDeviceCommands } from '../../../../hooks/savedDeviceCommand/useSavedDeviceCommands';
+import CustomizedError from '../../../../components/CustomizedError';
 
 const SavedDeviceCommandIndexPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const SavedDeviceCommandIndexPage: NextPageWithLayout = () => {
   const {
     savedDeviceCommands,
     savedDeviceCommandsMeta,
+    savedDeviceCommandsError,
     isSavedDeviceCommandsLoading,
     mutateSavedDeviceCommands
   } = useSavedDeviceCommands({
@@ -49,6 +51,8 @@ const SavedDeviceCommandIndexPage: NextPageWithLayout = () => {
     setOpenDeleteSavedDeviceCommandsAlertDialog(false);
     setSelectionModel([]);
   }, [selectionModel, mutateSavedDeviceCommands]);
+
+  if (savedDeviceCommandsError) return <CustomizedError statusCode={savedDeviceCommandsError?.response?.status}/>;
 
   return (
     <>

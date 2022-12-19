@@ -23,6 +23,7 @@ import editDeviceCategoryValidationSchema
 import CardActionsLoadingButton from '../../../../components/CardActionsLoadingButton';
 import AssignDeviceToDeviceCategoryAlert from '../../../../components/AssignDeviceToDeviceCategoryAlert';
 import { sanitizeFormValues } from '../../../../utils/utils';
+import CustomizedError from '../../../../components/CustomizedError';
 
 const EditDeviceCategoryPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -46,9 +47,9 @@ const EditDeviceCategoryPage: NextPageWithLayout = () => {
     }
   }, [selectionModel]);
 
-  const { deviceCategory, isDeviceCategoryLoading, isDeviceCategoryError } = useDeviceCategory(deviceCategoryId);
+  const { deviceCategory, deviceCategoryError, isDeviceCategoryLoading } = useDeviceCategory(deviceCategoryId);
 
-  const { devices, devicesMeta, isDevicesLoading, mutateDevices } = useDevices({
+  const { devices, devicesMeta, devicesError, isDevicesLoading, mutateDevices } = useDevices({
     ...queryOptions,
     page: queryOptions.page + 1
   });
@@ -56,6 +57,8 @@ const EditDeviceCategoryPage: NextPageWithLayout = () => {
   const { updateDeviceCategory } = useDeviceCategoryCRUD();
 
   const validationSchema = editDeviceCategoryValidationSchema();
+
+  if (deviceCategoryError) return <CustomizedError statusCode={deviceCategoryError?.response?.status}/>;
 
   return (
     <>

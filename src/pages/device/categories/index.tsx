@@ -16,6 +16,7 @@ import { useDeviceCategoryCRUD } from '../../../hooks/deviceCategory/useDeviceCa
 import { useDeviceCategories } from '../../../hooks/deviceCategory/useDeviceCategories';
 import DeviceCategoriesDataGrid from '../../../components/DeviceCategoriesDataGrid';
 import DeleteDeviceCategoriesAlertDialog from '../../../components/DeleteDeviceCategoriesAlertDialog';
+import CustomizedError from '../../../components/CustomizedError';
 
 const DeviceCategoryIndexPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const DeviceCategoryIndexPage: NextPageWithLayout = () => {
   const {
     deviceCategories,
     deviceCategoriesMeta,
+    deviceCategoriesError,
     isDeviceCategoriesLoading,
     mutateDeviceCategories
   } = useDeviceCategories({
@@ -49,6 +51,8 @@ const DeviceCategoryIndexPage: NextPageWithLayout = () => {
     setOpenDeleteDeviceCategoriesAlertDialog(false);
     setSelectionModel([]);
   }, [selectionModel, mutateDeviceCategories]);
+
+  if (deviceCategoriesError) return <CustomizedError statusCode={deviceCategoriesError?.response?.status}/>;
 
   return (
     <>

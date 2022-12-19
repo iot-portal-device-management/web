@@ -13,9 +13,9 @@ export const useOnlineDevicesCpuUsageStatistics = (params: UseOnlineDevicesCpuUs
 
   return {
     onlineDevicesCpuUsageStatistics: data || [],
+    onlineDevicesCpuUsageStatisticsError: error,
     isOnlineDevicesCpuUsageStatisticsLoading: !error && !data,
-    isOnlineDevicesCpuUsageStatisticsError: error,
     isOnlineDevicesCpuUsageStatisticsValidating: isValidating,
-    mutateOnlineDevicesCpuUsageStatistics: mutate
+    mutateOnlineDevicesCpuUsageStatistics: mutate,
   };
 };

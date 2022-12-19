@@ -27,9 +27,9 @@ export const useDeviceGroupOptions = (name: string) => {
 
   return {
     deviceGroupOptions: data,
+    deviceGroupOptionsError: error,
     isDeviceGroupOptionsLoading: !error && !data,
-    isDeviceGroupOptionsError: error,
     isDeviceGroupOptionsValidating: isValidating,
-    mutateDeviceGroupOptions: mutate
+    mutateDeviceGroupOptions: mutate,
   };
 };

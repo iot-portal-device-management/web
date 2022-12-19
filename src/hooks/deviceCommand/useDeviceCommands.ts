@@ -10,9 +10,9 @@ export const useDeviceCommands = (deviceId: string, params: any) => {
   return {
     deviceCommands: data?.data,
     deviceCommandsMeta: data?.meta,
+    deviceCommandsError: error,
     isDeviceCommandsLoading: !error && !data,
-    isDeviceCommandsError: error,
     isDeviceCommandsValidating: isValidating,
-    mutateDeviceCommands: mutate
+    mutateDeviceCommands: mutate,
   };
 };

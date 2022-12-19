@@ -10,8 +10,8 @@ const OnlineDevicesAvailableMemoryStatisticsChartCard = () => {
 
   const {
     onlineDevicesAvailableMemoryStatistics,
-    isOnlineDevicesAvailableMemoryStatisticsLoading,
-    isOnlineDevicesAvailableMemoryStatisticsError
+    onlineDevicesAvailableMemoryStatisticsError,
+    isOnlineDevicesAvailableMemoryStatisticsLoading
   } = useOnlineDevicesAvailableMemoryStatistics({ timeRange: selectedTimeRange });
 
   const availableMemoryTimeSeries = onlineDevicesAvailableMemoryStatistics?.map((availableMemoryStatistic: any) => {

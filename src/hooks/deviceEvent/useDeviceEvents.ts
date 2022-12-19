@@ -10,9 +10,9 @@ export const useDeviceEvents = (deviceId: string, params: any) => {
   return {
     deviceEvents: data?.data,
     deviceEventsMeta: data?.meta,
+    deviceEventsError: error,
     isDeviceEventsLoading: !error && !data,
-    isDeviceEventsError: error,
     isDeviceEventsValidating: isValidating,
-    mutateDeviceEvents: mutate
+    mutateDeviceEvents: mutate,
   };
 };

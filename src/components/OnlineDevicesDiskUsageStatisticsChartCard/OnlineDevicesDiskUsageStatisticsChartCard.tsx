@@ -10,8 +10,8 @@ const OnlineDevicesDiskUsageStatisticsChartCard = () => {
 
   const {
     onlineDevicesDiskUsageStatistics,
-    isOnlineDevicesDiskUsageStatisticsLoading,
-    isOnlineDevicesDiskUsageStatisticsError
+    onlineDevicesDiskUsageStatisticsError,
+    isOnlineDevicesDiskUsageStatisticsLoading
   } = useOnlineDevicesDiskUsageStatistics({ timeRange: selectedTimeRange });
 
   const diskUsageTimeSeries = onlineDevicesDiskUsageStatistics?.map((diskUsageStatistic: any) => {

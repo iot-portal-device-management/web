@@ -12,12 +12,15 @@ import { useDeviceJob } from '../../../../hooks/deviceJob/useDeviceJob';
 import DeviceJobDetailsCard from '../../../../components/DeviceJobDetailsCard';
 import DeviceJobProgressStatusCard from '../../../../components/DeviceJobProgressStatusCard';
 import DeviceJobDeviceCommandsCard from '../../../../components/DeviceJobDeviceCommandsCard';
+import CustomizedError from '../../../../components/CustomizedError';
 
 const ViewDeviceJobPage = () => {
   const router = useRouter();
   const deviceJobId = router.query.id as string;
 
-  const { deviceJob, isDeviceJobLoading, isDeviceJobError } = useDeviceJob(deviceJobId);
+  const { deviceJob, deviceJobError, isDeviceJobLoading } = useDeviceJob(deviceJobId);
+
+  if (deviceJobError) return <CustomizedError statusCode={deviceJobError?.response?.status}/>;
 
   return (
     <>

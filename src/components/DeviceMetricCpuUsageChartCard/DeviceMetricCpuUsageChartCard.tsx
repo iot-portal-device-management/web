@@ -12,8 +12,8 @@ const DeviceMetricCpuUsageChartCard = ({ deviceId }: DeviceMetricCpuUsageChartCa
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
   const {
     cpuUsages,
-    isCpuUsagesLoading,
-    isCpuUsagesError
+    cpuUsagesError,
+    isCpuUsagesLoading
   } = useDeviceMetricCpuUsages(deviceId, { timeRange: selectedTimeRange });
 
   const chartOptions: ApexOptions = {

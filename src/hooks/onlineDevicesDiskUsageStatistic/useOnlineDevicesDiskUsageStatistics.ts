@@ -13,9 +13,9 @@ export const useOnlineDevicesDiskUsageStatistics = (params: UseOnlineDevicesDisk
 
   return {
     onlineDevicesDiskUsageStatistics: data || [],
+    onlineDevicesDiskUsageStatisticsError: error,
     isOnlineDevicesDiskUsageStatisticsLoading: !error && !data,
-    isOnlineDevicesDiskUsageStatisticsError: error,
     isOnlineDevicesDiskUsageStatisticsValidating: isValidating,
-    mutateOnlineDevicesDiskUsageStatistics: mutate
+    mutateOnlineDevicesDiskUsageStatistics: mutate,
   };
 };

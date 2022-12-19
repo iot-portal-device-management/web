@@ -20,6 +20,7 @@ const VerifyEmailPage: NextPageWithLayout = () => {
 
   const { logout, resendEmailVerification } = useAuth({
     middleware: 'auth',
+    redirectIfAuthenticated: '/',
   });
 
   return (

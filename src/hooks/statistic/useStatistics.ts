@@ -11,8 +11,8 @@ export const useStatistics = () => {
 
   return {
     statistics: data,
+    statisticsError: error,
     isStatisticsLoading: !error && !data,
-    isStatisticsError: error,
     isStatisticsValidating: isValidating,
     mutateStatistics: mutate,
   };

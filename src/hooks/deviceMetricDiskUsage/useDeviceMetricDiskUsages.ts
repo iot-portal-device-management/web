@@ -13,9 +13,9 @@ export const useDeviceMetricDiskUsages = (deviceId: string, params: UseDeviceMet
 
   return {
     diskUsages: data || [],
+    diskUsagesError: error,
     isDiskUsagesLoading: !error && !data,
-    isDiskUsagesError: error,
     isDiskUsagesValidating: isValidating,
-    mutateDiskUsages: mutate
+    mutateDiskUsages: mutate,
   };
 };

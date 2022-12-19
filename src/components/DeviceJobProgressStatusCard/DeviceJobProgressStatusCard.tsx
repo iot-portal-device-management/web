@@ -14,12 +14,12 @@ interface DeviceJobProgressStatusCardProps {
 }
 
 const DeviceJobProgressStatusCard = ({ deviceJobId }: DeviceJobProgressStatusCardProps) => {
-  const { deviceJob, isDeviceJobLoading, isDeviceJobError } = useDeviceJob(deviceJobId);
+  const { deviceJob, deviceJobError, isDeviceJobLoading } = useDeviceJob(deviceJobId);
 
   const {
     deviceJobProgressStatus,
-    isDeviceJobProgressStatusLoading,
-    isDeviceJobProgressStatusError
+    deviceJobProgressStatusError,
+    isDeviceJobProgressStatusLoading
   } = useDeviceJobProgressStatus(deviceJobId);
 
   const deviceJobStatsChartSeries = [

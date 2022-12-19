@@ -10,8 +10,8 @@ const OnlineDevicesCpuUsageStatisticsChartCard = () => {
 
   const {
     onlineDevicesCpuUsageStatistics,
-    isOnlineDevicesCpuUsageStatisticsLoading,
-    isOnlineDevicesCpuUsageStatisticsError
+    onlineDevicesCpuUsageStatisticsError,
+    isOnlineDevicesCpuUsageStatisticsLoading
   } = useOnlineDevicesCpuUsageStatistics({ timeRange: selectedTimeRange });
 
   const cpuUsageTimeSeries = onlineDevicesCpuUsageStatistics?.map((cpuUsageStatistic: any) => {

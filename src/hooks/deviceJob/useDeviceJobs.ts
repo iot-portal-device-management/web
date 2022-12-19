@@ -10,8 +10,8 @@ export const useDeviceJobs = (params: any) => {
   return {
     deviceJobs: data?.data,
     deviceJobsMeta: data?.meta,
+    deviceJobsError: error,
     isDeviceJobsLoading: !error && !data,
-    isDeviceJobsError: error,
     isDeviceJobsValidating: isValidating,
     mutateDeviceJobs: mutate,
   };

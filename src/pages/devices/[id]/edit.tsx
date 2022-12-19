@@ -19,6 +19,7 @@ import { useDevice } from '../../../hooks/device/useDevice';
 import editDeviceValidationSchema from '../../../validationSchemas/device/editDeviceValidationSchema';
 import { EditDeviceFormFormikValues } from '../../../types/device';
 import CardActionsLoadingButton from '../../../components/CardActionsLoadingButton';
+import CustomizedError from '../../../components/CustomizedError';
 
 const EditDevicePage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -26,11 +27,11 @@ const EditDevicePage: NextPageWithLayout = () => {
 
   const [deviceCategoryInputValue, setDeviceCategoryInputValue] = useState('');
 
-  const { device, isDeviceLoading, isDeviceError } = useDevice(deviceId);
+  const { device, deviceError, isDeviceLoading } = useDevice(deviceId);
   const {
     deviceCategoryOptions,
-    isDeviceCategoryOptionsLoading,
-    isDeviceCategoryOptionsError
+    deviceCategoryOptionsError,
+    isDeviceCategoryOptionsLoading
   } = useDeviceCategoryOptions(deviceCategoryInputValue)
   const { updateDevice } = useDeviceCRUD();
 
@@ -40,6 +41,8 @@ const EditDevicePage: NextPageWithLayout = () => {
     ...device,
     deviceCategoryId: { label: device.deviceCategory.name, value: device.deviceCategory.id }
   } : device;
+
+  if (deviceError) return <CustomizedError statusCode={deviceError?.response?.status}/>;
 
   return (
     <>

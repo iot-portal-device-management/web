@@ -12,8 +12,8 @@ const DeviceMetricCpuTemperatureChartCard = ({ deviceId }: DeviceMetricCpuTemper
   const [selectedTimeRange, setSelectedTimeRange] = useState(1);
   const {
     cpuTemperatures,
-    isCpuTemperaturesLoading,
-    isCpuTemperaturesError
+    cpuTemperaturesError,
+    isCpuTemperaturesLoading
   } = useDeviceMetricCpuTemperatures(deviceId, { timeRange: selectedTimeRange });
 
   const chartOptions: ApexOptions = {

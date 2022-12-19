@@ -10,11 +10,11 @@ interface DeviceJobDetailsCardProps {
 }
 
 const DeviceJobDetailsCard = ({ deviceGroupId, savedDeviceCommandId }: DeviceJobDetailsCardProps) => {
-  const { deviceGroup, isDeviceGroupLoading, isDeviceGroupError } = useDeviceGroup(deviceGroupId);
+  const { deviceGroup, deviceGroupError, isDeviceGroupLoading } = useDeviceGroup(deviceGroupId);
   const {
     savedDeviceCommand,
-    isSavedDeviceCommandLoading,
-    isSavedDeviceCommandError
+    savedDeviceCommandError,
+    isSavedDeviceCommandLoading
   } = useSavedDeviceCommand(savedDeviceCommandId);
 
   return (

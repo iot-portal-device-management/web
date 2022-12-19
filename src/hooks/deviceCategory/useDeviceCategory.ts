@@ -14,8 +14,8 @@ export const useDeviceCategory = (id: string) => {
 
   return {
     deviceCategory: data,
+    deviceCategoryError: error,
     isDeviceCategoryLoading: !error && !data,
-    isDeviceCategoryError: error,
     isDeviceCategoryValidating: isValidating,
     mutateDeviceCategory: mutate,
   };
