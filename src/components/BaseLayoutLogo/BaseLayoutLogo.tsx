@@ -1,6 +1,7 @@
 import { Box, Tooltip, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Link from 'next/link';
+import { VERSION } from '../../data/version';
 
 const LogoWrapper = styled(Box)(
   ({ theme }) => `
@@ -31,8 +32,8 @@ const BaseLayoutLogo = () => {
   return (
     <Link href="/">
       <LogoWrapper>
-        <Tooltip title="Version 2.0.0" arrow placement="right">
-          <VersionBadge>2.0.0</VersionBadge>
+        <Tooltip title={`Version ${VERSION}`} arrow placement="right">
+          <VersionBadge>{VERSION}</VersionBadge>
         </Tooltip>
         <Typography variant="h2" sx={{ my: 2 }}>IoT Portal Device Management</Typography>
       </LogoWrapper>
