@@ -163,22 +163,6 @@ const ViewDevicePage = () => {
                     </ButtonGroup>
                   </Grid>
                 </Grid>
-                <Divider/>
-                <Grid container p={3} spacing={2}>
-                  <Grid item xs={12}>
-                    <Typography variant="h4" gutterBottom>
-                      OpenAMT power controls
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                      <Button startIcon={<VpnKeyTwoToneIcon/>}>Connect</Button>
-                      <Button startIcon={<PowerSettingsNewTwoToneIcon/>}>Shutdown</Button>
-                      <Button startIcon={<RestartAltTwoToneIcon/>}>Reboot</Button>
-                      <Button startIcon={<DeleteForeverTwoToneIcon/>}>Decommission</Button>
-                    </ButtonGroup>
-                  </Grid>
-                </Grid>
               </CardContent>
             </Card>
           </Grid>
