@@ -51,7 +51,8 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
         if (error.response.status !== 409)
           throw error;
 
-        router.push('/verify-email');
+        if (window.location.pathname !== '/verify-email')
+          router.push('/verify-email');
       })
   );
 
@@ -143,13 +144,22 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: UseAuthProps) =
         .then(() => mutate());
     }
 
-    window.location.pathname = '/login';
+    if (window.location.pathname !== '/login')
+      window.location.pathname = '/login';
   };
 
   useEffect(() => {
-    if (middleware === 'guest' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated);
-    if (middleware === 'auth' && redirectIfAuthenticated && user) router.push(redirectIfAuthenticated);
-    if (middleware === 'auth' && error) logout();
+    if (
+      middleware === 'guest' &&
+      redirectIfAuthenticated &&
+      user &&
+      !error &&
+      window.location.pathname !== redirectIfAuthenticated
+    )
+      router.push(redirectIfAuthenticated);
+
+    if (middleware === 'auth' && error)
+      logout();
   }, [user, error]);
 
   return {

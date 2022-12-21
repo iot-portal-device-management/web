@@ -21,8 +21,15 @@ RUN set -eux; \
 
 COPY . .
 
+ARG NEXT_PUBLIC_VERSION=2.0.0
+
+ENV NODE_ENV=production
 # Disable telemetry. Learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_VERSION=${NEXT_PUBLIC_VERSION}
+
+# TODO: Implement API_URL from ARG build
+#ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
 
 RUN npm run build
 
@@ -31,8 +38,14 @@ FROM node:${NODE_VERSION} AS runner
 
 LABEL com.iotportaldevicemanagement.product="iotportaldevicemanagement"
 
+ARG NEXT_PUBLIC_VERSION=2.0.0
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_VERSION=${NEXT_PUBLIC_VERSION}
+
+# TODO: Implement API_URL from ARG build
+#ENV NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
 
 WORKDIR /app
 
