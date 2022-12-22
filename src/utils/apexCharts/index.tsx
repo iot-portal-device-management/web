@@ -35,19 +35,19 @@ export const chartSeriesDateCountDataFormatter = (data: ChartSeriesDateCountData
 };
 
 export const chartSeriesTimestampTemperatureDataFormatter = (data: ChartSeriesTimestampTemperatureData) => {
-  return [data.timestamp, data.temperature];
+  return [Number(data.timestamp), Number(data.temperature)];
 };
 
 export const chartSeriesTimestampCpuUsagePercentageDataFormatter = (data: ChartSeriesTimestampCpuUsagePercentageData) => {
-  return [data.timestamp, data.cpuUsagePercentage];
+  return [Number(data.timestamp), Number(data.cpuUsagePercentage)];
 };
 
 export const chartSeriesTimestampDiskUsagePercentageDataFormatter = (data: ChartSeriesTimestampDiskUsagePercentageData) => {
-  return [data.timestamp, data.diskUsagePercentage];
+  return [Number(data.timestamp), Number(data.diskUsagePercentage)];
 };
 
 export const chartSeriesTimestampAvailableMemoryInBytesDataFormatter = (data: ChartSeriesTimestampAvailableMemoryInBytesData) => {
-  return [data.timestamp, data.availableMemoryInBytes];
+  return [Number(data.timestamp), Number(data.availableMemoryInBytes)];
 };
 
 export const calculateTwentyFourHourChange = (series: ApexOptions['series']) => {
