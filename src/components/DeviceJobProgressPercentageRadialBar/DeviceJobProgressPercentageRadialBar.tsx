@@ -1,5 +1,6 @@
 import type { ApexOptions } from 'apexcharts';
 import Chart from '../Chart';
+import { roundToTwoDecimalPlaces } from '../../utils/utils';
 
 interface DeviceJobProgressPercentageRadialBarProps {
   progressPercentage: number;
@@ -44,7 +45,7 @@ const DeviceJobProgressPercentageRadialBar = ({
     labels: ['Progress'],
   };
 
-  const series = [progressPercentage];
+  const series = [roundToTwoDecimalPlaces(progressPercentage)];
 
   return (
     <Chart
