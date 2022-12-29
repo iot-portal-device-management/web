@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { useField, useFormikContext } from 'formik';
 import { Autocomplete, AutocompleteValue, CircularProgress } from '@mui/material';
 import { AutocompleteProps } from '@mui/material/Autocomplete/Autocomplete';

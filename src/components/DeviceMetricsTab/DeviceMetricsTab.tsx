@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Grid } from '@mui/material';
 import DeviceMetricCpuTemperatureChartCard from '../DeviceMetricCpuTemperatureChartCard';
 import DeviceMetricCpuUsageChartCard from '../DeviceMetricCpuUsageChartCard';

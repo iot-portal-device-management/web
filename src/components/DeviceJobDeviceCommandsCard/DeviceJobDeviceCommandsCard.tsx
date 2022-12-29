@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Box, Card, CardContent, CardHeader, Divider } from '@mui/material';
 import DeviceJobDeviceCommandsDataGrid from '../DeviceJobDeviceCommandsDataGrid';
 import { useDeviceJobDeviceCommands } from '../../hooks/deviceJob/useDeviceJobDeviceCommands';

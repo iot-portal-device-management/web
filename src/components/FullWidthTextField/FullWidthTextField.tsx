@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { useEffect } from 'react';
 import { useField } from 'formik';
 import isString from 'lodash/isString';

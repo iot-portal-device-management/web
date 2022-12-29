@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import Text from '../Text';
 import JSONView from '../JSONView';

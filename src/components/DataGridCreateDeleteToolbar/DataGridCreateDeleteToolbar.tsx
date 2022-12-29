@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { MouseEventHandler } from 'react';
 import { Box, Button, Stack } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';

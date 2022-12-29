@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import Link from 'next/link';
 import { Button, Card, CardActions, Divider, Stack } from '@mui/material';
 import DevicesTwoToneIcon from '@mui/icons-material/DevicesTwoTone';

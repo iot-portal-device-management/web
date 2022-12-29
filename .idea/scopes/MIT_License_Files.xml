@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="MIT License Files" pattern="file[web]:dockerfiles//*||file[web]:src//*||file:Tiltfile||file:next-i18next.config.js||file:next.config.js" />
+</component>

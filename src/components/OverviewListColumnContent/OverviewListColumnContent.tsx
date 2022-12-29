@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import type { FunctionComponent } from 'react';
 import { Box, Card, SvgIconProps, Typography } from '@mui/material';
 import Label from '../Label';

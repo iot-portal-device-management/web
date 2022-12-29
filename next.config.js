@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 /** @type {import('next').NextConfig} */
 const { i18n } = require('./next-i18next.config');
 

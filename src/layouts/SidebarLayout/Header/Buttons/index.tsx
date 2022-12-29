@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Box } from '@mui/material';
 import HeaderSearch from './Search';
 import HeaderNotifications from './Notifications';

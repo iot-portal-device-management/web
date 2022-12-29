@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Fragment } from 'react';
 import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material';
 import Text from '../Text';

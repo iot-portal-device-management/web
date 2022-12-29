@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { GridActionsCellItem, GridColumns, GridRowModel, GridRowParams, GridSelectionModel } from '@mui/x-data-grid';
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';

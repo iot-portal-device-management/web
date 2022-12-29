@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { useField } from 'formik';
 import { WithRequired } from '../../libs/utilityTypes';
 import { Checkbox, CheckboxProps, FormControlLabel, FormControlLabelProps } from '@mui/material';

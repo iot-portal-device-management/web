@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { alpha, createTheme, lighten, darken } from '@mui/material';
 // Import necessary type declaration from lab
 // import type {} from '@mui/lab/themeAugmentation';

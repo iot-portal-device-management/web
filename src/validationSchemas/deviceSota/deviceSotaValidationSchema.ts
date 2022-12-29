@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import * as Yup from 'yup';
 
 import { DEVICE_SOTA_COMMAND_OPTIONS, DEVICE_SOTA_LOG_TO_FILE_OPTIONS, DEVICE_SOTA_OPTIONS } from '../../data/deviceSota/options';

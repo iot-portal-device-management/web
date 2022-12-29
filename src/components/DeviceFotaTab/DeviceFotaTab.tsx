@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { DeviceFotaFormFormikValues, DeviceFotaPayload } from '../../types/deviceFota';
 import { useDeviceFota } from '../../hooks/deviceFota/useDeviceFota';
 import DeviceFotaFormCard from '../DeviceFotaFormCard';

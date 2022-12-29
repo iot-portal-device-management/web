@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import * as Yup from 'yup';
 
 import { DEVICE_COTA_COMMAND_OPTIONS, DEVICE_COTA_CONFIGURATION_PATH_OPTIONS } from '../../data/deviceCota/options';

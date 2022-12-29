@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Box, Card } from '@mui/material';
 import LargeCardHeader from '../LargeCardHeader';
 import { useState } from 'react';

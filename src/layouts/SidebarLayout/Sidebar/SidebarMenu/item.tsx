@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ReactNode, useContext, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';

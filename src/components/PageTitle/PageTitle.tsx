@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Grid, Stack, Typography } from '@mui/material';

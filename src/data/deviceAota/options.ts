@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { DeviceAotaAppOptionValue, DeviceAotaCommandOption } from '../../types/deviceAota';
 
 export const DEVICE_AOTA_APP_OPTIONS = [

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { useDeviceAota } from '../../hooks/deviceAota/useDeviceAota';
 import { DeviceAotaFormFormikValues, DeviceAotaPayload } from '../../types/deviceAota';
 import DeviceAotaFormCard from '../DeviceAotaFormCard/DeviceAotaFormCard';

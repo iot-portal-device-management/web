@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { useState } from 'react';
 import copy from 'copy-to-clipboard';
 import { IconButton, InputAdornment, TextField, Tooltip } from '@mui/material';

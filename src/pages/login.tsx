@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { ReactElement, useEffect, useState } from 'react';
 import { NextPageWithLayout } from './_app';
 import { getBaseLayout } from '../layouts';

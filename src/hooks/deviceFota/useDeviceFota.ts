@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { FormFormikActions } from '../../types/formik';
 import axios from '../../libs/axios';
 import toastHelper from '../../libs/toastHelper';

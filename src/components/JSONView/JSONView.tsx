@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { isValidJSONString } from '../../utils/utils';
 import { JSONTree } from 'react-json-tree';
 import { Theme } from 'react-base16-styling';

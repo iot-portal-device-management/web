@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material';
 import type { ApexOptions } from 'apexcharts';

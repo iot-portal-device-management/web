@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 export const DEVICE_COTA_COMMAND_OPTIONS = [
   { label: 'get', value: 'get' },
   { label: 'load', value: 'load' },

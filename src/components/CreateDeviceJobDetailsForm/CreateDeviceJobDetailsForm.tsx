@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import FullWidthTextField from '../FullWidthTextField';
 import FullWidthAutoComplete from '../FullWidthAutoComplete';
 import { useState } from 'react';

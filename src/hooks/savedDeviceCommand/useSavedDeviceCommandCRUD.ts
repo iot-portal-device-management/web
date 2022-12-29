@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import axios from '../../libs/axios';
 import { useRouter } from 'next/router';
 import toastHelper from '../../libs/toastHelper';

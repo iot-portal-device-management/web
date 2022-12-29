@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { List, ListSubheader } from '@mui/material';
 import SidebarMenuItem from './item';
 import menuItems, { MenuItem } from './items';

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import moment from 'moment';
 
 export const calculateStartTimeEndTimeDuration = (startTime: string, endTime?: string) => {

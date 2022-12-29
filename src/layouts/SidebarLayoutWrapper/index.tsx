@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import React from 'react';
 import Head from "next/head";
 import { SidebarProvider } from "../../contexts/SidebarContext";

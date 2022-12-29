@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { GridColumns, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { KeyedMutator } from 'swr/dist/types';

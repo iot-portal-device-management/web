@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { forwardRef, ReactNode, useImperativeHandle, useRef, useState } from 'react';
 import { Box, Button, Card, CardActions, CardContent, Divider, Grid, IconButton } from '@mui/material';
 import LargeCardHeader from '../LargeCardHeader';

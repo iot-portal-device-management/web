@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import useSWR from 'swr';
 import axios from '../libs/axios';
 import { Dispatch, SetStateAction, useEffect } from 'react';

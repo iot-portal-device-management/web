@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { memo, useEffect, useRef, useState } from 'react';
 import { Box, Paper, Popper } from '@mui/material';
 import JSONView from '../JSONView';

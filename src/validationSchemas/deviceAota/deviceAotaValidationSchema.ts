@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import * as Yup from 'yup';
 
 import { DEVICE_AOTA_APP_OPTIONS, DEVICE_AOTA_REBOOT_OPTIONS } from '../../data/deviceAota/options';

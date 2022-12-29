@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Card, CardContent, CardHeader, Divider, Grid, Typography } from '@mui/material';
 import DeviceJobStatusIndicator from '../DeviceJobStatusIndicator';
 import HourMinuteSecondDurationDisplay from '../Duration';

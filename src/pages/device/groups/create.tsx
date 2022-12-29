@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import PageTitle from '../../../components/PageTitle';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';

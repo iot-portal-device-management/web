@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import { styled } from '@mui/material/styles';
 import { LoadingButton, LoadingButtonProps } from '@mui/lab';
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2021-2022 Intel Corporation
+ * SPDX-License-Identifier: MIT
+ */
+
 import Link from 'next/link';
 import { Box, List, ListItemButton, ListItemText } from '@mui/material';
 import { styled } from '@mui/material/styles';
