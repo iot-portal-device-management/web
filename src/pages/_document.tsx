@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content="#1975ff"/>
-          <meta name="description" content="Sample description."/>
+          <meta name="description" content="Simplifies your edge IoT device management."/>
           <meta name="keywords" content="iot device, device management"/>
         </Head>
         <body>
