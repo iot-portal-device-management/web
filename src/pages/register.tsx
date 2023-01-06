@@ -89,6 +89,7 @@ const RegisterPage: NextPageWithLayout = () => {
                   />
                   <FullWidthTextField
                     required
+                    autoComplete="off"
                     type="password"
                     id="password"
                     name="password"
@@ -97,6 +98,7 @@ const RegisterPage: NextPageWithLayout = () => {
                   />
                   <FullWidthTextField
                     required
+                    autoComplete="off"
                     type="password"
                     id="passwordConfirmation"
                     name="passwordConfirmation"

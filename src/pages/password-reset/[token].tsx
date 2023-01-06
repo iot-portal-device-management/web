@@ -80,6 +80,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
                   />
                   <FullWidthTextField
                     required
+                    autoComplete="off"
                     type="password"
                     id="password"
                     name="password"
@@ -88,6 +89,7 @@ const ResetPasswordPage: NextPageWithLayout = () => {
                   />
                   <FullWidthTextField
                     required
+                    autoComplete="off"
                     type="password"
                     id="passwordConfirmation"
                     name="passwordConfirmation"

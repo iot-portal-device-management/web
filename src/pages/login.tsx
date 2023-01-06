@@ -96,6 +96,7 @@ const LoginPage: NextPageWithLayout = () => {
                   />
                   <FullWidthTextField
                     required
+                    autoComplete="off"
                     type="password"
                     id="password"
                     name="password"
@@ -103,7 +104,6 @@ const LoginPage: NextPageWithLayout = () => {
                     placeholder="Enter password"
                   />
                   <ControlWrapper>
-                    {/*TODO: Implement remember me feature*/}
                     <LabelCheckbox
                       name="remember"
                       label="Remember me"
