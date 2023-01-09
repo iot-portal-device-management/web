@@ -14,6 +14,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   i18n,
+  poweredByHeader: false,
 };
 
 module.exports = nextConfig;
