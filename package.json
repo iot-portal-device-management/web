@@ -22,7 +22,7 @@
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "next": "^12.1.5",
+    "next": "^13.5.4",
     "next-i18next": "^11.0.0",
     "nextjs-progressbar": "^0.0.14",
     "path-to-regexp": "^6.2.0",
